@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="page-wrapper  bg-gra-01 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-4">
+                <div class="card-body">
+
+                    <h2 class="title text-center">Login</h2>
+                    <!-- {% for mesg in get_flashed_messages() %}
+                        <h1>{{ mesg }}</h1>
+                    {% endfor %} -->
+                    <form action="/login" method="POST">
+                        {{ form.hidden_tag() }}
+                        <div>
+                            <div class="input-group">
+                                <!-- <input class="input--style-4" placeholder="User name" type="text" name="username"> -->
+                                {{ form.username.label(class="form-control-label") }}
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="input-group">
+                                <!-- <input class="input--style-4" placeholder="E-mail" type="email" name="email"> -->
+                                {{ form.email.label(class="form-control-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+
+                            <div class="input-group">
+                                <!-- <input class="input--style-4" placeholder="password" type="password" name="password"> -->
+                                {{ form.password.label(class="form-control-label") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <!-- <button class="btn btn--radius-2 btn--blue" type="submit">Sign In</button> -->
+                            {{ form.submit(class="btn btn-outline-info") }}
+                        </div>
+
+                        <div class="p-t-15">
+                            Not have an account?<a class="nav-item" style="color: black;padding: 10px;"
+                                href="/register">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

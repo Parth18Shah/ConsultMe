@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="page-wrapper  bg-gra-01 p-t-130 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-4">
+                <div class="card-body">
+
+                    <h2 class="title text-center">Register as:</h2>
+                    <form action="/register_choice" method="POST">
+                        <div>
+                            <label class="radio-container m-r-45">Patient
+                                <input type="radio" name="options" value="patient">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="radio-container">Doctor
+                                <input type="radio" name="options" value="doctor">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="p-t-15">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Proceed with the Sign Up
+                              </button>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
