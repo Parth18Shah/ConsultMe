@@ -161,6 +161,18 @@ def logout():
 def account():
     return render_template('account.html',title='account')
 
+
+@app.route('/predict')
+# @login_required
+def predict():
+    return render_template('predict.html',title='predict')
+
+
+@app.route('/consult')
+# @login_required
+def consult():
+    return render_template('consult.html',title='consult')
+
 if __name__=='__main__':
     app.secret_key = 'the random string'
     app.run(debug=True)

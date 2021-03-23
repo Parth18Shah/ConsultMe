@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+{% block body %}
+<div style="background-color: rgb(211, 231, 228);">
+    <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
+        <div class="wrapper wrapper--w960">
+            <div class="chat bg-dark">
+                <div class=" card-body">
+
+                    <h2 class="chat-h2">Let Predict a Disease</h2>
+                    <div class="">
+                        <div class="row form-group has-search" style="display: flex;">
+                            <ul class="container navbar-nav">
+                                <h4 class="b">Selected Symptoms</h4>
+                                <li class="b"><a> Agnes</li>
+
+                                <li class="b"><a> Billy</li>
+                                <li class="b"><a> Bob</li>
+
+                                <li class="b"><a> Calvin</li>
+                                <li class="b"><a> Christina</li>
+                                <li class="b"><a> Cindy</li>
+                            </ul>
+
+                            <input type="text" id="myInput" class="input--style-4 form-control"
+                                placeholder="Enter a symptom" onkeyup="myFunction()">
+
+                            <ul class="container navbar-nav" id="myUL" style="display: inline;">
+
+                                <div class="b">
+
+                                    <li class="b"><a> Adele
+                                        </a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    <li class="b"><a> Agnes</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+
+                                    <li class="b"><a> Billy</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+                                    <li class="b"><a> Bob</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+
+                                    <li class="b"><a> Calvin</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+                                    <li class="b"><a> Christina</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="b"><a> Cindy</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+
+                                </div>
+                                <div class="b">
+                                    <li class="b"><a> Adele </a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="b"><a> Agnes</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+
+                                    <li class="b"><a> Billy</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+                                    <li class="b"><a> Bob</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+
+                                    <li class="b"><a> Calvin</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+                                    <li class="b"><a> Christina</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </li>
+                                    <li class="b"><a> Cindy</a><button type="button" class="pred-btn ">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                </path>
+                                            </svg>
+                                        </button></li>
+                                </div>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="bg-dark msg_card_body col-sm-12 ">
+                <div class="chat">
+                    <h2 class="chat-h2">Predicted Disease</h2>
+                    <p class="b">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impe atque sapiente.</p>
+                    <h2 class="chat-h2">Treatment</h2>
+                    <p class="b">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis porro esse tenetur
+                        accusantium
+                        suscipit. Labore rerum natus similique eos repellendus adipisci impedit a expedita, aperiam ipsa
+                        dolorum. Sint, libero neque.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+{% endblock %}

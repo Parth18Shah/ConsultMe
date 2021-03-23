@@ -5,17 +5,18 @@ from consultme_app.models import Users
 
 
 class PatientRegistrationForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=4, max=20)])
-    name = StringField('Full Name',validators=[DataRequired(), Length(min=4, max=20)])
+    username = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    name = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Full Name"})
     # gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
     gender = StringField('Gender',validators=[DataRequired()])
-    email = StringField('Email',validators=[DataRequired(),Email()])
-    phone = StringField('Phone',validators=[DataRequired()])
-    birthdate = DateField('Date of Birth',validators=[DataRequired()], format='%d-%m-%Y')
-    age = IntegerField('Age',validators=[DataRequired()])
-    med_history = TextAreaField('Past medical history',validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password',validators=[DataRequired(), EqualTo('password')])
+    email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
+    phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
+    birthdate = DateField('',validators=[DataRequired()], format='%d-%m-%Y',render_kw={"placeholder": "Date of Birth"})
+    age = IntegerField('',validators=[DataRequired()],render_kw={"placeholder": "Age"})
+    med_history = TextAreaField('',validators=[DataRequired()],render_kw={"placeholder": "Past Medical history"})
+    
+    password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
+    confirm_password = PasswordField('',validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Confirm Password"})
     submit = SubmitField('Sign Up')
 
     # def validate_username(self,username):
@@ -37,17 +38,17 @@ class PatientRegistrationForm(FlaskForm):
     #         raise ValidationError('Invalid phone number')
 
 class DoctorRegistrationForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired(), Length(min=4, max=20)])
-    name = StringField('Full Name',validators=[DataRequired(), Length(min=4, max=20)])
-    # gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
-    gender = StringField('Gender',validators=[DataRequired()])
-    specialist = StringField('Specialist',validators=[DataRequired()])
-    reg_no = IntegerField('Registration Number',validators=[DataRequired()])
-    year_reg = DateField('Year of registration',validators=[DataRequired()], format='%d-%m-%Y')
-    email = StringField('Email',validators=[DataRequired(),Email()])
-    phone = StringField('Phone',validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password',validators=[DataRequired(), EqualTo('password')])
+    username = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    name = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Full Name"})
+    gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
+    # gender = StringField('Gender',validators=[DataRequired()])
+    specialist = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Specialist"})
+    reg_no = IntegerField('',validators=[DataRequired()], render_kw={"placeholder": "Registration Number"})
+    year_reg = DateField('',validators=[DataRequired()], format='%d-%m-%Y', render_kw={"placeholder": "Year of registration"})
+    email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
+    phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
+    password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
+    confirm_password = PasswordField('',validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Confirm Password"})
     submit = SubmitField('Sign Up')
 
     # def validate_username(self,username):
@@ -69,8 +70,8 @@ class DoctorRegistrationForm(FlaskForm):
     #         raise ValidationError('Invalid phone number')
 	
 class LoginForm(FlaskForm):
-    username = StringField('Username',validators=[DataRequired()])
-    email = StringField('Email',validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Username"})
+    email = StringField('',validators=[DataRequired()],render_kw={"placeholder": "Email-id"})
+    password = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": "Password"})
     # remember = BooleanField('Remember me')
     submit = SubmitField('Login')

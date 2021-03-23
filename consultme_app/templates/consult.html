@@ -1,0 +1,191 @@
+{% extends "layout.html" %}
+{% block body %}
+<div style="background-color: rgb(211, 231, 228);">
+    <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
+        <div class="wrapper wrapper--w960">
+            <div class="chat bg-dark">
+                <div class=" card-body">
+
+                    <h2 class="chat-h2">Talk with experts</h2>
+                    <div class="">
+                        <div class="row form-group has-search" style="display: flex;">
+                            <input type="text" id="myInput" class="input--style-4 form-control"
+                                placeholder="Enter a name of doctor" onkeyup="myFunction()">
+
+
+                            <ul class="container navbar-nav" id="myUL">
+                                <li class="item3">
+                                    <div class="msg_received ">
+                                        <h5><a class="a">Dr. Adele</a>
+                                        </h5>
+                                        <p>Heart Specialist</p>
+                                        <span class="time">Experience</span>
+                                    </div>
+                                    <button class="btn btn--blue btn--radius-2">Chat</button>
+
+                                </li>
+                                <li class="item3">
+                                    <div class="msg_received ">
+                                        <h5><a class="a">Dr. Billy</a>
+                                        </h5>
+                                        <p>Heart Specialist</p>
+                                        <span class="time">Experience</span>
+                                    </div>
+                                    <button class="btn btn--blue btn--radius-2">Chat</button>
+
+                                </li>
+                                <li class="item3">
+                                    <div class="msg_received ">
+                                        <h5><a class="a">Dr. John</a>
+                                        </h5>
+                                        <p>Heart Specialist</p>
+                                        <span class="time">Experience</span>
+                                    </div>
+                                    <button class="btn btn--blue btn--radius-2">Chat</button>
+
+                                </li>
+                                <li class="item3">
+                                    <div class="msg_received ">
+                                        <h5><a class="a">Dr. Bob</a>
+                                        </h5>
+                                        <p>Heart Specialist</p>
+                                        <span class="time">Experience</span>
+                                    </div>
+                                    <button class="btn btn--blue btn--radius-2">Chat</button>
+
+                                </li>
+                                <li class="item3">
+                                    <div class="msg_received ">
+                                        <h5><a class="a">Dr. Steve</a>
+                                        </h5>
+                                        <p>Heart Specialist</p>
+                                        <span class="time">Experience</span>
+                                    </div>
+                                    <button class="btn btn--blue btn--radius-2">Chat</button>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+
+            <div class="bg-dark msg_card_body col-sm-12">
+                <div class="chat">
+                    <h2 class="chat-h2">Chat Box<svg style="margin: 0px 10px;" xmlns="http://www.w3.org/2000/svg"
+                            width="25" height="25" fill="black" class="bi bi-chat-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
+                        </svg></h2>
+
+                    <div class="d-flex container justify-content-start mb-4">
+                        <div class="img_cont_msg">
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                class="rounded-circle user_img_msg" width="30" height="30">
+                            <p style="color: whitesmoke;margin: 5px">Darren Sam </p>
+                        </div>
+                        <div class="msg_received ">
+                            <h5>Hi, how are you Khalid?</h5>
+                            <span class="time">8:40 AM, Today</span>
+                        </div>
+                    </div>
+                    <div class="d-flex container justify-content-end mb-4">
+                        <div class="msg_send">
+                            <h5>Hi Sam i am good tnx how about you?</h5>
+                            <span class="time">8:55 AM, Today</span>
+                        </div>
+                        <div class="img_cont_msg">
+                            <p style="color: whitesmoke;margin: 5px">Khalid </p>
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                class="rounded-circle user_img_msg" width="30" height="30">
+                        </div>
+                    </div>
+
+                        <div class="d-flex container justify-content-start mb-4">
+                            <div class="img_cont_msg">
+                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                    class="rounded-circle user_img_msg" width="30" height="30">
+                                <p style="color: whitesmoke;margin: 5px">Darren Sam </p>
+                            </div>
+                            <div class="msg_received ">
+                                <h5>Hi, how are you Khalid?</h5>
+                                <span class="time">8:40 AM, Today</span>
+                            </div>
+                        </div>
+                        <div class="d-flex container justify-content-end mb-4">
+                            <div class="msg_send">
+                                <h5>Hi Sam i am good tnx how about you?</h5>
+                                <span class="time">8:55 AM, Today</span>
+                            </div>
+                            <div class="img_cont_msg">
+                                <p style="color: whitesmoke;margin: 5px">Khalid </p>
+                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                    class="rounded-circle user_img_msg" width="30" height="30">
+                            </div>
+                        </div>
+                        <div class="d-flex container justify-content-start mb-4">
+                            <div class="img_cont_msg">
+                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                    class="rounded-circle user_img_msg" width="30" height="30">
+                                <p style="color: whitesmoke;margin: 5px">Darren Sam </p>
+                            </div>
+                            <div class="msg_received ">
+                                <h5>Hi, how are you Khalid?</h5>
+                                <span class="time">8:40 AM, Today</span>
+                            </div>
+                        </div>
+                        <div class="d-flex container justify-content-end mb-4">
+                            <div class="msg_send">
+                                <h5>Hi Sam i am good tnx how about you?</h5>
+                                <span class="time">8:55 AM, Today</span>
+                            </div>
+                            <div class="img_cont_msg">
+                                <p style="color: whitesmoke;margin: 5px">Khalid </p>
+                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                    class="rounded-circle user_img_msg" width="30" height="30">
+                            </div>
+                        </div>
+                    
+
+
+                    <div class="card-footer ">
+                        <div class="input-group">
+                            <input name="" class=" input--style-4 form-control"
+                                placeholder="Type your message..."></input>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn--blue btn--radius-2 btn-default btn-sm">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+{% endblock %}
