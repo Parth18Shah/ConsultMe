@@ -7,6 +7,11 @@ from flask_bcrypt import Bcrypt
 from consultme_app.models import Users
 from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm
 from consultme_app import app ,db ,bcrypt
+from consultme_app.disease import get_diseaselist, get_symptomslist, get_specialization, predict_disease, get_description, get_cure
+
+@app.errorhandler(404)
+def not_found(e):
+    return(render_template("error.html"))
 
 @app.route("/")
 @app.route("/home")
@@ -26,6 +31,7 @@ def register_choice():
         else:
             form = PatientRegistrationForm()
         return render_template('register.html',  form = form, choice = choice)
+    flash('Please select one options to proceed','warning')
     return render_template('register_choice.html')  
 
 @app.route('/register/<choice>',methods=['GET','POST'])
@@ -73,6 +79,7 @@ def register(choice):
             db.session.commit()
             flash(f'Account created successfully for  { form.username.data }' ,'success')
             return redirect(url_for('login'))
+    flash('Please give the details in correct format','warning')
     return render_template('register_choice.html',form=form)
 
     # if request.method == "POST":
@@ -123,7 +130,7 @@ def login():
             flash('You are successfully logged in!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Check your email and password!')
+            flash('Check your email and password!', 'danger')
     return render_template('login.html',form=form)
     # if request.method == "POST":
     #     username = request.form['username']
@@ -156,20 +163,38 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/account')
-@login_required
-def account():
-    return render_template('account.html',title='account')
-
-
-@app.route('/predict')
+# @app.route('/account')
 # @login_required
+# def account():
+#     return render_template('account.html',title='account')
+
+
+@app.route('/predict', methods=['GET','POST'])
+@login_required
 def predict():
-    return render_template('predict.html',title='predict')
+    symptomslist = get_symptomslist()
+    if request.method == "POST":
+        print(request.form)
+        form_data = request.form
+        form_values = []
+        for i in form_data:
+            form_values.append(form_data[i])
+        print(form_values, len(symptomslist))
+        if (form_values.count('0')== 5):
+            flash(u"Please select few symptoms before clicking on the submit button",'warning')
+            return render_template('predict.html', symptomslist = symptomslist)
+        diseasename = predict_disease(form_values)
+        diseasedesc = []
+        diseasedesc = get_description(diseasename)
+        treatment = get_cure(diseasename)
+        specialization = get_specialization(diseasename)
+        print("hey1234",diseasename,"\n\n",diseasedesc,"\n",treatment,specialization)
+        return render_template('predict.html', symptomslist = symptomslist, diseasename = diseasename, treatment = treatment, diseasedesc = diseasedesc, specialization = specialization)
+    return render_template('predict.html', symptomslist = symptomslist)
 
 
 @app.route('/consult')
-# @login_required
+@login_required
 def consult():
     return render_template('consult.html',title='consult')
 

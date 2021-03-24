@@ -40,8 +40,8 @@ class PatientRegistrationForm(FlaskForm):
 class DoctorRegistrationForm(FlaskForm):
     username = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     name = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Full Name"})
-    gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
-    # gender = StringField('Gender',validators=[DataRequired()])
+    # gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
+    gender = StringField('Gender',validators=[DataRequired()])
     specialist = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Specialist"})
     reg_no = IntegerField('',validators=[DataRequired()], render_kw={"placeholder": "Registration Number"})
     year_reg = DateField('',validators=[DataRequired()], format='%d-%m-%Y', render_kw={"placeholder": "Year of registration"})

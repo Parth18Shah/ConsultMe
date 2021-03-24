@@ -171,6 +171,15 @@
     background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
     background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
   }
+
+  .bg-gra-02 {
+    background: -webkit-gradient(linear, left bottom, left top, from(#48e498), to(#53c5e4));
+    background: -webkit-linear-gradient(bottom, #48e498 0%, #53c5e4 100%);
+    background: -moz-linear-gradient(bottom, #48e498 0%, #53c5e4 100%);
+    background: -o-linear-gradient(bottom, #48e498 0%, #53c5e4 100%);
+    background: linear-gradient(to top, #48e498 0%, #53c5e4 100%);
+  }
+
   .p-t-100 {
     padding-top: 100px;
   }
@@ -259,6 +268,15 @@
   .btn--blue:hover {
     background: #102b66;
   }
+
+  /* .btn--green {
+    background: #4272d7;
+  }
+  
+  .btn--green:hover {
+    background: #102b66;
+  } */
+  
   
   /* ==========================================================================
      #DATE PICKER
@@ -698,14 +716,26 @@ h5{
 
 }
 
-
+.predict-h2 {
+  font-size: 20px;
+  text-align : center;
+  padding:20px;
+  color: rgb(0, 0, 0);
+  background-color: #30ce8f;
+  border-radius: 30px;
+  margin-bottom: 5px;
+  -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+  margin: 10px;
+}
 
 .chat-h2 {
   font-size: 20px;
   text-align : center;
   padding:20px;
   color: rgb(0, 0, 0);
-  background-color: #c4d8cf;
+  background-color: #ccd1cf;
   border-radius: 30px;
   margin-bottom: 5px;
   -webkit-box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
