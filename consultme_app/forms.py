@@ -11,7 +11,7 @@ class PatientRegistrationForm(FlaskForm):
     gender = StringField('Gender',validators=[DataRequired()])
     email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
     phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
-    birthdate = DateField('',validators=[DataRequired()], format='%d/%m/%Y',render_kw={"placeholder": "Date of Birth"})
+    birthdate = DateField('',validators=[DataRequired()], format='%d/%m/%Y',render_kw={"placeholder": "Date of Birth(dd/mm/yyyy)"})
     age = IntegerField('',validators=[DataRequired()],render_kw={"placeholder": "Age"})
     med_history = TextAreaField('',validators=[DataRequired()],render_kw={"placeholder": "Past Medical history"})
     password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
@@ -25,8 +25,8 @@ class DoctorRegistrationForm(FlaskForm):
     gender = StringField('Gender',validators=[DataRequired()])
     specialist = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Specialist"})
     reg_no = IntegerField('',validators=[DataRequired()], render_kw={"placeholder": "Registration Number"})
-    year_reg = DateField('',validators=[DataRequired()], format='%d/%m/%Y', render_kw={"placeholder": "Year of registration"})
-    experience = StringField('',validators=[DataRequired(),Length(min=1 , max=20)],render_kw={"placeholder" : "Experience"})
+    year_reg = DateField('',validators=[DataRequired()], format='%d/%m/%Y', render_kw={"placeholder": "Year of registration (dd/mm/yyyy)"})
+    experience = StringField('',validators=[DataRequired(),Length(min=1 , max=20)],render_kw={"placeholder" : "Experience (in years)"})
     email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
     phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
     password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
@@ -40,6 +40,6 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
 class ChatForm(FlaskForm):
-    message = TextAreaField('',validators=[DataRequired()],render_kw={"placeholder": "Please enter your message here"})
+    message = StringField('',validators=[DataRequired(),Length(min=1,max=250)],render_kw={"placeholder": "Please enter your message here"})
     submit = SubmitField('Send')
     

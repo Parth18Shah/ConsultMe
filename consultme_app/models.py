@@ -60,3 +60,12 @@ class Chat(db.Model,UserMixin):
 #   send_time datetime not null,
 #   primary key(id)
 # );
+
+# CREATE TABLE chat (
+#   id serial not null ,
+# 	senderid int not null,
+#   receiverid int not null,
+#   message text not null,
+#   send_time date not null,
+#   primary key(id)
+# );

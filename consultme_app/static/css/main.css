@@ -132,6 +132,12 @@
     font-family: "Poppins", "Arial", "Helvetica Neue", sans-serif;
     font-weight: 400;
     font-size: 14px;
+    background: -webkit-gradient(linear, left bottom, left top, from(#48e498), to(#53c5e4));
+    background: -webkit-linear-gradient(bottom, #48e498 0%, #53c5e4 100%);
+    background: -moz-linear-gradient(bottom, #48e498 0%, #53c5e4 100%);
+    background: -o-linear-gradient(bottom, #48e498 0%, #53c5e4 100%);
+    background: linear-gradient(to top, #48e498 0%, #53c5e4 100%);
+
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -159,11 +165,6 @@
      font-size: large;
   }
 
-  .item3:hover{
-    border-bottom:2px ridge rgb(173, 163, 255);
-    border-radius: 5px;
-  }
-  
   .bg-gra-01 {
     background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
     background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
@@ -373,6 +374,17 @@
     transition: all 0.4s ease;
   }
   
+  .input--style-5 {
+    display: flex;
+    /* flex-direction: column; */
+    line-height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: rgb(10, 10, 10);
+  }
+
   .input--style-4:hover{
     background-color:whitesmoke;
     cursor: pointer;
@@ -686,10 +698,12 @@
   -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 80px rgba(0, 0, 0, 0.2);
   border-radius:25px ;
-  max-height:max-content;
-  width:auto;
+  height:500px;
+  width: 70vw;
   font-size: medium;
   margin: 0.5rem;
+  overflow-y: auto;
+  
 
 }
 
@@ -700,14 +714,22 @@ h5{
 
 .msg_received{
   display: flex;
-  flex-direction: column;
-  margin: 15px;
+  /* border: 1px solid #00bfff; */
+  background-color: #a0f7ba;
+  border-radius: 10px;
+  padding: 5px;
+  color:black;
+  /* flex-direction: column; */
+  /* margin: 15px; */
 }
 
 .msg_send{
   margin:20px;
-  border-radius: 20px;
-  color:#c4d8cf;
+  border-radius: 10px;
+  color:black;
+  background-color: #a5dbec;
+  padding:5px;
+
 }
 
 .img_cont_msg{
@@ -721,7 +743,7 @@ h5{
 
 .card-footer{
   position:sticky ;
-  margin-top: 15rem;
+  /* margin-top: 15rem; */
 
 }
 

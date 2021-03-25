@@ -1,16 +1,16 @@
 {% extends "layout.html" %}
 {% block body %}
-<div style="background-color: rgb(211, 231, 228);">
+<div class="bg-gra-02">
     <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
         <div class="wrapper wrapper--w960">
             <div class="chat bg-dark">
                 <div class=" card-body">
 
-                    <h2 class="chat-h2">Talk with experts</h2>
+                    <h2 class="predict-h2">Talk with experts</h2>
                     <div class="">
                         <div class="row form-group has-search" style="display: flex;">
                             <input type="text" id="myInput" class="input--style-4 form-control"
-                                placeholder="Enter a name of doctor" onkeyup="myFunction()">
+                                placeholder="Enter a name" onkeyup="myFunction()">
 
                         <!-- <form action="/consult" method="POST">
                             {{ form.hidden_tag() }}
@@ -19,14 +19,14 @@
                                 <form action="/consult" method="POST">
                                     {% if doctors_list is defined %}
                                         {% for doctor in doctors_list %}
-                                        <li class="item3">
-                                            <div class="msg_received ">
-                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="30" height="30">
-                                                <h5><a class="a">{{doctor.username}}</a>
-                                                </h5>
-                                                <p>{{doctor.specialist}}</p>
-                                                <span class="time">Experience</span>
+                                        <li class="item3 msg_received" style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
+                                            <div class=" " style="display: flex;">
+                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="40" height="40">
+                                                <h5 style="display: flex;"><a class="a" style="color: black
+                                                ;">{{doctor.username}}</a></h5>
                                             </div>
+                                            <p style="margin-top: 10px;">Specialist in {{doctor.specialist}}</p>
+                                            <span class="time">Having {{doctor.experience}} of Experience</span>
                                             <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2" value="{{doctor.id}}">Chat</button>
                                         </li>
                                         {% endfor %}
@@ -34,10 +34,12 @@
                                         {% for users in users_list %}
                                         <li class="item3">
                                             <div class="msg_received ">
-                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="30" height="30">
-                                                <h5><a class="a">{{users.username}}</a>
+                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="40" height="40">
+                                                <h5><a class="a" style="color: black;">{{users.username}}</a>
+                                                    
                                                 </h5>
                                             </div>
+                                            <p style="color: whitesmoke; margin:5px">Email-id :- {{users.email}} </p>
                                             <button type="submit"  name='chat-btn' class="btn btn--blue btn--radius-2" value="{{users.id}}">Chat</button>
                                         </li>
                                         {% endfor %}
@@ -49,11 +51,11 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper">
+        <div class="wrapper wrapper--w960">
 
-            <div class="bg-dark msg_card_body col-sm-12">
+            <div class="bg-dark msg_card_body col-12">
                 <div class="chat">
-                    <h2 class="chat-h2">Chat Box<svg style="margin: 0px 10px;" xmlns="http://www.w3.org/2000/svg"
+                    <h2 class="predict-h2">Chat Box<svg style="margin: 0px 10px;" xmlns="http://www.w3.org/2000/svg"
                             width="25" height="25" fill="black" class="bi bi-chat-fill" viewBox="0 0 16 16">
                             <path
                                 d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
@@ -61,16 +63,19 @@
                     {% if chats is defined %}
                         {% for chat in chats %}
                             {% if chat.senderid != uid %}
-                            <div class="d-flex container justify-content-end mb-4">
-                                <div class="msg_send">
-                                    <h5>{{chat.message}}</h5>
-                                    <span class="time">8:55 AM, Today</span>
-                                </div>
+                            <div class="d-flex container justify-content-start mb-4">  
+                                <!-- done -->
                                 <div class="img_cont_msg">
-                                    <p style="color: whitesmoke;margin: 5px">Khalid </p>
                                     <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                        class="rounded-circle user_img_msg" width="30" height="30">
+                                    class="rounded-circle user_img_msg" width="30" height="30">
+                                    <p style="color: whitesmoke;margin: 5px">{{current_user.username}} </p>
                                 </div>
+                                <div>
+                                    <h5 class="msg_send">{{chat.message}}</h5>
+                                    <span class="time">{{ chat.send_time }} </span>
+                                </div>
+                                
+                                
                             </div>
                                 <!-- <div class="" style="text-align:right; padding:2px 5px;">
                                     <p>
@@ -78,15 +83,16 @@
                                     </p>
                                 </div> -->
                             {% else %}
-                            <div class="d-flex container justify-content-start mb-4">
+                            <div class="d-flex container justify-content-end mb-4">
+                                
+                                <div  style="display: flex; flex-direction: column; margin: 15px;">
+                                    <h5 class="msg_received ">{{chat.message}}</h5>
+                                    <span class="time"> {{chat.send_time}} </span>
+                                </div>
                                 <div class="img_cont_msg">
+                                    <p class="card-title" style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
                                     <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                                         class="rounded-circle user_img_msg" width="30" height="30">
-                                    <p style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
-                                </div>
-                                <div class="msg_received ">
-                                    <h5>{{chat.message}}</h5>
-                                    <span class="time">8:40 AM, Today</span>
                                 </div>
                             </div>
                                 <!-- <div class="" style="text-align:left; padding:2px 5px;">
@@ -97,11 +103,19 @@
                             {% endif %}
                         {% endfor %}
                         <div class="card-footer ">
-                            <div class="input-group">
+                            <div>
                                 <form method="POST" action="/chat">
-                                    <!-- <input name="" class=" input--style-4 form-control"
-                                        placeholder="Type your message..."></input> -->
-                                        {{ form.message.label(class="form-control-label") }}
+                                    <div class="input--style-5 ">
+
+                                        <input name="" class=" form-control"
+                                            placeholder="Type your message..."></input>
+                                        <button type="submit" class="btn btn--blue btn--radius-2 " autofocus="" style="max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                            Send
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                                        <!-- {{ form.message.label(class="input--style-5 form-control-label") }}
                 
                                         {% if form.message.errors %}
                                             {{ form.message(class="form-control form-control-lg is-invalid") }}
@@ -112,12 +126,16 @@
                                             </div>
                                         {% else %}
                                             {{ form.message(class="form-control form-control-lg") }}
-                                        {% endif %}
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn--blue btn--radius-2 btn-default btn-sm">
+                                        {% endif %} -->
+                                        <!-- <div >
+                                            <button type="submit" class="btn btn--blue btn--radius-2 " autofocus="" style="max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                                Send
+                                            </button>
+                                        </div> -->
+                                        <!-- <button type="submit" class="btn btn--blue btn--radius-2 " style="display: flex; width: max-content;" autofocus="">
                                             Send
-                                        </button>
-                                    </div>
+                                        </button> -->
+                                    
                                 </form>
                             </div>
                         </div>
@@ -223,3 +241,7 @@
 
 
 {% endblock %}
+
+
+
+<!-- https://codepen.io/blackcityhenry/pen/LXOOgW -->
