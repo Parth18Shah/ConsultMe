@@ -5,7 +5,7 @@ from flask_login import login_user,current_user,logout_user,login_required,Login
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from consultme_app.models import Users
-from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm
+from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm ,ChatForm
 from consultme_app import app ,db ,bcrypt
 
 @app.route("/")
@@ -46,7 +46,8 @@ def register(choice):
             email=form.email.data,
             phone=form.phone.data,
             pswd=hashed_pass,
-            ispatient=0)
+            ispatient=0,
+            experience=form.experience.data)
             print(request.form)
             db.session.add(user)
             db.session.commit()
@@ -168,10 +169,32 @@ def predict():
     return render_template('predict.html',title='predict')
 
 
-@app.route('/consult')
+# @app.route('/consult')
+# # @login_required
+# def consult():
+#     if current_user.is_authenticated:
+#         redirect(url_for('home'))
+#     return render_template('consult.html')
+
+@app.route("/consult", methods=['GET', 'POST'])
 # @login_required
-def consult():
-    return render_template('consult.html',title='consult')
+def chat():
+    if not current_user.is_authenticated:
+        flash('Please login', 'danger')
+        return redirect(url_for('login'))
+    form=PatientRegistrationForm()
+    user1 = Users.query.all()
+    target_patient = form.ispatient.data['target'].ispatient
+    print(target_patient)
+    # print(user1[0])
+    form=ChatForm()
+    for i in user1:
+        print(i['username'])
+        for j in i:
+            print(j)
+            if(j=="False"):
+                user = Users(request.form['username'], request.form['specialist'], request.form['experience'])
+    return render_template("consult.html", username=current_user.username,form=form)
 
 if __name__=='__main__':
     app.secret_key = 'the random string'

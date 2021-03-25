@@ -21,12 +21,22 @@ class Users(db.Model,UserMixin):
     age = db.Column(db.Integer)
     med_history = db.Column(db.Text)
     ispatient = db.Column(db.Boolean, nullable=False)
+    experience = db.Column(db.Text)
 
     def __repr__(self):
-        return f"User('{self.username}','{self.email}')"
+        return f"User('{self.username}','{self.email}','{self.specialist}','{self.experience}','{self.ispatient}')"
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date_posted = db.Column(db.String(30))
+    username = db.Column(db.String(20),unique=True,nullable=False)
+    content = db.Column(db.String(500), default='')
+    ispatient = db.Column(db.Boolean, nullable=False)
+
 
 
 # CREATE TABLE users (
+#          id SERIAL PRIMARY KEY, 
 #          username varchar(20) unique not null,
 #          u_name varchar(20) not null,
 #          pswd varchar(100) not null,
@@ -39,6 +49,13 @@ class Users(db.Model,UserMixin):
 #          birthdate DATE,
 #          age INT,
 #          med_history varchar(100),
-#          ispatient BIT not null,
-#          primary key(username)
+#           experience varchar(50),
+#          ispatient boolean not null
+# );
+
+# CREATE TABLE message (
+#          id SERIAL PRIMARY KEY, 
+#          username varchar(20) unique not null,
+#          content varchar(500) not null,
+#           ispatient boolean not null
 # );

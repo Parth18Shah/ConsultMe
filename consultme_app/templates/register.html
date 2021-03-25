@@ -1,7 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+    $( "#datepicker" ).datepicker();
+} );
+</script>
     {% if choice == "doctor" %}
+
         <div class="page-wrapper bg-gra-01 p-t-130 p-b-100 font-poppins">
             <div class="wrapper wrapper--w680">
                 <div class="card card-4">
@@ -28,7 +35,6 @@
                                         {% endif %}
                                     </div>
                                 <!-- </div> -->
-                                <div class="col">
                                     <div class="input-group">
                                         <!-- <label class="label">Name</label>
                                         <input class="input--style-4" type="text" name="name"> -->
@@ -45,16 +51,13 @@
                                             {{ form.name(class="form-control form-control-lg") }}
                                         {% endif %}
                                     </div>
-                                </div>
-                            <!-- </div> -->
-                            <!-- <div class="row row-space">
-                                <div class="col-2"> -->
                                     <div class="input-group">
-                                        <!-- <label class="label">Gender</label>
-                                        <div class="p-t-10">
-                                            <label class="radio-container m-r-45">Male
+                                    
+                                        {{ form.gender.label(class="form-control-label") }}
+                                        <div>
+                                            <label class="radio-container">Male
                                                 <input type="radio" name="gender" value="male">
-                                                 <span class="checkmark"></span>
+                                                <span class="checkmark"></span>
                                             </label>
                                             <label class="radio-container">Female
                                                 <input type="radio" name="gender" value="female">
@@ -64,33 +67,9 @@
                                                 <input type="radio" name="gender" value="other">
                                                 <span class="checkmark"></span>
                                             </label>
-                                        </div> -->
-                                        {{ form.gender.label(class="form-control-label") }}
-            
-                                        {% if form.gender.errors %}
-                                            {{ form.gender(class="form-control form-control-lg is-invalid") }}
-                                            <div class="invalid-feedback">
-                                                {% for error in form.gender.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.gender(class="form-control form-control-lg") }}
-                                            <!-- {% for subfield in form.radio %}
-                                                <tr>
-                                                    <td>{{ subfield }}</td>
-                                                    <td>{{ subfield.label }}</td>
-                                                </tr>
-                                            {% endfor %}
-                                        {% endif %} -->
-                                    </div>
-                                <!-- </div>
-                            </div> -->
-                            <!-- <div class="input-group">
-                                <label class="label">Experience</label>
-                                <textarea class="input--style-4" type="text" name="exp" id="exp" cols="50"
-                                    rows="3"></textarea>
-                            </div> -->
+                                        </div> 
+                                    </div>    
+                            
                             <div class="input-group">
                                 <!-- <label class="label">Specialist</label>
                                 <input class="input--style-4" name="spec" type="text" required></input> -->
@@ -105,6 +84,22 @@
                                     </div>
                                 {% else %}
                                     {{ form.specialist(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                            <div class="input-group">
+                                <!-- <label class="label">Specialist</label>
+                                <input class="input--style-4" name="spec" type="text" required></input> -->
+                                {{ form.experience.label(class="form-control-label") }}
+            
+                                {% if form.experience.errors %}
+                                    {{ form.experience(class="form-control form-control-lg is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.experience.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.experience(class="form-control form-control-lg") }}
                                 {% endif %}
                             </div>
                             <div class="input-group">
@@ -211,13 +206,13 @@
                                 {% endif %}
                             </div>
 
-                            <div style="display: flex; justify-content: center; align-items: center;">
+                            <div>
                                 <!-- <button class="btn btn--radius-2 btn--blue" type="submit">Sign Up</button> -->
-                                {{ form.submit(class="btn btn-outline-info") }}
+                                {{ form.submit(class="btn btn--blue btn--radius-2") }}
                             </div>
 
-                            <div class="p-t-15">
-                                Already have an account?<a class="nav-item" style="color: black; padding: 10px;"
+                            <div>
+                                Already have an account?<a class="item3" style="color: black; padding: 10px;"
                                     href="/login">Log in</a>
                             </div>
                         </form>
@@ -274,9 +269,10 @@
                         <!-- <div class="row row-space">
                             <div class="col-2"> -->
                                 <div class="input-group">
-                                    <!-- <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
+                                    
+                                    {{ form.gender.label(class="form-control-label") }}
+                                    <div>
+                                        <label class="radio-container">Male
                                             <input type="radio" name="gender" value="male">
                                             <span class="checkmark"></span>
                                         </label>
@@ -288,28 +284,8 @@
                                             <input type="radio" name="gender" value="other">
                                             <span class="checkmark"></span>
                                         </label>
-                                    </div> -->
-                                    {{ form.gender.label(class="form-control-label") }}
-            
-                                        {% if form.gender.errors %}
-                                            {{ form.gender(class="form-control form-control-lg is-invalid") }}
-                                            <div class="invalid-feedback">
-                                                {% for error in form.gender.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.gender(class="form-control form-control-lg") }}
-                                            <!-- {% for subfield in form.radio %}
-                                            <tr>
-                                                <td>{{ subfield }}</td>
-                                                <td>{{ subfield.label }}</td>
-                                            </tr>
-                                            {% endfor %} -->
-                                        {% endif %}
+                                    </div> 
                                 </div>
-                            <!-- </div>
-                        </div> -->
 
                         <div class="input-group">
                             <!-- <label class="label">Email</label>
@@ -331,7 +307,7 @@
                         <div class="input-group">
                             <!-- <label class="label">Phone Number</label>
                             <input class="input--style-4" type="text" name="phone"> -->
-                            {{ form.phone.label(class="form-control-label") }}
+                            <!-- {{ form.phone.label(class="form-control-label") }} -->
             
                                 {% if form.phone.errors %}
                                     {{ form.phone(class="form-control form-control-lg is-invalid") }}
@@ -344,12 +320,13 @@
                                     {{ form.phone(class="form-control form-control-lg") }}
                             {% endif %}
                         </div>
-
+                        
                         <div class="input-group">
                             <!-- <label class="label">Date of Birth</label>
                             <input class="input--style-4" type="date" name="dob"> -->
-                            {{ form.birthdate.label(class="form-control-label") }}
-            
+                            <!-- {{ form.birthdate.label(class="form-control-label js-datepicker") }} -->
+                            
+
                                 {% if form.birthdate.errors %}
                                     {{ form.birthdate(class="form-control form-control-lg is-invalid") }}
                                     <div class="invalid-feedback">
@@ -444,5 +421,6 @@
             </div>
         </div>
     </div>
+
     {% endif %}
 {% endblock %}

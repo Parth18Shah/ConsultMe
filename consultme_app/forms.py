@@ -11,7 +11,7 @@ class PatientRegistrationForm(FlaskForm):
     gender = StringField('Gender',validators=[DataRequired()])
     email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
     phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
-    birthdate = DateField('',validators=[DataRequired()], format='%d-%m-%Y',render_kw={"placeholder": "Date of Birth"})
+    birthdate = DateField('',validators=[DataRequired()], format='%d/%m/%Y',render_kw={"placeholder": "Date of Birth"})
     age = IntegerField('',validators=[DataRequired()],render_kw={"placeholder": "Age"})
     med_history = TextAreaField('',validators=[DataRequired()],render_kw={"placeholder": "Past Medical history"})
     
@@ -40,11 +40,12 @@ class PatientRegistrationForm(FlaskForm):
 class DoctorRegistrationForm(FlaskForm):
     username = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     name = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Full Name"})
-    gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
-    # gender = StringField('Gender',validators=[DataRequired()])
+    # gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
+    gender = StringField('Gender',validators=[DataRequired()])
     specialist = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Specialist"})
     reg_no = IntegerField('',validators=[DataRequired()], render_kw={"placeholder": "Registration Number"})
-    year_reg = DateField('',validators=[DataRequired()], format='%d-%m-%Y', render_kw={"placeholder": "Year of registration"})
+    year_reg = DateField('',validators=[DataRequired()], format='%d/%m/%Y', render_kw={"placeholder": "Year of registration"})
+    experience = StringField('',validators=[DataRequired(),Length(min=1 , max=20)],render_kw={"placeholder" : "Experience"})
     email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
     phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
     password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
@@ -74,4 +75,19 @@ class LoginForm(FlaskForm):
     email = StringField('',validators=[DataRequired()],render_kw={"placeholder": "Email-id"})
     password = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": "Password"})
     # remember = BooleanField('Remember me')
+    
     submit = SubmitField('Login')
+
+
+class ChatForm(FlaskForm):
+    username = StringField('',validators=[DataRequired()])
+    msg_sent = StringField('',validators=[Length(min=1,max=100)])
+    msg_received = StringField('',validators=[Length(min=1,max=100)])
+    specialist = StringField('',validators=[DataRequired()])
+    experience = StringField('',validators=[DataRequired()])
+    chat = SubmitField('Chat')
+    send = SubmitField('Send')
+    
+
+
+    

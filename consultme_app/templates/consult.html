@@ -12,59 +12,27 @@
                             <input type="text" id="myInput" class="input--style-4 form-control"
                                 placeholder="Enter a name of doctor" onkeyup="myFunction()">
 
-
+                        <!-- <form action="/consult" method="POST">
+                            {{ form.hidden_tag() }}
+                         -->
                             <ul class="container navbar-nav" id="myUL">
-                                <li class="item3">
-                                    <div class="msg_received ">
-                                        <h5><a class="a">Dr. Adele</a>
-                                        </h5>
-                                        <p>Heart Specialist</p>
-                                        <span class="time">Experience</span>
-                                    </div>
-                                    <button class="btn btn--blue btn--radius-2">Chat</button>
-
-                                </li>
-                                <li class="item3">
-                                    <div class="msg_received ">
-                                        <h5><a class="a">Dr. Billy</a>
-                                        </h5>
-                                        <p>Heart Specialist</p>
-                                        <span class="time">Experience</span>
-                                    </div>
-                                    <button class="btn btn--blue btn--radius-2">Chat</button>
-
-                                </li>
-                                <li class="item3">
-                                    <div class="msg_received ">
-                                        <h5><a class="a">Dr. John</a>
-                                        </h5>
-                                        <p>Heart Specialist</p>
-                                        <span class="time">Experience</span>
-                                    </div>
-                                    <button class="btn btn--blue btn--radius-2">Chat</button>
-
-                                </li>
-                                <li class="item3">
-                                    <div class="msg_received ">
-                                        <h5><a class="a">Dr. Bob</a>
-                                        </h5>
-                                        <p>Heart Specialist</p>
-                                        <span class="time">Experience</span>
-                                    </div>
-                                    <button class="btn btn--blue btn--radius-2">Chat</button>
-
-                                </li>
-                                <li class="item3">
-                                    <div class="msg_received ">
-                                        <h5><a class="a">Dr. Steve</a>
-                                        </h5>
-                                        <p>Heart Specialist</p>
-                                        <span class="time">Experience</span>
-                                    </div>
-                                    <button class="btn btn--blue btn--radius-2">Chat</button>
-
+                                
+                                {% for user in users %}
+                                console.log(user)
+                                    <li class="item3">
+                                        <div class="msg_received ">
+                                            <h5>Name - <a class="a"> {{user.username}}</a></h5>
+                                            <p>Specialist - {{user.specialist }} </p>
+                                            <span class="time">Experience - {{user.experience}}</span>
+                                        </div>
+                                        <!-- <button class="btn btn--blue btn--radius-2">Chat</button> -->
+                                        {{ form.chat(class="btn btn--radius-2 btn--blue") }}
+    
+                                    </li>
+                                {% endfor %}
+                                
                             </ul>
-
+                        <!-- </form> -->
                         </div>
                     </div>
                 </div>

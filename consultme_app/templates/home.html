@@ -1,67 +1,98 @@
 {% extends "layout.html" %}
 {% block body %}
-    <header class="bg-primary text-white">
+    <header style="background-color: #5CDB95;">
         <div class="container text-center">
-            <h1 class="hover" style="font-weight: bold; font-size: 50px;">Welcome to a Disease Predictor website </br>
-                Consult Me</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br> Lorem ipsum dolor sit amet.
-                Delectus, ab?</p>
+            <h1 class="hover" style="font-weight: bold; font-size: 50px; ">Welcome to ConsultMe
+                </h1>
+                <p style="font-size: large; font-family: Georgia, 'Times New Roman', Times, serif ;font-weight: bold;">
+                    The lockdown that took place due to the Covid-19 all around the country had some severe impact on people. Most of them were afraid to go outside of their homes. People were reluctant to go even for a routine checkup.</p>
+                    <p style="font-size: large; font-family: Georgia, 'Times New Roman', Times, serif;font-weight: bold;">
+                        The aim of this project is to provide an effective solution for the same. The patient has to enter the symptoms and then our Machine-Learning based Web Application will update them about the disease which they are suffering from and suggest some home remedies and  treatments for the same. </p> 
+                        <h2 class="hover"><span style="font-size: 80px;">"</span>An ounce of prevention is worth a pound of cure
+                            <span style="font-size: 80px;">"</span></h2>
+                           
+                    </div>
+                </header>
+                
+    
+    <section id="services" class="bg-light">
+        <div class="container">
+            <div class="row" style="display: flex; justify-content: center; align-items: center;">
+                <div class="col-lg-12 mx-auto">
+                    <h2 class="header-title text-center" style="color: #05386B ;margin: 1rem; font-size:50px;"> We provides various functionalities
+                    </h2>
+                </div>
+                <div class="col-sm-4 p-t-130">
+
+                    <div class="item4 card card-4 col-sm-12">
+                        <div class="card-body">
+                                <a class="title " style="text-decoration: none; " href="/predict"><strong>Predict a Disease</strong> </a>
+                                <hr>
+                                <p >
+
+                                    User can enter the symptoms and get to know about the disease                       
+                                </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class=" col-sm-4 p-t-130">
+                    <div class="item4 card card-4 col-sm-12">
+                        <div class="card-body">
+                            <a class="title text-black" style="text-decoration: none;" href="/consult">Consult a Doctor</a>
+                            <hr>
+                            <p>
+                                User can consult with a doctor online using our website 
+                            </p>
+                        </div>
+                    </div>
+                </div>                        
+            </div>
         </div>
-    </header>
+    </section>
 
     <section id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <h2>About this page</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, nihil vitae quod
-                        necessitatibus cum esse saepe neque eaque blanditiis, soluta aliquam explicabo facilis sed
-                        assumenda odit facere temporibus repudiandae dignissimos. Sed quia ipsam illo! At magni natus
-                        temporibus perspiciatis expedita aliquid hic aperiam mollitia quasi qui voluptate ex, inventore
-                        tempora.</p>
+                    <p class="text-center ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo eveniet quam molestiae et eius, cumque quis eligendi sint magnam iste.</p>
+                    
                 </div>
-                <div class="hcard col-sm-6 p-t-130">
-                    <div class="card card-4 col-sm-12">
+                <div class="hcard  col-sm-6 p-t-130">
+                    <div class="card card-4 col-sm-12" >
                         <div class="card-body">
-                            <h2 class="title text-center">Offers</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad reprehenderit recusandae enim
-                                nam ipsam natus! Corporis eligendi eius atque optio doloribus fugiat vitae officia
-                                impedit architecto numquam quibusdam, perspiciatis vero esse incidunt, fuga neque veniam
-                                nesciunt, eum voluptatum quas iusto. Pariatur quidem nemo recusandae deleniti ratione
-                                assumenda voluptates cupiditate sed.</p>
+                            <h2 class="title text-center" style="margin-bottom: 5px;">Member 1 </h2>
+                            <img src="{{ url_for('static', filename='img/team-1.jpg') }}" width="100" height="100" class="round-circle" style="margin-left: 100px ;border-radius:100px">
+                            
+                            <h4 class="text-center" style="margin: 10px;"><a  href="https://github.com/rjshah00"><strong style="color:black; ">Raj Shah</strong></a>
+                                <p>
+                                    <strong style="color:rgb(102, 160, 226) "> Skills and Interested Domains </strong><br> Web Designing ,App Devlopement ,Machine-Learning ,Computer Graphics
+                                </p>
+                            </h4>
+                            
+                            
                         </div>
                     </div>
                 </div>
                 <div class="hcard col-sm-6 p-t-130">
-
-                    <div class="card card-4 col-sm-12">
+                    <div class="card card-4 col-sm-12" >
                         <div class="card-body">
-                            <h2 class="title text-center">Offers</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat quia ducimus esse
-                                quis. Voluptates, nemo nostrum, asperiores dolorum dolores temporibus ullam dolore
-                                exercitationem velit assumenda delectus id, sed iste doloremque iusto voluptatum
-                                repudiandae vel? Illum molestiae, ut architecto accusantium incidunt quam itaque,
-                                voluptate nulla at necessitatibus sapiente ipsa animi dignissimos.</p>
+                            <h2 class="title text-center" style="margin-bottom: 5px;">Member 2 </h2>
+                            <img src="{{ url_for('static', filename='img/team-1.jpg') }}" width="100" height="100" class="round-circle" style="margin-left: 100px ;border-radius:100px">
+                            
+                            <h4 class="text-center" style="margin: 10px;"><a href="https://github.com/Parth18Shah"><strong style="color:black; ">Parth Shah</strong></a>
+                                <p >
+                                    <strong style="color:rgb(102, 160, 226)"> Skills and Interested Domains </strong><br> Data Analytics , App Devlopement ,Machine-Learning ,Web Devlopement
+                                </p>
+                            </h4>
                         </div>
                     </div>
                 </div>
+                
             </div>
-        </div>
-        </div>
     </section>
 
-    <section id="services" class="bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto">
-                    <h2>Services we offer</h2>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore,
-                        expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda
-                        laborum vel, labore ut velit dignissimos.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="contact">
         <div class="container">
@@ -70,7 +101,7 @@
                     <!-- <div class="row"> -->
                     <h1 class="header-title"> Contact Us</h1>
 
-                    <div class="row col-sm-12" id="parent">
+                    <div class="row col-sm-12 p-t-130" id="parent">
                         <div class="col-sm-6">
                             <iframe width="100%" height="320px;" frameborder="0" style="border:0"
                                 src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJaY32Qm3KWTkRuOnKfoIVZws&key=AIzaSyAf64FepFyUGZd3WFWhZzisswVx2K37RFY"
@@ -100,7 +131,7 @@
                                     <textarea class="form-control textarea-contact" rows="5" id="comment" name="FB"
                                         placeholder="Type Your Message/Feedback here..." required=""></textarea>
                                     <br>
-                                    <button class="btn btn-default btn-send"> <span
+                                    <button class="btn btn-default btn-send btn--radius-2"> <span
                                             class="glyphicon glyphicon-send"></span> Send </button>
                                 </div>
                             </form>

@@ -465,7 +465,7 @@
      #TITLE
      ========================================================================== */
   .title {
-    font-size: 24px;
+    font-size: 22px;
     color: #525252;
     font-weight: 500;
     margin-bottom: 40px;
@@ -507,7 +507,8 @@
   .a{
     text-decoration: none;
   
-    padding:2rem;color:#cbbde2
+    /* padding:2rem; */
+    color:#cbbde2 
 
   }
   .a:hover
@@ -520,8 +521,8 @@
     font-size: medium;
     text-decoration: none;
   }
-  .nav-item:hover{
-    background-color: rgb(177, 174, 174);
+  .nav-item:hover{  
+    border-bottom:1px solid rgb(159, 248, 178);
     border-radius: 10px;
   
   }
@@ -622,15 +623,23 @@
     flex-direction: row;
     min-height: 50%;
     font-size: medium;
+    background-color: #5CDB95;
   }
   
   .hcard>div:hover{
-    background-color: whitesmoke;
+    background-color: rgb(152, 252, 185);
+    -webkit-box-shadow: 0px 18px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 18px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 18px 20px 0px rgba(0, 0, 0, 0.5);
+  
+  }
+  .hover{
+
+    color: #05386B;
   }
   
-  
   .hover:hover{
-    color:white;
+    color:rgb(205, 209, 245);
   }
 
 
@@ -717,4 +726,30 @@ h5{
 .b{
   color:whitesmoke;
   margin: 0.5rem;
+}
+.item4{
+  color: black;
+  font-size: 15px;
+  /* margin:1.5rem; */
+  text-decoration: none;
+  text-emphasis: none;
+  padding: 0.5rem;
+  font-weight: bolder;
+  background-color: #3189e0;
+
+  
+}
+
+.item4:hover{
+  /* border-bottom:1px solid #00bfff; */
+  color: black;
+  text-decoration: none;
+  text-emphasis: none;
+  border-radius: 10px;
+ outline-style: none;
+ -webkit-box-shadow: 0px 18px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 18px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 18px 20px 0px rgba(0, 0, 0, 0.5);
+    background-color: rgb(213, 230, 247);
+
 }
