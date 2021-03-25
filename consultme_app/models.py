@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from datetime import datetime
 from consultme_app import db ,login_manager
 
 @login_manager.user_loader
@@ -34,6 +35,12 @@ class Message(db.Model):
     ispatient = db.Column(db.Boolean, nullable=False)
 
 
+class Chat(db.Model,UserMixin):
+    id = db.Column(db.Integer,primary_key=True)
+    senderid = db.Column(db.Integer,nullable=False)
+    receiverid = db.Column(db.Integer,nullable=False)
+    message = db.Column(db.Text,nullable=False)
+    send_time = db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
 
 # CREATE TABLE users (
 #          id SERIAL PRIMARY KEY, 
@@ -53,9 +60,19 @@ class Message(db.Model):
 #          ispatient boolean not null
 # );
 
+<<<<<<< HEAD
 # CREATE TABLE message (
 #          id SERIAL PRIMARY KEY, 
 #          username varchar(20) unique not null,
 #          content varchar(500) not null,
 #           ispatient boolean not null
+=======
+# CREATE TABLE chat (
+#   id int not null auto-increment,
+# 	senderid int not null,
+#   receiverid int not null,
+#   message text not null,
+#   send_time datetime not null,
+#   primary key(id)
+>>>>>>> 81c7d278cb67a12bc093632e5e71429c9ba8d3be
 # );

@@ -1,197 +1,285 @@
 {% extends "layout.html" %}
 {% block body %}
-<div style="background-color: rgb(211, 231, 228);">
-    <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
-        <div class="wrapper wrapper--w960">
-            <div class="chat bg-dark">
-                <div class=" card-body">
+    <div class="bg-gra-02">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=delete_flash(this)>
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ;justify-content: center;align-items: center;">
+            <div class="wrapper wrapper--w960">
+                <div class="chat bg-dark">
+                    <div class=" card-body">
 
-                    <h2 class="chat-h2">Let Predict a Disease</h2>
-                    <div class="">
-                        <div class="row form-group has-search" style="display: flex;">
-                            <ul class="container navbar-nav">
-                                <h4 class="b">Selected Symptoms</h4>
-                                <li class="b"><a> Agnes</li>
-
-                                <li class="b"><a> Billy</li>
-                                <li class="b"><a> Bob</li>
-
-                                <li class="b"><a> Calvin</li>
-                                <li class="b"><a> Christina</li>
-                                <li class="b"><a> Cindy</li>
-                            </ul>
-
-                            <input type="text" id="myInput" class="input--style-4 form-control"
-                                placeholder="Enter a symptom" onkeyup="myFunction()">
-
-                            <ul class="container navbar-nav" id="myUL" style="display: inline;">
-
-                                <div class="b">
-
-                                    <li class="b"><a> Adele
-                                        </a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    <li class="b"><a> Agnes</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-
-                                    <li class="b"><a> Billy</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-                                    <li class="b"><a> Bob</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-
-                                    <li class="b"><a> Calvin</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-                                    <li class="b"><a> Christina</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <li class="b"><a> Cindy</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-
+                        <h2 class="predict-h2">Predict a Disease</h2>
+                        <div class="">
+                            <div class="row form-group has-search" style="display: flex;">
+                                <form action="{{ url_for('predict') }}" method="POST" class="p-5">
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label class="b" for="disease1">Symptom 1 :</label>
+                                            <select class="custom-select d-block w-100" id="disease1" name="Symptom_1">
+                                                <option value="0">Choose...</option>
+                                                {% for each in symptomslist %}
+                                                <option>{{ each }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label class="b" for="disease2">Symptom 2 :</label>
+                                            <select class="custom-select d-block w-100" id="disease2" name="Symptom_2">
+                                                <option value="0">Choose...</option>
+                                                {% for each in symptomslist %}
+                                                <option>{{ each }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="b">
-                                    <li class="b"><a> Adele </a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <li class="b"><a> Agnes</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-
-                                    <li class="b"><a> Billy</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-                                    <li class="b"><a> Bob</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-
-                                    <li class="b"><a> Calvin</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
-                                    <li class="b"><a> Christina</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <li class="b"><a> Cindy</a><button type="button" class="pred-btn ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
-                                                </path>
-                                            </svg>
-                                        </button></li>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label class="b" for="disease3">Symptom 3 :</label>
+                                            <select class="custom-select d-block w-100" id="disease3" name="Symptom_3">
+                                                <option value="0">Choose...</option>
+                                                {% for each in symptomslist %}
+                                                <option>{{ each }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label class="b" for="disease4">Symptom 4 :</label>
+                                                <select class="custom-select d-block w-100" id="disease4" name="Symptom_4">
+                                                <option value="0">Choose...</option>
+                                                {% for each in symptomslist %}
+                                                <option>{{ each }}</option>
+                                                {% endfor %}
+                                                </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </ul>
+                                    <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label class="b" for="disease5">Symptom 5 :</label>
+                                                <select class="custom-select d-block w-100" id="disease5" name="Symptom_5">
+                                                <option value="0">Choose...</option>
+                                                {% for each in symptomslist %}
+                                                <option>{{ each }}</option>
+                                                {% endfor %}
+                                                </select>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    
+                                <button class="btn btn--blue btn--radius-2 " type="submit" value="submit" style="margin-top: 2rem;">Predict</button>
+                                
+                                </form>
+                                <!-- <ul class="container navbar-nav">
+                                    <h4 class="b">Selected Symptoms</h4>
+                                    <li class="b"><a> Agnes</li>
 
+                                    <li class="b"><a> Billy</li>
+                                    <li class="b"><a> Bob</li>
+
+                                    <li class="b"><a> Calvin</li>
+                                    <li class="b"><a> Christina</li>
+                                    <li class="b"><a> Cindy</li>
+                                </ul> -->
+
+                                <!-- <input type="text" id="myInput" class="input--style-4 form-control"
+                                    placeholder="Enter a symptom" onkeyup="myFunction()"> -->
+
+                                <!-- <ul class="container navbar-nav" id="myUL" style="display: inline;">
+
+                                    <div class="b">
+                                        {% for symptom in symptomslist %}
+                                        <li class="b"><a> {{symptom}}
+                                            </a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+                                        {% endfor %}
+                                        <li class="b"><a> Agnes</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+
+                                        <li class="b"><a> Billy</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+                                        <li class="b"><a> Bob</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+
+                                        <li class="b"><a> Calvin</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+                                        <li class="b"><a> Christina</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                        <li class="b"><a> Cindy</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+
+                                    </div>
+                                    <div class="b">
+                                        <li class="b"><a> Adele </a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                        <li class="b"><a> Agnes</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+
+                                        <li class="b"><a> Billy</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+                                        <li class="b"><a> Bob</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+
+                                        <li class="b"><a> Calvin</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li>
+                                        <li class="b"><a> Christina</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </li>
+                                        <li class="b"><a> Cindy</a><button type="button" class="pred-btn ">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-file-plus-fill" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z">
+                                                    </path>
+                                                </svg>
+                                            </button></li> 
+                                    </div>
+                                </ul> -->
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="wrapper">
-            <div class="bg-dark msg_card_body col-sm-12 ">
-                <div class="chat">
-                    <h2 class="chat-h2">Predicted Disease</h2>
-                    <p class="b">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impe atque sapiente.</p>
-                    <h2 class="chat-h2">Treatment</h2>
-                    <p class="b">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis porro esse tenetur
-                        accusantium
-                        suscipit. Labore rerum natus similique eos repellendus adipisci impedit a expedita, aperiam ipsa
-                        dolorum. Sint, libero neque.</p>
-                </div>
+            <div class="wrapper wrapper--w960">
+                {% if diseasename is defined %}
+                    <div class="bg-dark msg_card_body col-12 ">
+                        <div class="chat">
+                            <h2 class="chat-h2">Predicted Disease</h2>
+                                
+                                    <p class="b">Predicted disease: {{diseasename[0]}}</p>
+                                    <p class="b">About the disease:</p>
+                                    <hr style="background-color:whitesmoke">
+                                    <p class="b">{{ diseasedesc }}</p>
+                            <h2 class="chat-h2">Treatment/Precaution</h2>
+                                    <p class="b">Treatment/Precaution for the disease:</p>
+                                    <hr style="background-color:whitesmoke">
+                                    {% for i in treatment %}
+                                        <p class="b">{{ i }}</p>
+                                    {% endfor %}
+                                    <hr style="background-color:whitesmoke">
+                                    <p class="b" style="text-align: center;"> Please consult a {{ specialization }} doctor.</p>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    function myFunction() {
-        var input, filter, ul, li, a, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        ul = document.getElementById("myUL");
-        li = ul.getElementsByTagName("li");
-        for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                li[i].style.display = "";
-            } else {
-                li[i].style.display = "none";
+    <script>
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
             }
         }
-    }
-</script>
+    </script>
 
 {% endblock %}

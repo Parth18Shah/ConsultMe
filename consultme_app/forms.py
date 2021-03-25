@@ -14,7 +14,6 @@ class PatientRegistrationForm(FlaskForm):
     birthdate = DateField('',validators=[DataRequired()], format='%d/%m/%Y',render_kw={"placeholder": "Date of Birth"})
     age = IntegerField('',validators=[DataRequired()],render_kw={"placeholder": "Age"})
     med_history = TextAreaField('',validators=[DataRequired()],render_kw={"placeholder": "Past Medical history"})
-    
     password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     confirm_password = PasswordField('',validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Confirm Password"})
     submit = SubmitField('Sign Up')
@@ -75,6 +74,7 @@ class LoginForm(FlaskForm):
     email = StringField('',validators=[DataRequired()],render_kw={"placeholder": "Email-id"})
     password = PasswordField('', validators=[DataRequired()],render_kw={"placeholder": "Password"})
     # remember = BooleanField('Remember me')
+<<<<<<< HEAD
     
     submit = SubmitField('Login')
 
@@ -91,3 +91,11 @@ class ChatForm(FlaskForm):
 
 
     
+=======
+    submit = SubmitField('Login')
+
+class ChatForm(FlaskForm):
+    message = TextAreaField('',validators=[DataRequired()],render_kw={"placeholder": "Please enter your message here"})
+    submit = SubmitField('Send')
+    
+>>>>>>> 81c7d278cb67a12bc093632e5e71429c9ba8d3be
