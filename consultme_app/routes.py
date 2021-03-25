@@ -1,11 +1,11 @@
 from flask import Flask  
-from flask import render_template,url_for,flash,redirect,request
+from flask import render_template,url_for,flash,redirect,request,session
 from flask_login import login_user,current_user,logout_user,login_required,LoginManager
 # from db_op import insert_records, fetch_details
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from consultme_app.models import Users
-from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm
+from consultme_app.models import Users, Chat
+from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm, ChatForm
 from consultme_app import app ,db ,bcrypt
 from consultme_app.disease import get_diseaselist, get_symptomslist, get_specialization, predict_disease, get_description, get_cure
 
@@ -125,12 +125,24 @@ def login():
         print("hey2")
         user = Users.query.filter_by(email=form.email.data).first()
         print(user)
-        if user and bcrypt.check_password_hash(user.pswd,form.password.data):
+        if user and user.username == form.username.data and bcrypt.check_password_hash(user.pswd,form.password.data):
             login_user(user,remember=False)
+            session['logged_in'] = True
+            session['uid'] = user.id
+            session['s_name'] = user.email
+            session['ispatient'] = user.ispatient
+            session['chatstatus'] = False
+            session['rid'] = 0
+            print(session)
             flash('You are successfully logged in!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Check your email and password!', 'danger')
+            if not user:
+                flash('Please enter the correct email', 'danger')
+            elif user.username != form.username.data:
+                flash('Please enter the correct username', 'danger')
+            else:
+                flash('Please enter the correct password', 'danger')
     return render_template('login.html',form=form)
     # if request.method == "POST":
     #     username = request.form['username']
@@ -193,10 +205,76 @@ def predict():
     return render_template('predict.html', symptomslist = symptomslist)
 
 
-@app.route('/consult')
+@app.route('/consult', methods=['GET','POST'])
 @login_required
 def consult():
-    return render_template('consult.html',title='consult')
+    form = ChatForm()
+    uid = session['uid']
+    if session['ispatient'] == True:
+        doctors_list = Users.query.filter_by(ispatient=0).all()
+        # print(doctors_list)
+        if request.method == "POST":
+            receiver_id = request.form['chat-btn']
+            selected_user = Users.query.filter_by(id=receiver_id).first()
+            session['rid'] = receiver_id
+            session['chatstatus'] = True
+            # session['details'] = selected_user
+            print(selected_user)
+            chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==receiver_id) | (Chat.receiverid==receiver_id)).all()
+            [print(i.message) for i in chats]
+
+            # [print(i.message) for i in user_chats]
+        
+            return render_template('consult.html', doctors_list = doctors_list, chats = chats, selected_user = selected_user, uid = uid, form = form )
+        return render_template('consult.html', doctors_list = doctors_list)
+    else:
+        chat_list =  Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).all()
+        users_list = []
+        user_id = []
+        for i in chat_list:
+            if(i.senderid==uid):
+                user = Users.query.filter_by(id=i.receiverid).first()
+                if(user.id not in user_id):
+                    users_list.append(user)
+                    user_id.append(user.id)
+            else:
+                user = Users.query.filter_by(id=i.senderid).first()
+                if(user.id not in user_id):
+                    users_list.append(user)
+                    user_id.append(user.id)
+        # print(users_list)
+        if request.method == "POST":
+            receiver_id = request.form['chat-btn']
+            selected_user = Users.query.filter_by(id=receiver_id).first()
+            session['rid'] = receiver_id
+            session['chatstatus'] = True
+            # session['details'] = selected_user
+            print(selected_user)
+            chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==receiver_id) | (Chat.receiverid==receiver_id)).all()
+            [print(i.message) for i in chats]
+
+            # [print(i.message) for i in user_chats]
+        
+            return render_template('consult.html', users_list = users_list, chats = chats, selected_user = selected_user, uid = uid, form = form )
+        return render_template('consult.html', users_list = users_list)
+    
+
+@app.route('/chat', methods=['POST'])
+@login_required
+def storechat():
+    form = ChatForm()
+    if request.method == 'POST':
+        print(form.message.data)
+        chat = Chat(
+            senderid = session['uid'],
+            receiverid = session['rid'],
+            message = form.message.data
+        )
+        db.session.add(chat)
+        db.session.commit()
+        print("hyyy")
+        return redirect(url_for('consult'))
+    return redirect(url_for('home'))
 
 if __name__=='__main__':
     app.secret_key = 'the random string'
