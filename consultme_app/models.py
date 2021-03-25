@@ -27,14 +27,6 @@ class Users(db.Model,UserMixin):
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.specialist}','{self.experience}','{self.ispatient}')"
 
-class Message(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    date_posted = db.Column(db.String(30))
-    username = db.Column(db.String(20),unique=True,nullable=False)
-    content = db.Column(db.String(500), default='')
-    ispatient = db.Column(db.Boolean, nullable=False)
-
-
 class Chat(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)
     senderid = db.Column(db.Integer,nullable=False)
@@ -60,13 +52,6 @@ class Chat(db.Model,UserMixin):
 #          ispatient boolean not null
 # );
 
-<<<<<<< HEAD
-# CREATE TABLE message (
-#          id SERIAL PRIMARY KEY, 
-#          username varchar(20) unique not null,
-#          content varchar(500) not null,
-#           ispatient boolean not null
-=======
 # CREATE TABLE chat (
 #   id int not null auto-increment,
 # 	senderid int not null,
@@ -74,5 +59,4 @@ class Chat(db.Model,UserMixin):
 #   message text not null,
 #   send_time datetime not null,
 #   primary key(id)
->>>>>>> 81c7d278cb67a12bc093632e5e71429c9ba8d3be
 # );
