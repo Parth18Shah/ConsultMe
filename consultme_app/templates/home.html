@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row" style="display: flex; justify-content: center; align-items: center;">
                 <div class="col-lg-12 mx-auto">
-                    <h2 class="header-title text-center" style="color: #05386B ;margin: 1rem; font-size:50px;"> We provides various functionalities
+                    <h2 class="header-title text-center" style="color: #05386B ;margin: 1rem; font-size:50px;"> We provide various functionalities
                     </h2>
                 </div>
                 <div class="col-sm-4 p-t-130">
@@ -55,20 +55,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h2>About this page</h2>
-                    <p class="text-center ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo eveniet quam molestiae et eius, cumque quis eligendi sint magnam iste.</p>
+                    <h2>About Us</h2>
+                    <!-- <p class="text-center ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo eveniet quam molestiae et eius, cumque quis eligendi sint magnam iste.</p> -->
                     
                 </div>
                 <div class="hcard  col-sm-6 p-t-130">
                     <div class="card card-4 col-sm-12" >
                         <div class="card-body">
-                            <h2 class="title text-center" style="margin-bottom: 5px;">Member 1 </h2>
-                            <img src="{{ url_for('static', filename='img/team-1.jpg') }}" width="100" height="100" class="round-circle" style="margin-left: 100px ;border-radius:100px">
+                            <h2 class="title text-center" style="margin-bottom: 2px;">Member 1 </h2>
+                            <hr>
+                            <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle" style="margin-left: 100px ;border-radius:100px">
                             
                             <h4 class="text-center" style="margin: 10px;"><a  href="https://github.com/rjshah00"><strong style="color:black; ">Raj Shah</strong></a>
                                 <p>
-                                    <strong style="color:rgb(102, 160, 226) "> Skills and Interested Domains </strong><br> Web Designing ,App Devlopement ,Machine-Learning ,Computer Graphics
+                                    <strong style="color:rgb(32, 86, 148) "> Skills and Interested Domains </strong><br>
                                 </p>
+                                <ul>
+                                    <li> Web Designing</li>
+                                    <li> App Development</li>
+                                    <li> Machine Learning</li>
+                                    <li> Computer Graphics</li>
+                                  </ul>
                             </h4>
                             
                             
@@ -78,23 +85,29 @@
                 <div class="hcard col-sm-6 p-t-130">
                     <div class="card card-4 col-sm-12" >
                         <div class="card-body">
-                            <h2 class="title text-center" style="margin-bottom: 5px;">Member 2 </h2>
-                            <img src="{{ url_for('static', filename='img/team-1.jpg') }}" width="100" height="100" class="round-circle" style="margin-left: 100px ;border-radius:100px">
+                            <h2 class="title text-center" style="margin-bottom: 2px;">Member 2 </h2>
+                            <hr>
+                            <img src="{{ url_for('static', filename='img/user2.png') }}" width="100" height="100" class="round-circle" style="margin-left: 100px;border-radius:100px;">
                             
                             <h4 class="text-center" style="margin: 10px;"><a href="https://github.com/Parth18Shah"><strong style="color:black; ">Parth Shah</strong></a>
                                 <p >
-                                    <strong style="color:rgb(102, 160, 226)"> Skills and Interested Domains </strong><br> Data Analytics , App Devlopement ,Machine-Learning ,Web Devlopement
+                                    <strong style="color:rgb(32, 86, 148);"> Skills and Interested Domains </strong><br>
                                 </p>
+                                <ul>
+                                    <li> Data Analytics</li>
+                                    <li> App Development</li>
+                                    <li> AI/ML</li>
+                                    <li> Web Development</li>
+                                  </ul>
                             </h4>
                         </div>
                     </div>
-                </div>
-                
+                </div> 
             </div>
     </section>
 
 
-    <section id="contact">
+    <section id="contact" class="bg-light">
         <div class="container">
             <div class="row">
                 <div class="container animated fadeIn">

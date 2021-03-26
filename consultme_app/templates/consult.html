@@ -12,9 +12,6 @@
                             <input type="text" id="myInput" class="input--style-4 form-control"
                                 placeholder="Enter a name" onkeyup="myFunction()">
 
-                        <!-- <form action="/consult" method="POST">
-                            {{ form.hidden_tag() }}
-                         -->
                             <ul class="container navbar-nav" id="myUL">
                                 <form action="/consult" method="POST">
                                     {% if doctors_list is defined %}
@@ -25,21 +22,21 @@
                                                 <h5 style="display: flex;"><a class="a" style="color: black
                                                 ;">{{doctor.username}}</a></h5>
                                             </div>
-                                            <p style="margin-top: 10px;">Specialist in {{doctor.specialist}}</p>
-                                            <span class="time">Having {{doctor.experience}} of Experience</span>
+                                            <hr>
+                                            <p style="margin-top: 10px;">Specialization: {{doctor.specialist}}</p>
+                                            <span class="" style="color: black;">Having {{doctor.experience}} of Experience</span>
                                             <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2" value="{{doctor.id}}">Chat</button>
                                         </li>
                                         {% endfor %}
                                     {% else %}
                                         {% for users in users_list %}
-                                        <li class="item3">
-                                            <div class="msg_received ">
+                                        <li class="item3 msg_received" style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
+                                            <div class=" " style="display: flex;">
                                                 <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="40" height="40">
-                                                <h5><a class="a" style="color: black;">{{users.username}}</a>
-                                                    
+                                                <h5><a class="a" style="color: black;">{{users.username}}</a>    
+                                                <p style="color: black;">Email-id :- {{users.email}} </p>
                                                 </h5>
                                             </div>
-                                            <p style="color: whitesmoke; margin:5px">Email-id :- {{users.email}} </p>
                                             <button type="submit"  name='chat-btn' class="btn btn--blue btn--radius-2" value="{{users.id}}">Chat</button>
                                         </li>
                                         {% endfor %}
@@ -68,7 +65,7 @@
                                 <div class="img_cont_msg">
                                     <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                                     class="rounded-circle user_img_msg" width="30" height="30">
-                                    <p style="color: whitesmoke;margin: 5px">{{current_user.username}} </p>
+                                    <p style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
                                 </div>
                                 <div>
                                     <h5 class="msg_send">{{chat.message}}</h5>
@@ -90,7 +87,7 @@
                                     <span class="time"> {{chat.send_time}} </span>
                                 </div>
                                 <div class="img_cont_msg">
-                                    <p class="card-title" style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
+                                    <p class="card-title" style="color: whitesmoke;margin: 5px">You </p>
                                     <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                                         class="rounded-circle user_img_msg" width="30" height="30">
                                 </div>
@@ -104,11 +101,11 @@
                         {% endfor %}
                         <div class="card-footer ">
                             <div>
-                                <form method="POST" action="/chat">
+                                <form method="POST" action="/chat" autocomplete="off">
                                     <div class="input--style-5 ">
 
-                                        <input name="" class=" form-control"
-                                            placeholder="Type your message..."></input>
+                                        <input name="message" class=" form-control"
+                                            placeholder="Type your message..."  ></input>
                                         <button type="submit" class="btn btn--blue btn--radius-2 " autofocus="" style="max-width: fit-content; display: flex; float: right; margin: 5px;">
                                             Send
                                         </button>
@@ -140,75 +137,8 @@
                             </div>
                         </div>
                     {% else %}
-                                <p class="b">Please select a user to chat with.</p>
+                                <p class="b" style="text-align: center;">Please select a user to chat with.</p>
                     {% endif %}
-                    <!-- <div class="d-flex container justify-content-start mb-4">
-                        <div class="img_cont_msg">
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                class="rounded-circle user_img_msg" width="30" height="30">
-                            <p style="color: whitesmoke;margin: 5px"></p>
-                        </div>
-                        <div class="msg_received ">
-                            <h5>Hi, how are you Khalid?</h5>
-                            <span class="time">8:40 AM, Today</span>
-                        </div>
-                    </div>
-                    <div class="d-flex container justify-content-end mb-4">
-                        <div class="msg_send">
-                            <h5>Hi Sam i am good tnx how about you?</h5>
-                            <span class="time">8:55 AM, Today</span>
-                        </div>
-                        <div class="img_cont_msg">
-                            <p style="color: whitesmoke;margin: 5px">Khalid </p>
-                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                class="rounded-circle user_img_msg" width="30" height="30">
-                        </div>
-                    </div> -->
-
-                        <!-- <div class="d-flex container justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                    class="rounded-circle user_img_msg" width="30" height="30">
-                                <p style="color: whitesmoke;margin: 5px">Darren Sam </p>
-                            </div>
-                            <div class="msg_received ">
-                                <h5>Hi, how are you Khalid?</h5>
-                                <span class="time">8:40 AM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex container justify-content-end mb-4">
-                            <div class="msg_send">
-                                <h5>Hi Sam i am good tnx how about you?</h5>
-                                <span class="time">8:55 AM, Today</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <p style="color: whitesmoke;margin: 5px">Khalid </p>
-                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                    class="rounded-circle user_img_msg" width="30" height="30">
-                            </div>
-                        </div>
-                        <div class="d-flex container justify-content-start mb-4">
-                            <div class="img_cont_msg">
-                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                    class="rounded-circle user_img_msg" width="30" height="30">
-                                <p style="color: whitesmoke;margin: 5px">Darren Sam </p>
-                            </div>
-                            <div class="msg_received ">
-                                <h5>Hi, how are you Khalid?</h5>
-                                <span class="time">8:40 AM, Today</span>
-                            </div>
-                        </div>
-                        <div class="d-flex container justify-content-end mb-4">
-                            <div class="msg_send">
-                                <h5>Hi Sam i am good tnx how about you?</h5>
-                                <span class="time">8:55 AM, Today</span>
-                            </div>
-                            <div class="img_cont_msg">
-                                <p style="color: whitesmoke;margin: 5px">Khalid </p>
-                                <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                    class="rounded-circle user_img_msg" width="30" height="30">
-                            </div>
-                        </div> -->
                     
 
 

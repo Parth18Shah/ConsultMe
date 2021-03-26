@@ -692,6 +692,18 @@
 
 }
 
+.predict_card_body{
+  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 80px rgba(0, 0, 0, 0.2);
+  border-radius:25px ;
+  height:auto;
+  width: 70vw;
+  font-size: medium;
+  margin: 0.5rem;
+  /* overflow-y: auto; */
+}
+
 
 .msg_card_body{
   -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
@@ -703,8 +715,6 @@
   font-size: medium;
   margin: 0.5rem;
   overflow-y: auto;
-  
-
 }
 
 h5{

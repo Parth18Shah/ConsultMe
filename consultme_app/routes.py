@@ -14,7 +14,6 @@ def not_found(e):
 
 @app.route("/")
 @app.route("/home")
-@login_required
 def home():
     return render_template('home.html')
 
@@ -184,10 +183,11 @@ def consult():
 def storechat():
     form = ChatForm()
     if request.method == 'POST':
+        print(request.form)
         chat = Chat(
             senderid = session['uid'],
             receiverid = session['rid'],
-            message = form.message.data
+            message = request.form['message']
         )
         db.session.add(chat)
         db.session.commit()

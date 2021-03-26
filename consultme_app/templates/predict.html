@@ -95,22 +95,22 @@
             </div>
             <div class="wrapper wrapper--w960">
                 {% if diseasename is defined %}
-                    <div class="bg-dark msg_card_body col-12 ">
+                    <div class="bg-dark predict_card_body col-12 ">
                         <div class="chat">
                             <h2 class="predict-h2">Predicted Disease</h2>
-                                
-                                    <p class="b">Predicted disease: {{diseasename[0]}}</p>
-                                    <p class="b">About the disease:</p>
-                                    <hr style="background-color:whitesmoke">
-                                    <p class="b">{{ diseasedesc }}</p>
-                            <h2 class="chat-h2">Treatment/Precaution</h2>
-                                    <p class="b">Treatment/Precaution for the disease:</p>
-                                    <hr style="background-color:whitesmoke">
-                                    {% for i in treatment %}
-                                        <p class="b">{{ i }}</p>
-                                    {% endfor %}
-                                    <hr style="background-color:whitesmoke">
-                                    <p class="b" style="text-align: center;"> Please consult a {{ specialization }} doctor.</p>
+                                <p class="b">Predicted disease: {{diseasename[0]}}</p>
+                                <hr style="background-color:whitesmoke">
+                                <p class="b">About the disease:</p>
+                                <p class="b">{{ diseasedesc }}</p>
+                            <h2 class="predict-h2">Treatment/Precaution</h2>
+                                <p class="b">Treatment/Precaution for the disease:</p>
+                                <ul>
+                                {% for i in treatment %}
+                                    <li class="b">{{ i }}</li>
+                                {% endfor %}
+                                </ul>
+                                <hr style="background-color:whitesmoke">
+                                <p class="b" style="text-align: center;"> Please consult a {{ specialization }} doctor.</p>
                         </div>
                     </div>
                 {% endif %}
