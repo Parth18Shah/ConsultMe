@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Title Page-->
+    <title>ConsultMe </title>
+    <link rel="icon" href="{{ url_for('static', filename='img/icon1.png') }}" class="bg-dark"
+        style="filter: invert(100%);">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static', filename='css/account.css') }}" rel="stylesheet" media="all">
+
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a href="#"><img src="{{ url_for('static', filename='img/logo1.png') }}" alt="" width="50" height="50"
+                style="border-radius: 20px;padding: 5px;"></a>
+        <a href="/" class="navbar-brand">ConsultMe</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" navbar-collapse collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/predict">Predict a Disease</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/consult">Consult a Doctor</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav" style="float: right;" >
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active " href="/account">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/logout">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="container">
+
+        <div class="acc_card profile col-sm-3">
+            <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle"
+                style="border-radius:100px">
+            <p class="acc_title" style="display: flex; flex-direction: column;">
+            <ul class="navbar-nav">
+                <li class="acc_title">Username : <span class="acc_content">@rjshah123</span></li>
+                <li class="acc_title">Full Name : <span class="acc_content">Raj Shah</span></li>
+                <li class="acc_title">Email-id : <span class="acc_content">raj@gmail.com</span></li>
+                <li class="acc_title">Past medical history : <span class="acc_content">Lorem ipsum dolor sit amet
+                        consectetur adipisicing elit. Rem saepe, dignissimos similique veniam voluptas dolorem veritatis
+                        voluptatem repellendus accusamus aut culpa porro officiis blanditiis quo, id nemo voluptates
+                        totam, non repellat ullam tempore reiciendis laudantium dolore dolorum! Quia, alias
+                        porro.</span></li>
+
+            </ul>
+            <button class="btn btn--blue btn--radius-2">Edit<svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
+                    style="margin: 10px 0 0 2px;">
+                    <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg></button>
+            </p>
+        </div>
+        <div class="acc_card col-sm-8" style="display: flex; flex-direction: column;">
+            <h2 class="title">
+                Information about Predicted Disease
+            </h2>
+
+            <div class="table-responsive over">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-dark" style="color: whitesmoke;">
+                            <th class="acc_title">Symptoms</th>
+                            <th class="acc_title">Prdicted disease</th>
+                            <th class="acc_title">Satisfaction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="success">
+                            <td>
+                                <ul class="navbar-nav">
+                                    <li class="acc_content">cough</li>
+                                    <li class="acc_content">fever</li>
+                                    <li class="acc_content">back pain</li>
+                                    <li class="acc_content">abc</li>
+                                    <li class="acc_content">xyz</li>
+                                </ul>
+                            </td>
+                            <td>abc disease</td>
+                            <td>
+                                <span style='font-size:40px;'>&#128516;</span>
+                            </td>
+                        </tr>
+                        <tr class="danger">
+                            <td>
+                                <ul class="navbar-nav">
+                                    <li class="acc_content">cough</li>
+                                    <li class="acc_content">fever</li>
+                                    <li class="acc_content">back pain</li>
+                                    <li class="acc_content">abc</li>
+                                    <li class="acc_content">xyz</li>
+                                </ul>
+                            </td>
+                            <td>abc disease</td>
+                            <td>
+                                <span style='font-size:40px;'>&#128553;</span>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                <ul class="navbar-nav">
+                                    <li class="acc_content">cough</li>
+                                    <li class="acc_content">fever</li>
+                                    <li class="acc_content">back pain</li>
+                                    <li class="acc_content">abc</li>
+                                    <li class="acc_content">xyz</li>
+                                </ul>
+                            </td>
+                            <td>abc disease</td>
+                            <td>
+                                <span style='font-size:40px;'>&#128516;</span>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                <ul class="navbar-nav">
+                                    <li class="acc_content">cough</li>
+                                    <li class="acc_content">fever</li>
+                                    <li class="acc_content">back pain</li>
+                                    <li class="acc_content">abc</li>
+                                    <li class="acc_content">xyz</li>
+                                </ul>
+                            </td>
+                            <td>abc disease</td>
+                            <td>
+                                <span style='font-size:40px;'>&#128516;</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="py-5 bg-dark ">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; ConsultMe 2020-21</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    </div>
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function delete_flash(flash) {
+            $(flash).parent().remove()
+        }
+    </script>
+
+</body>
+
+</html>

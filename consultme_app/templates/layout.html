@@ -18,12 +18,15 @@
     <link href="{{ url_for('static', filename='vendor/datepicker/daterangepicker.css') }}" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <!-- <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all"> -->
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all"> -->
     <!-- <link rel="stylesheet" href="css/docs.min.css"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all">
-    
+     -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
 
@@ -61,6 +64,9 @@
             <ul class="navbar-nav ">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
+                    <a class="nav-link " href="/account">Account</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link " href="/logout">Logout</a>
                 </li>
                 {% else %}
@@ -92,7 +98,7 @@
 
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-dark ">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; ConsultMe 2020-21</p>
         </div>

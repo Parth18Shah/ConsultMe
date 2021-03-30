@@ -194,6 +194,12 @@ def storechat():
         return redirect(url_for('consult'))
     return redirect(url_for('home'))
 
+
+@app.route('/account', methods=['GET'])
+@login_required
+def account():
+    return render_template('account.html')
+
 if __name__=='__main__':
     app.secret_key = 'the random string'
     app.run(debug=True)
