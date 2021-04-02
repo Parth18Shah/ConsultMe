@@ -45,7 +45,7 @@
                     <a class="nav-link " href="/consult">Consult a Doctor</a>
                 </li>
             </ul>
-            <ul class="navbar-nav" style="float: right;" >
+            <ul class="navbar-nav" style="float: right;">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link active " href="/account">Account</a>
@@ -56,6 +56,7 @@
                 {% endif %}
             </ul>
     </nav>
+
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -70,6 +71,7 @@
         {% endif %}
         {% endwith %}
     </div>
+    {% if choice == "patient" %}
     <div class="container">
 
         <div class="acc_card profile col-sm-3">
@@ -178,7 +180,98 @@
             </div>
         </div>
     </div>
+    {% else %}
+    <div class="container">
 
+        <div class="acc_card profile col-sm-3">
+            <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle"
+                style="border-radius:100px">
+            <p class="acc_title" style="display: flex; flex-direction: column;">
+            <ul class="navbar-nav">
+                <li class="acc_title">Username : <span class="acc_content">@parthshah456</span></li>
+                <li class="acc_title">Full Name : <span class="acc_content">Dr.arath Shah</span></li>
+                <li class="acc_title">Email-id : <span class="acc_content">parth@gmail.com</span></li>
+                <li class="acc_title">Experience : <span class="acc_content">Having 3 years of Experience<span></li>
+                <li class="acc_title">Specialist : <span class="acc_content">Heart Specialist<span></li>
+
+            </ul>
+            <button class="btn btn--blue btn--radius-2">Edit<svg xmlns="http://www.w3.org/2000/svg" width="16"
+                    height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
+                    style="margin: 10px 0 0 2px;">
+                    <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg></button>
+            </p>
+        </div>
+        <div class="acc_card col-sm-8" style="display: flex; flex-direction: column;">
+            <h2 class="title">
+                Information about Consultation Given
+            </h2>
+
+            <div class="table-responsive over">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-dark" style="color: whitesmoke;">
+                            <th class="acc_title">Patient Name</th>
+                            <th class="acc_title">Disease</th>
+                            <th class="acc_title">Feedback Received</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="success">
+                            <td>
+                                <p class="acc_content">Raj Shah</p>
+                            </td>
+                            <td>Malaria Disease</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="danger">
+                            <td>
+                                <p class="acc_content">Smit Shah</p>
+                            </td>
+                            <td>Diarrhea Disease</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                <p class="acc_content">John</p>
+                            </td>
+                            <td>Throat Disease</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="success">
+                            <td>
+                                <p class="acc_content">Bob</p>
+                            </td>
+                            <td>Arthritis Disease</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
 
     <footer class="py-5 bg-dark ">
         <div class="container">
