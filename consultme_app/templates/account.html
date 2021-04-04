@@ -71,7 +71,7 @@
         {% endif %}
         {% endwith %}
     </div>
-    {% if choice == "patient" %}
+    {% if current_user.ispatient %}
     <div class="container">
 
         <div class="acc_card profile col-sm-3">
@@ -79,14 +79,10 @@
                 style="border-radius:100px">
             <p class="acc_title" style="display: flex; flex-direction: column;">
             <ul class="navbar-nav">
-                <li class="acc_title">Username : <span class="acc_content">@rjshah123</span></li>
-                <li class="acc_title">Full Name : <span class="acc_content">Raj Shah</span></li>
-                <li class="acc_title">Email-id : <span class="acc_content">raj@gmail.com</span></li>
-                <li class="acc_title">Past medical history : <span class="acc_content">Lorem ipsum dolor sit amet
-                        consectetur adipisicing elit. Rem saepe, dignissimos similique veniam voluptas dolorem veritatis
-                        voluptatem repellendus accusamus aut culpa porro officiis blanditiis quo, id nemo voluptates
-                        totam, non repellat ullam tempore reiciendis laudantium dolore dolorum! Quia, alias
-                        porro.</span></li>
+                <li class="acc_title">Username : <span class="acc_content">{{current_user.username}}</span></li>
+                <li class="acc_title">Full Name : <span class="acc_content">{{current_user.u_name}}</span></li>
+                <li class="acc_title">Email-id : <span class="acc_content">{{current_user.email}}</span></li>
+                <li class="acc_title">Past medical history : <span class="acc_content">{{current_user.med_history}}</span></li>
 
             </ul>
             <button class="btn btn--blue btn--radius-2">Edit<svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -188,11 +184,11 @@
                 style="border-radius:100px">
             <p class="acc_title" style="display: flex; flex-direction: column;">
             <ul class="navbar-nav">
-                <li class="acc_title">Username : <span class="acc_content">@parthshah456</span></li>
-                <li class="acc_title">Full Name : <span class="acc_content">Dr.arath Shah</span></li>
-                <li class="acc_title">Email-id : <span class="acc_content">parth@gmail.com</span></li>
-                <li class="acc_title">Experience : <span class="acc_content">Having 3 years of Experience<span></li>
-                <li class="acc_title">Specialist : <span class="acc_content">Heart Specialist<span></li>
+                <li class="acc_title">Username : <span class="acc_content">{{current_user.username}}</span></li>
+                <li class="acc_title">Full Name : <span class="acc_content">{{current_user.u_name}}</span></li>
+                <li class="acc_title">Email-id : <span class="acc_content">{{current_user.email}}</span></li>
+                <li class="acc_title">Experience : <span class="acc_content">Having {{current_user.experience}} years of Experience<span></li>
+                <li class="acc_title">Specialist : <span class="acc_content">{{current_user.specialist}} specialist<span></li>
 
             </ul>
             <button class="btn btn--blue btn--radius-2">Edit<svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -221,50 +217,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="success">
-                            <td>
-                                <p class="acc_content">Raj Shah</p>
-                            </td>
-                            <td>Malaria Disease</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="danger">
-                            <td>
-                                <p class="acc_content">Smit Shah</p>
-                            </td>
-                            <td>Diarrhea Disease</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="success">
-                            <td>
-                                <p class="acc_content">John</p>
-                            </td>
-                            <td>Throat Disease</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="success">
-                            <td>
-                                <p class="acc_content">Bob</p>
-                            </td>
-                            <td>Arthritis Disease</td>
-                            <td>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">90%</div>
-                                </div>
-                            </td>
-                        </tr>
+                        {% for users in users_list %}
+                            <!-- {% if users.feedback  %} -->
+                            <tr class="success">
+                                <td>
+                                    <p class="acc_content">{{users.username}}</p>
+                                </td>
+                                <td>Malaria Disease</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: {{users.feedback}}%" aria-valuenow={{users.feedback}} aria-valuemin="0" aria-valuemax="100">{{users.feedback}} </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- {% endif %} -->
+                        {% endfor %}
+                        
                     </tbody>
                 </table>
             </div>

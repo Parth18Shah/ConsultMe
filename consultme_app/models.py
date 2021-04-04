@@ -23,6 +23,8 @@ class Users(db.Model,UserMixin):
     med_history = db.Column(db.Text)
     ispatient = db.Column(db.Boolean, nullable=False)
     experience = db.Column(db.Text)
+    feedback = db.Column(db.Integer)   #added for account page
+    satisfaction = db.Column(db.Integer)  #added for account page
 
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.specialist}','{self.experience}','{self.ispatient}')"
@@ -49,7 +51,9 @@ class Chat(db.Model,UserMixin):
 #          age INT,
 #          med_history varchar(100),
 #           experience varchar(50),
-#          ispatient boolean not null
+#          ispatient boolean not null,
+#           feedback INT,
+#           satisfaction INT
 # );
 
 # CREATE TABLE chat (

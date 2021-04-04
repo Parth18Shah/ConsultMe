@@ -195,10 +195,28 @@ def storechat():
     return redirect(url_for('home'))
 
 
-@app.route('/account', methods=['GET'])
+@app.route('/account', methods=['GET','POST'])
 @login_required
 def account():
-    return render_template('account.html')
+    
+    uid = session['uid']
+    chat_list =  Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).all()
+    users_list = []
+    user_id = []
+    for i in chat_list:
+        if(i.senderid==uid):
+            user = Users.query.filter_by(id=i.receiverid).first()
+            if(user.id not in user_id):
+                users_list.append(user)
+                user_id.append(user.id)
+        else:
+            user = Users.query.filter_by(id=i.senderid).first()
+            if(user.id not in user_id):
+                users_list.append(user)
+                user_id.append(user.id)
+    f_list =  Users.query.filter(Users.ispatient==('True')).all()
+
+    return render_template('account.html',users_list=users_list)
 
 if __name__=='__main__':
     app.secret_key = 'the random string'
