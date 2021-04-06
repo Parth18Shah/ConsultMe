@@ -48,7 +48,7 @@ def register(choice):
             email=form.email.data,
             phone=form.phone.data,
             pswd=hashed_pass,
-            ispatient=0,
+            ispatient=False,
             experience=form.experience.data)
             db.session.add(user)
             db.session.commit()
@@ -68,7 +68,7 @@ def register(choice):
             age=form.age.data,
             med_history=form.med_history.data,
             pswd=hashed_pass,
-            ispatient=1)
+            ispatient=True)
             db.session.add(user)
             db.session.commit()
             flash(f'Account created successfully for  { form.username.data }' ,'success')
@@ -137,7 +137,7 @@ def consult():
     form = ChatForm()
     uid = session['uid']
     if session['ispatient'] == True:
-        doctors_list = Users.query.filter_by(ispatient=0).all()
+        doctors_list = Users.query.filter_by(ispatient=False).all()
 
         if request.method == "POST":
             receiver_id = request.form['chat-btn']

@@ -32,7 +32,7 @@ class Users(db.Model,UserMixin):
 class Chat(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)
     senderid = db.Column(db.Integer,nullable=False)
-    receiverid = db.Column(db.Integer,nullable=False)
+    receiverid  = db.Column(db.Integer,nullable=False)
     message = db.Column(db.Text,nullable=False)
     send_time = db.Column(db.DateTime,nullable=False,default=datetime.now())
 

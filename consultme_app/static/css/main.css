@@ -822,3 +822,74 @@ h5{
     background-color: rgb(213, 230, 247);
 
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: lightgreen;
+  border-radius: 10px;
+}
+
+#line {
+  display: flex;
+  height: 3px;
+  width: 250px;
+  background-color: #3A6D88;
+  transform: translate(-50%, -50%)
+}
+
+#emoji {
+  list-style: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0px;
+  padding: 0px;
+  z-index: 99
+}
+
+#note {
+  list-style: none;
+  position: absolute;
+  top: 57%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0px;
+  padding: 0px;
+  z-index: 99
+}
+
+#emoji li {
+  display: inline-block;
+  margin-left: 12px;
+  margin-right: 12px
+}
+
+#note li {
+  width: 38px;
+  font-family: arial;
+  font-size: 13px;
+  color: #3A6D88;
+  display: inline-block;
+  margin-left: 8px;
+  margin-right: 8px;
+  transition: all .3s
+}
+
+#dot {
+  height: 3px;
+  width: 3px;
+  background-color: #FFEB66;
+  transition: all .3s
+}

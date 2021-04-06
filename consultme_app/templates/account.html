@@ -218,7 +218,7 @@
                     </thead>
                     <tbody>
                         {% for users in users_list %}
-                            <!-- {% if users.feedback  %} -->
+                            <!-- {% if users.feedback %} -->
                             <tr class="success">
                                 <td>
                                     <p class="acc_content">{{users.username}}</p>
@@ -226,7 +226,7 @@
                                 <td>Malaria Disease</td>
                                 <td>
                                     <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: {{users.feedback}}%" aria-valuenow={{users.feedback}} aria-valuemin="0" aria-valuemax="100">{{users.feedback}} </div>
+                                        <div class="progress-bar" role="progressbar" style="width: {{users.feedback}}%" aria-valuenow={{users.feedback}} aria-valuemin="0" aria-valuemax="100">{{users.feedback}}% </div>
                                     </div>
                                 </td>
                             </tr>

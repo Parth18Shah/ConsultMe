@@ -79,7 +79,7 @@
                 {% endif %}
             </ul>
     </nav>
-    <div class="container">
+    <!-- <div style="margin-top: 50px; margin-bottom: 0;">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -92,7 +92,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-    </div>
+    </div> -->
     {% block body %}
     {% endblock %}
 

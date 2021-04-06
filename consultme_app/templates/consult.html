@@ -6,40 +6,73 @@
             <div class="chat bg-dark">
                 <div class=" card-body">
 
-                    <h2 class="predict-h2">Talk with experts</h2>
+                    <h2 class="predict-h2">Recent Chats</h2>
                     <div class="">
                         <div class="row form-group has-search" style="display: flex;">
+
                             <input type="text" id="myInput" class="input--style-4 form-control"
                                 placeholder="Enter a name" onkeyup="myFunction()">
 
                             <ul class="container navbar-nav" id="myUL">
                                 <form action="/consult" method="POST">
                                     {% if doctors_list is defined %}
-                                        {% for doctor in doctors_list %}
-                                        <li class="item3 msg_received" style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
-                                            <div class=" " style="display: flex;">
-                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="40" height="40">
-                                                <h5 style="display: flex;"><a class="a" style="color: black
+                                    {% for doctor in doctors_list %}
+                                    <li class="item3 msg_received"
+                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
+                                        <div class=" " style="display: flex;">
+                                            <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
+                                                width="40" height="40">
+                                            <h5 style="display: flex;"><a class="a" style="color: black
                                                 ;">{{doctor.username}}</a></h5>
+                                        </div>
+                                        <hr>
+                                        <p style="margin-top: 10px;">Specialization: {{doctor.specialist}}</p>
+                                        <span class="" style="color: black;">Having {{doctor.experience}} of
+                                            Experience</span>
+                                        <div style="display:flex;">
+                                            <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
+                                                value="{{doctor.id}}">Chat</button>
+                                            <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2">Rate</button>
+
+                                        </div>
+                                        <!-- <div>
+
+                                            <ul id="emoji">
+                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png" /></li>
+                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png" /></li>
+                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png" /></li>
+                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png" /></li>
+                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png" /></li>
+                                            </ul>
+                                            <ul id="note">
+                                                <li>SICK</li>
+                                                <li>BAD</li>
+                                                <li>OKAY</li>
+                                                <li>GOOD</li>
+                                                <li>GREAT</li>
+                                            </ul>
+                                            <div id="line">
+                                                <div id="dot"></div>
                                             </div>
-                                            <hr>
-                                            <p style="margin-top: 10px;">Specialization: {{doctor.specialist}}</p>
-                                            <span class="" style="color: black;">Having {{doctor.experience}} of Experience</span>
-                                            <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2" value="{{doctor.id}}">Chat</button>
-                                        </li>
-                                        {% endfor %}
+
+                                        </div> -->
+                                    </li>
+                                    {% endfor %}
                                     {% else %}
-                                        {% for users in users_list %}
-                                        <li class="item3 msg_received" style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
-                                            <div class=" " style="display: flex;">
-                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg" width="40" height="40">
-                                                <h5><a class="a" style="color: black;">{{users.username}}</a>    
+                                    {% for users in users_list %}
+                                    <li class="item3 msg_received"
+                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
+                                        <div class=" " style="display: flex;">
+                                            <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
+                                                width="40" height="40">
+                                            <h5><a class="a" style="color: black;">{{users.username}}</a>
                                                 <p style="color: black;">Email-id :- {{users.email}} </p>
-                                                </h5>
-                                            </div>
-                                            <button type="submit"  name='chat-btn' class="btn btn--blue btn--radius-2" value="{{users.id}}">Chat</button>
-                                        </li>
-                                        {% endfor %}
+                                            </h5>
+                                        </div>
+                                        <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
+                                            value="{{users.id}}">Chat</button>
+                                    </li>
+                                    {% endfor %}
                                     {% endif %}
                                 </form>
                             </ul>
@@ -48,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper wrapper--w960">
+        <div class="wrapper " style="width: 55vw;">
 
             <div class="bg-dark msg_card_body col-12">
                 <div class="chat">
@@ -58,61 +91,62 @@
                                 d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
                         </svg></h2>
                     {% if chats is defined %}
-                        {% for chat in chats %}
-                            {% if chat.senderid != uid %}
-                            <div class="d-flex container justify-content-start mb-4">  
-                                <!-- done -->
-                                <div class="img_cont_msg">
-                                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                    class="rounded-circle user_img_msg" width="30" height="30">
-                                    <p style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
-                                </div>
-                                <div>
-                                    <h5 class="msg_send">{{chat.message}}</h5>
-                                    <span class="time">{{ chat.send_time }} </span>
-                                </div>
-                                
-                                
-                            </div>
-                                <!-- <div class="" style="text-align:right; padding:2px 5px;">
+                    {% for chat in chats %}
+                    {% if chat.senderid != uid %}
+                    <div class="d-flex container justify-content-start mb-4">
+                        <!-- done -->
+                        <div class="img_cont_msg">
+                            <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                                class="rounded-circle user_img_msg" width="30" height="30">
+                            <p style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
+                        </div>
+                        <div>
+                            <h5 class="msg_send">{{chat.message}}</h5>
+                            <span class="time">{{ chat.send_time }} </span>
+                        </div>
+
+
+                    </div>
+                    <!-- <div class="" style="text-align:right; padding:2px 5px;">
                                     <p>
                                         <span class="" style="background-color: #28a7ab;color: #fff;margin: 1px 0;padding: 6px 12px; border-radius: 12px;"> {{chat.message}}</span>
                                     </p>
                                 </div> -->
-                            {% else %}
-                            <div class="d-flex container justify-content-end mb-4">
-                                
-                                <div  style="display: flex; flex-direction: column; margin: 15px;">
-                                    <h5 class="msg_received ">{{chat.message}}</h5>
-                                    <span class="time"> {{chat.send_time}} </span>
-                                </div>
-                                <div class="img_cont_msg">
-                                    <p class="card-title" style="color: whitesmoke;margin: 5px">You </p>
+                    {% else %}
+                    <div class="d-flex container justify-content-end mb-4">
+
+                        <div style="display: flex; flex-direction: column; margin: 5px;">
+                            <h5 class="msg_received ">{{chat.message}}</h5>
+                            <span class="time"> {{chat.send_time}} </span>
+                        </div>
+                        <!-- <div class="img_cont_msg">
+                                    <p class="card-title" style="color: whitesmoke;">You </p>
                                     <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                                         class="rounded-circle user_img_msg" width="30" height="30">
-                                </div>
-                            </div>
-                                <!-- <div class="" style="text-align:left; padding:2px 5px;">
+                                </div> -->
+                    </div>
+                    <!-- <div class="" style="text-align:left; padding:2px 5px;">
                                     <p>
                                         <span class="" style="background-color: #dd92b2;color: #fff;margin: 1px 0;padding: 6px 12px; border-radius: 12px;"> {{chat.message}}</span>
                                     </p>
                                 </div> -->
-                            {% endif %}
-                        {% endfor %}
-                        <div class="card-footer ">
-                            <div>
-                                <form method="POST" action="/chat" autocomplete="off">
-                                    <div class="input--style-5 ">
+                    {% endif %}
+                    {% endfor %}
+                    <div class="card-footer ">
+                        <div>
+                            <form method="POST" action="/chat" autocomplete="off">
+                                <div class="input--style-5 ">
 
-                                        <input name="message" class=" form-control"
-                                            placeholder="Type your message..."  ></input>
-                                        <button type="submit" class="btn btn--blue btn--radius-2 " autofocus="" style="max-width: fit-content; display: flex; float: right; margin: 5px;">
-                                            Send
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                                        <!-- {{ form.message.label(class="input--style-5 form-control-label") }}
+                                    <input name="message" class=" form-control"
+                                        placeholder="Type your message..."></input>
+                                    <button type="submit" class="btn btn--blue btn--radius-2 " autofocus=""
+                                        style="width :50ve; max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                        Send
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- {{ form.message.label(class="input--style-5 form-control-label") }}
                 
                                         {% if form.message.errors %}
                                             {{ form.message(class="form-control form-control-lg is-invalid") }}
@@ -124,33 +158,34 @@
                                         {% else %}
                                             {{ form.message(class="form-control form-control-lg") }}
                                         {% endif %} -->
-                                        <!-- <div >
+                        <!-- <div >
                                             <button type="submit" class="btn btn--blue btn--radius-2 " autofocus="" style="max-width: fit-content; display: flex; float: right; margin: 5px;">
                                                 Send
                                             </button>
                                         </div> -->
-                                        <!-- <button type="submit" class="btn btn--blue btn--radius-2 " style="display: flex; width: max-content;" autofocus="">
+                        <!-- <button type="submit" class="btn btn--blue btn--radius-2 " style="display: flex; width: max-content;" autofocus="">
                                             Send
                                         </button> -->
-                                    
-                                </form>
-                            </div>
-                        </div>
-                    {% else %}
-                                <p class="b" style="text-align: center;">Please select a user to chat with.</p>
-                    {% endif %}
-                    
 
-
-                    
-
+                        </form>
+                    </div>
                 </div>
+                {% else %}
+                <p class="b" style="text-align: center;">Please select a user to chat with.</p>
+                {% endif %}
+
+
+
+
+
             </div>
         </div>
     </div>
 </div>
+</div>
 
 <script>
+
     function myFunction() {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput");
@@ -167,6 +202,90 @@
             }
         }
     }
+
+
+    $(document).ready(function () {
+        $("#emoji li:nth-child(1)").hover(function () {
+            $("#dot").css("margin-left", "0px");
+            function explode() {
+                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938773/emojis/emoji1.png");
+                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
+                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
+                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
+                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
+                $("#note li:nth-child(1)").css("color", "white");
+                $("#note li:nth-child(2)").css("color", "#3A6D88");
+                $("#note li:nth-child(3)").css("color", "#3A6D88");
+                $("#note li:nth-child(4)").css("color", "#3A6D88");
+                $("#note li:nth-child(5)").css("color", "#3A6D88");
+            }
+            setTimeout(explode, 300);
+        });
+        $("#emoji li:nth-child(2)").hover(function () {
+            $("#dot").css("margin-left", "60px");
+            function explode() {
+                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
+                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji2.png");
+                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
+                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
+                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
+                $("#note li:nth-child(1)").css("color", "#3A6D88");
+                $("#note li:nth-child(2)").css("color", "white");
+                $("#note li:nth-child(3)").css("color", "#3A6D88");
+                $("#note li:nth-child(4)").css("color", "#3A6D88");
+                $("#note li:nth-child(5)").css("color", "#3A6D88");
+            }
+            setTimeout(explode, 300);
+        });
+        $("#emoji li:nth-child(3)").hover(function () {
+            $("#dot").css("margin-left", "120px");
+            function explode() {
+                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
+                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
+                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji3.png");
+                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
+                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
+                $("#note li:nth-child(1)").css("color", "#3A6D88");
+                $("#note li:nth-child(2)").css("color", "#3A6D88");
+                $("#note li:nth-child(3)").css("color", "white");
+                $("#note li:nth-child(4)").css("color", "#3A6D88");
+                $("#note li:nth-child(5)").css("color", "#3A6D88");
+            }
+            setTimeout(explode, 300);
+        });
+        $("#emoji li:nth-child(4)").hover(function () {
+            $("#dot").css("margin-left", "180px");
+            function explode() {
+                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
+                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
+                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
+                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji4.png");
+                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
+                $("#note li:nth-child(1)").css("color", "#3A6D88");
+                $("#note li:nth-child(2)").css("color", "#3A6D88");
+                $("#note li:nth-child(3)").css("color", "#3A6D88");
+                $("#note li:nth-child(4)").css("color", "white");
+                $("#note li:nth-child(5)").css("color", "#3A6D88");
+            }
+            setTimeout(explode, 300);
+        });
+        $("#emoji li:nth-child(5)").hover(function () {
+            $("#dot").css("margin-left", "240px");
+            function explode() {
+                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
+                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
+                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
+                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
+                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938773/emojis/emoji5.png");
+                $("#note li:nth-child(1)").css("color", "#3A6D88");
+                $("#note li:nth-child(2)").css("color", "#3A6D88");
+                $("#note li:nth-child(3)").css("color", "#3A6D88");
+                $("#note li:nth-child(4)").css("color", "#3A6D88");
+                $("#note li:nth-child(5)").css("color", "white");
+            }
+            setTimeout(explode, 300);
+        });
+    });
 </script>
 
 
