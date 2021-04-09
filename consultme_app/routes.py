@@ -17,6 +17,11 @@ def not_found(e):
 def home():
     return render_template('home.html')
 
+@app.route("/abc")
+def abc():
+    return render_template('chat.html')
+
+
 @app.route("/register_choice", methods=['GET','POST'])
 def register_choice():
     if request.method == "POST":
