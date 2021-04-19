@@ -1,6 +1,21 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="bg-gra-02">
+<script>
+    function ajax(){
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200)
+    {
+    document.getElementById('chat').innerHTML = req.responseText;
+    }
+    }
+    req.open('POST', '/consult', true);
+    req.send();
+    }
+    setInterval(function(){ajax()}, 10);
+</script>
+<div class="bg-gra-02" onload="ajax();">
     <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
         <div class="wrapper wrapper--w960">
             <div class="chat bg-dark">
@@ -35,7 +50,7 @@
                                             <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2">Rate</button>
 
                                         </div>
-                                        <div>
+                                        <!-- <div>
 
                                             <ul id="emoji">
                                                 <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png" /></li>
@@ -55,7 +70,7 @@
                                                 <div id="dot"></div>
                                             </div>
 
-                                        </div>
+                                        </div> -->
                                     </li>
                                     {% endfor %}
                                     {% else %}
