@@ -41,3 +41,12 @@
 .table>tbody{
     color:#12232E;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    cursor: pointer;
+}

@@ -1,31 +1,32 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="bg-gra-02">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        <span>{{ message }}</span>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=delete_flash(this)>
-                        <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ;justify-content: center;align-items: center;">
-            <div class="wrapper wrapper--w960">
-                <div class="chat bg-dark">
-                    <div class=" card-body">
+<div class="bg-gra-02">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        <span>{{ message }}</span>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=delete_flash(this)>
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="p-t-130 font-poppins "
+        style="display:flex; padding-bottom:80px ;justify-content: center;align-items: center;">
+        <div class="wrapper wrapper--w960">
+            <div class="chat bg-dark">
+                <div class=" card-body">
 
-                        <h2 class="predict-h2">Predict a Disease</h2>
-                        <div class="">
-                            <div class="row form-group has-search" style="display: flex;">
-                                <form action="{{ url_for('predict') }}" method="POST" class="p-5">
-                                    <div class="row">
+                    <h2 class="predict-h2">Predict a Disease</h2>
+                    <div class="">
+                        <div class="row form-group has-search" style="display: flex;">
+                            <form action="{{ url_for('predict') }}" method="POST" class="p-5">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                        <label class="b" for="disease1">Symptom 1 :</label>
+                                            <label class="b" for="disease1">Symptom 1 :</label>
                                             <select class="custom-select d-block w-100" id="disease1" name="Symptom_1">
                                                 <option value="0">Choose...</option>
                                                 {% for each in symptomslist %}
@@ -36,7 +37,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                        <label class="b" for="disease2">Symptom 2 :</label>
+                                            <label class="b" for="disease2">Symptom 2 :</label>
                                             <select class="custom-select d-block w-100" id="disease2" name="Symptom_2">
                                                 <option value="0">Choose...</option>
                                                 {% for each in symptomslist %}
@@ -49,7 +50,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                        <label class="b" for="disease3">Symptom 3 :</label>
+                                            <label class="b" for="disease3">Symptom 3 :</label>
                                             <select class="custom-select d-block w-100" id="disease3" name="Symptom_3">
                                                 <option value="0">Choose...</option>
                                                 {% for each in symptomslist %}
@@ -60,63 +61,83 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                        <label class="b" for="disease4">Symptom 4 :</label>
-                                                <select class="custom-select d-block w-100" id="disease4" name="Symptom_4">
+                                            <label class="b" for="disease4">Symptom 4 :</label>
+                                            <select class="custom-select d-block w-100" id="disease4" name="Symptom_4">
                                                 <option value="0">Choose...</option>
                                                 {% for each in symptomslist %}
                                                 <option>{{ each }}</option>
                                                 {% endfor %}
-                                                </select>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                    <div class="row">
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                        <label class="b" for="disease5">Symptom 5 :</label>
-                                                <select class="custom-select d-block w-100" id="disease5" name="Symptom_5">
+                                            <label class="b" for="disease5">Symptom 5 :</label>
+                                            <select class="custom-select d-block w-100" id="disease5" name="Symptom_5">
                                                 <option value="0">Choose...</option>
                                                 {% for each in symptomslist %}
                                                 <option>{{ each }}</option>
                                                 {% endfor %}
-                                                </select>
+                                            </select>
                                         </div>
                                     </div>
-                                    </div>
-                                    
-                                <button class="btn btn--blue btn--radius-2 " type="submit" value="submit" style="margin-top: 2rem;">Predict</button>
-                                
-                                </form>
+                                </div>
 
-                            </div>
+                                <button class="btn btn--blue btn--radius-2 " type="submit" value="submit"
+                                    style="margin-top: 2rem;">Predict</button>
+
+                            </form>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="wrapper wrapper--w960">
-                {% if diseasename is defined %}
-                    <div class="bg-dark predict_card_body col-12 ">
-                        <div class="chat">
-                            <h2 class="predict-h2">Predicted Disease</h2>
-                                <p class="b">Predicted disease: {{diseasename[0]}}</p>
-                                <hr style="background-color:whitesmoke">
-                                <p class="b">About the disease:</p>
-                                <p class="b">{{ diseasedesc }}</p>
-                            <h2 class="predict-h2">Treatment/Precaution</h2>
-                                <p class="b">Treatment/Precaution for the disease:</p>
-                                <ul>
-                                {% for i in treatment %}
-                                    <li class="b">{{ i }}</li>
-                                {% endfor %}
-                                </ul>
-                                <hr style="background-color:whitesmoke">
-                                <p class="b" style="text-align: center;"> Please consult a {{ specialization }} doctor.</p>
+        </div>
+        <div class="wrapper wrapper--w960">
+            {% if diseasename is defined %}
+            <div class="bg-dark predict_card_body col-12 ">
+                <div class="chat">
+                    <h2 class="predict-h2">Predicted Disease</h2>
+                    <p class="b">Predicted disease: {{diseasename[0]}}</p>
+                    <hr style="background-color:whitesmoke">
+                    <p class="b">About the disease:</p>
+                    <p class="b">{{ diseasedesc }}</p>
+                    <h2 class="predict-h2">Treatment/Precaution</h2>
+                    <p class="b">Treatment/Precaution for the disease:</p>
+                    <ul>
+                        {% for i in treatment %}
+                        <li class="b">{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                    <hr style="background-color:whitesmoke">
+                    <p class="b" style="text-align: center;"> Please consult a <strong> {{ specialization }} </strong>doctor.</p>
+                    <form action="/predict" method="POST" autocomplete="off">
+                        <div style=" display: flex;">
+                            <div class="input-group">
+                                {% if form.feedback_input.errors %}
+                                {{ form.feedback_input(class="form-control form-control-lg is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.feedback_input.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.feedback_input(class="form-control form-control-lg") }}
+                                {% endif %}
+                            </div>
+                             <div style="width: fit-content;">
+                                 {{ form.feedback(class="btn btn--blue btn--radius-2") }}
+                            </div>   
                         </div>
-                    </div>
-                {% endif %}
+                    </form>
+                </div>
             </div>
+            {% endif %}
         </div>
     </div>
+</div>
 
 
 {% endblock %}

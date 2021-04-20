@@ -23,8 +23,6 @@ class Users(db.Model,UserMixin):
     med_history = db.Column(db.Text)
     ispatient = db.Column(db.Boolean, nullable=False)
     experience = db.Column(db.Text)
-    feedback = db.Column(db.Integer)   #added for account page
-    satisfaction = db.Column(db.Integer)  #added for account page
 
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.specialist}','{self.experience}','{self.ispatient}')"
@@ -35,6 +33,18 @@ class Chat(db.Model,UserMixin):
     receiverid  = db.Column(db.Integer,nullable=False)
     message = db.Column(db.Text,nullable=False)
     send_time = db.Column(db.DateTime,nullable=False,default=datetime.now())
+
+class PredictDisease(db.Model,UserMixin):
+    id = db.Column(db.Integer,primary_key=True)
+    userid = db.Column(db.Integer,nullable=False)
+    disease_name = db.Column(db.Text,nullable=False)
+    symptom1 = db.Column(db.Text,nullable=False,default="0")
+    symptom2 = db.Column(db.Text,nullable=False,default="0")
+    symptom3 = db.Column(db.Text,nullable=False,default="0")
+    symptom4 = db.Column(db.Text,nullable=False,default="0")
+    symptom5 = db.Column(db.Text,nullable=False,default="0")
+    feedback  = db.Column(db.String,nullable=False,default="True")
+
 
 # CREATE TABLE users (
 #          id SERIAL PRIMARY KEY, 
@@ -51,10 +61,11 @@ class Chat(db.Model,UserMixin):
 #          age INT,
 #          med_history varchar(100),
 #           experience varchar(50),
-#          ispatient boolean not null,
-#           feedback INT,
-#           satisfaction INT
+#          ispatient boolean not null
 # );
+
+# ALTER TABLE users
+# ADD COLUMN image_file varchar(20);
 
 # CREATE TABLE chat (
 #   id int not null auto-increment,
@@ -71,5 +82,18 @@ class Chat(db.Model,UserMixin):
 #   receiverid int not null,
 #   message text not null,
 #   send_time date not null,
+#   primary key(id)
+# );
+
+# CREATE TABLE predict_disease (
+#   id serial not null ,
+# 	userid int not null,
+#   disease_name text not null,
+#   symptom1 text not null,
+#   symptom2 text not null,
+#   symptom3 text not null,
+#   symptom4 text not null,
+#   symptom5 text not null,
+#   feedback boolean not null,
 #   primary key(id)
 # );

@@ -1,13 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField, SubmitField, BooleanField, IntegerField, DateField, RadioField, TextAreaField 
+from wtforms import StringField,PasswordField, SubmitField, BooleanField, IntegerField, DateField, RadioField, TextAreaField ,FileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from consultme_app.models import Users
-
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 
 class PatientRegistrationForm(FlaskForm):
     username = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     name = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Full Name"})
-    # gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
     gender = StringField('Gender',validators=[DataRequired()])
     email = StringField('',validators=[DataRequired(),Email()], render_kw={"placeholder": "Email"})
     phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
@@ -18,10 +17,10 @@ class PatientRegistrationForm(FlaskForm):
     confirm_password = PasswordField('',validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Confirm Password"})
     submit = SubmitField('Sign Up')
 
+
 class DoctorRegistrationForm(FlaskForm):
     username = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
     name = StringField('',validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Full Name"})
-    # gender = RadioField('Gender',choice=[('Male','Male'),('Female','Female')],validators=[DataRequired()])
     gender = StringField('Gender',validators=[DataRequired()])
     specialist = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Specialist"})
     reg_no = IntegerField('',validators=[DataRequired()], render_kw={"placeholder": "Registration Number"})
@@ -43,3 +42,6 @@ class ChatForm(FlaskForm):
     message = StringField('',validators=[DataRequired(),Length(min=1,max=250)],render_kw={"placeholder": "Please enter your message here"})
     submit = SubmitField('Send')
     
+class PredictForm(FlaskForm):
+    feedback_input = IntegerField("",validators=[DataRequired(),Length(min=1,max=3)],render_kw={"placeholder": "Rate our predictiion..."})
+    feedback = SubmitField('Submit')
