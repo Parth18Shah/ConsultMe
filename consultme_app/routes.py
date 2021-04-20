@@ -99,9 +99,8 @@ def register(choice):
             flash(
                 f'Account created successfully for  { form.username.data }', 'success')
             return redirect(url_for('login'))
-    flash('Please give the details in correct format', 'warning')
-    return render_template('register_choice.html', form=form)
-
+    flash('Please give the details in correct format','warning')
+    return render_template('register.html',  form = form, choice = choice)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -136,6 +135,8 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
+    session['chatstatus'] = False
+    session['rid'] = 0
     return redirect(url_for('home'))
 
 
@@ -236,12 +237,13 @@ def consult():
 
         if session['chatstatus'] == True:
             selected_user = Users.query.filter_by(id=session['rid']).first()
-            chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
-                (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
-
-            return render_template('consult.html', users_list=users_list, chats=chats, selected_user=selected_user, uid=uid, form=form)
-        return render_template('consult.html', users_list=users_list, form=form)
-
+            chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==session['rid']) | (Chat.receiverid==session['rid'])).all()
+        
+            return render_template('consult.html', users_list = users_list, chats = chats, selected_user = selected_user, uid = uid, form = form )
+        
+        
+        return render_template('consult.html', users_list = users_list, form = form)
+    
 
 @app.route('/chat', methods=['POST'])
 @login_required
