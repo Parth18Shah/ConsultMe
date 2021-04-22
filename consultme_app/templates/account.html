@@ -39,12 +39,12 @@
                     <a class="nav-link " href="/predict">Predict a Disease</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/consult">Consult a Doctor</a>
+                    <a class="nav-link " href="/consult">Consult</a>
                 </li>
             </ul>
-            <ul class="navbar-nav" >
+            <ul class="navbar-nav " style="float: right;">
                 {% if current_user.is_authenticated %}
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link active " href="/account">Account</a>
                 </li>
                 <li class="nav-item">
@@ -52,7 +52,7 @@
                 </li>
                 {% endif %}
             </ul>
-    </nav>
+    </nav>  
 
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -215,7 +215,7 @@
             <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <div class="input-group">
-                    <p class="acc_title" class="form-control-label">Username :</p>
+                    <p class="acc_title" class="form-control-label">Username aa:</p>
                     {{ form.username.label(class="form-control-label") }}
                     {{ form.username(class="form-control form-control-lg",value=userone.username) }}
                 </div>
@@ -275,7 +275,6 @@
                     </thead>
                     <tbody>
                         {% for users in users_list %}
-                        {% if users.feedback %}
                         <tr class="success">
                             <td>
                                 <p class="acc_content">{{users.username}}</p>
@@ -283,13 +282,12 @@
                             <td>Malaria Disease</td>
                             <td>
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {{users.feedback}}%"
+                                    <div class="progress-bar" role="progressbar" style="width: 50%"
                                         aria-valuenow={{users.feedback}} aria-valuemin="0" aria-valuemax="100">
                                         {{users.feedback}} </div>
                                 </div>
                             </td>
                         </tr>
-                        {% endif %}
                         {% endfor %}
 
                     </tbody>

@@ -1,21 +1,21 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="bg-gra-02">
+<div class="bg-gra-02 p-t-130 font-poppins " style="width: 100%;">
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-        <span>{{ message }}</span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=delete_flash(this)>
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    <div class="p-t-130 font-poppins "
-        style="display:flex; padding-bottom:80px ;justify-content: center;align-items: center;">
-        <div class="wrapper wrapper--w960">
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert" style="width: fit-content;margin: auto;">
+            <span>{{ message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick=delete_flash(this)>
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    <div style="display:flex; padding-bottom:80px ;justify-content: center;align-items: center;">
+        
+        <div class="wrapper " style="width: 40vw;">
             <div class="chat bg-dark">
                 <div class=" card-body">
 
@@ -95,8 +95,8 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper wrapper--w960">
-            {% if diseasename is defined %}
+        {% if diseasename is defined %}
+        <div class="wrapper " style="width: 55vw;">
             <div class="bg-dark predict_card_body col-12 ">
                 <div class="chat">
                     <h2 class="predict-h2">Predicted Disease</h2>
@@ -112,32 +112,38 @@
                         {% endfor %}
                     </ul>
                     <hr style="background-color:whitesmoke">
-                    <p class="b" style="text-align: center;"> Please consult a <strong> {{ specialization }} </strong>doctor.</p>
+                    <p class="b" style="text-align: center;"> Please consult a <strong> {{ specialization }}
+                        </strong>doctor.</p>
                     <form action="/predict" method="POST" autocomplete="off">
-                        <div style=" display: flex;">
-                            <div class="input-group">
-                                {% if form.feedback_input.errors %}
-                                {{ form.feedback_input(class="form-control form-control-lg is-invalid") }}
-                                <div class="invalid-feedback">
-                                    {% for error in form.feedback_input.errors %}
-                                    <span>{{ error }}</span>
-                                    {% endfor %}
-                                </div>
-                                {% else %}
-                                {{ form.feedback_input(class="form-control form-control-lg") }}
-                                {% endif %}
+                        <div class="input-group" style="display: flex; color:whitesmoke; margin-top: 50px;">
+                            <p style="font-size: large;font-weight: bolder;">
+                                {{ form.feedback_input.label(class="form-control-label") }}
+                            </p>
+                            <div>
+                                <label class="radio-container" style="color:whitesmoke ;margin:2px">Satisfied
+                                    <input type="radio" name="feedback_input" value="True">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="radio-container" style="color:whitesmoke ;margin:2px">Not Satisfied
+                                    <input type="radio" name="feedback_input" value="False">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
-                             <div style="width: fit-content;">
-                                 {{ form.feedback(class="btn btn--blue btn--radius-2") }}
-                            </div>   
+
+                            <div style="width: fit-content;margin-left: 5px;">
+                                {{ form.feedback(class="btn btn--blue btn--radius-2")}}
+                            </div>
                         </div>
+                        
+                    </div>
                     </form>
                 </div>
             </div>
             {% endif %}
         </div>
     </div>
+
+
+
+    {% endblock %}
 </div>
-
-
-{% endblock %}

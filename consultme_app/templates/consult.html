@@ -1,24 +1,24 @@
 {% extends "layout.html" %}
 {% block body %}
-<script>
-    function ajax(){
+<!-- <script>
+    function ajax() {
 
-    var req = new XMLHttpRequest();
-    req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200)
-    {
-    document.getElementById('chat').innerHTML = req.responseText;
+        var req = new XMLHttpRequest();
+        req.onreadystatechange = function () {
+            if (req.readyState == 4 && req.status == 200) {
+                document.getElementById('chat').innerHTML = req.responseText;
+            }
+        }
+        req.open('POST', '/consult', true);
+        req.send();
     }
-    }
-    req.open('POST', '/consult', true);
-    req.send();
-    }
-    setInterval(function(){ajax()}, 10);
-</script>
-<div class="bg-gra-02" onload="ajax();">
+    setInterval(function () { ajax() }, 10);
+</script> -->
+<!-- <div class="bg-gra-02" onload="ajax();"> -->
+<div class="bg-gra-02">
     <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
-        <div class="wrapper wrapper--w960">
-            <div class="chat bg-dark">
+        <div class="wrapper " style="width: 40vw;">
+            <div class="chat bg-dark card_body">
                 <div class=" card-body">
 
                     <h2 class="predict-h2">Recent Chats</h2>
@@ -33,54 +33,33 @@
                                     {% if doctors_list is defined %}
                                     {% for doctor in doctors_list %}
                                     <li class="item3 msg_received"
-                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
+                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;border: 2px ridge black;">
                                         <div class=" " style="display: flex;">
                                             <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
-                                                width="40" height="40">
-                                            <h5 style="display: flex;"><a class="a" style="color: black
-                                                ;">{{doctor.username}}</a></h5>
+                                                width="40" height="40" style="border: 2px ridge black;">
+                                            <h5 style="display: flex;">
+                                                <a class="nav-link"class="a" style="color: black
+                                                ;">@{{doctor.username}} </a>
+                                            </h5>
                                         </div>
                                         <hr>
                                         <p style="margin-top: 10px;">Specialization: {{doctor.specialist}}</p>
                                         <span class="" style="color: black;">Having {{doctor.experience}} of
                                             Experience</span>
-                                        <div style="display:flex;">
-                                            <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
-                                                value="{{doctor.id}}">Chat</button>
-                                            <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2">Rate</button>
-
-                                        </div>
-                                        <!-- <div>
-
-                                            <ul id="emoji">
-                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png" /></li>
-                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png" /></li>
-                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png" /></li>
-                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png" /></li>
-                                                <li><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png" /></li>
-                                            </ul>
-                                            <ul id="note">
-                                                <li>SICK</li>
-                                                <li>BAD</li>
-                                                <li>OKAY</li>
-                                                <li>GOOD</li>
-                                                <li>GREAT</li>
-                                            </ul>
-                                            <div id="line">
-                                                <div id="dot"></div>
-                                            </div>
-
-                                        </div> -->
+                                        <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
+                                            value="{{doctor.id}}">Chat</button>
                                     </li>
+
                                     {% endfor %}
                                     {% else %}
                                     {% for users in users_list %}
                                     <li class="item3 msg_received"
-                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;">
+                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px; border: 2px ridge black;">
                                         <div class=" " style="display: flex;">
                                             <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
-                                                width="40" height="40">
-                                            <h5><a class="a" style="color: black;">{{users.username}}</a>
+                                                width="40" height="40" style="border: 2px ridge black;">
+                                            <h5><a class="nav-link" class="a" style="color: black
+                                        ;">@{{users.username}} </a>
                                                 <p style="color: black;">Email-id :- {{users.email}} </p>
                                             </h5>
                                         </div>
@@ -91,6 +70,7 @@
                                     {% endif %}
                                 </form>
                             </ul>
+
                         </div>
                     </div>
                 </div>
@@ -98,16 +78,46 @@
         </div>
         <div class="wrapper " style="width: 55vw;">
 
-            <div class="bg-dark msg_card_body col-12">
+            <div class="bg-dark msg_card_body col-sm-12 ">
                 <div class="chat">
                     <h2 class="predict-h2">Chat Box<svg style="margin: 0px 10px;" xmlns="http://www.w3.org/2000/svg"
                             width="25" height="25" fill="black" class="bi bi-chat-fill" viewBox="0 0 16 16">
                             <path
                                 d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9.06 9.06 0 0 0 8 15z" />
                         </svg></h2>
+
                     {% if chats is defined %}
+                    <button class="item3 " type="submit"
+                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px; background-color:#a5dbec;border-radius: 10px;width: 100%; border:2px solid black"
+                       >
+                        <div class=" " style="display: flex;justify-content:space-between;align-items: center;">
+                            <img style="border: 2px solid black;" src='https://picsum.photos/200/300'
+                                class="rounded-circle user_img_msg" width="40" height="40">
+                            <h5 style="flex: 1;"><a class="nav-link" href="/profile" class="a" style="color: black
+                                                ;">@{{selected_user.u_name}} </a>
+                            </h5>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-camera-fill" viewBox="0 0 16 16" style="margin-left:20rem">
+                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                <path
+                                    d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-paperclip" viewBox="0 0 16 16" style="margin-left: 10px;">
+                                <path
+                                    d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-justify-right" viewBox="0 0 16 16" style="margin-left: 10px;">
+                                <path fill-rule="evenodd"
+                                    d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </div>
+
+                    </button>
                     {% for chat in chats %}
                     {% if chat.senderid != uid %}
+
                     <div class="d-flex container justify-content-start mb-4">
                         <!-- done -->
                         <div class="img_cont_msg">
@@ -115,11 +125,12 @@
                                 class="rounded-circle user_img_msg" width="30" height="30">
                             <p style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
                         </div>
-                        <div>
-                            <h5 class="msg_send">{{chat.message}}</h5>
+                        <div style="display: flex; flex-direction: column; margin: 5px;">
+                            <div class="talk-bubble-send tri-right left-top">
+                                <h5 class="msg_send">{{chat.message}}</h5>
+                            </div>
                             <span class="time">{{ chat.send_time }} </span>
                         </div>
-
 
                     </div>
                     <!-- <div class="" style="text-align:right; padding:2px 5px;">
@@ -131,7 +142,9 @@
                     <div class="d-flex container justify-content-end mb-4">
 
                         <div style="display: flex; flex-direction: column; margin: 5px;">
+                            <div class="talk-bubble-receive tri-right btm-right">
                             <h5 class="msg_received ">{{chat.message}}</h5>
+                            </div>
                             <span class="time"> {{chat.send_time}} </span>
                         </div>
                         <!-- <div class="img_cont_msg">
@@ -147,7 +160,7 @@
                                 </div> -->
                     {% endif %}
                     {% endfor %}
-                    <div class="card-footer ">
+                    <div class="card-footer " style="margin-top: auto;">
                         <div>
                             <form method="POST" action="/chat" autocomplete="off">
                                 <div class="input--style-5 ">
@@ -182,7 +195,6 @@
                                             Send
                                         </button> -->
 
-                        </form>
                     </div>
                 </div>
                 {% else %}
@@ -197,7 +209,6 @@
         </div>
     </div>
 </div>
-
 <script>
 
     function myFunction() {
@@ -218,88 +229,7 @@
     }
 
 
-    $(document).ready(function () {
-        $("#emoji li:nth-child(1)").hover(function () {
-            $("#dot").css("margin-left", "0px");
-            function explode() {
-                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938773/emojis/emoji1.png");
-                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
-                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
-                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
-                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
-                $("#note li:nth-child(1)").css("color", "white");
-                $("#note li:nth-child(2)").css("color", "#3A6D88");
-                $("#note li:nth-child(3)").css("color", "#3A6D88");
-                $("#note li:nth-child(4)").css("color", "#3A6D88");
-                $("#note li:nth-child(5)").css("color", "#3A6D88");
-            }
-            setTimeout(explode, 300);
-        });
-        $("#emoji li:nth-child(2)").hover(function () {
-            $("#dot").css("margin-left", "60px");
-            function explode() {
-                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
-                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji2.png");
-                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
-                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
-                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
-                $("#note li:nth-child(1)").css("color", "#3A6D88");
-                $("#note li:nth-child(2)").css("color", "white");
-                $("#note li:nth-child(3)").css("color", "#3A6D88");
-                $("#note li:nth-child(4)").css("color", "#3A6D88");
-                $("#note li:nth-child(5)").css("color", "#3A6D88");
-            }
-            setTimeout(explode, 300);
-        });
-        $("#emoji li:nth-child(3)").hover(function () {
-            $("#dot").css("margin-left", "120px");
-            function explode() {
-                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
-                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
-                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji3.png");
-                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
-                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
-                $("#note li:nth-child(1)").css("color", "#3A6D88");
-                $("#note li:nth-child(2)").css("color", "#3A6D88");
-                $("#note li:nth-child(3)").css("color", "white");
-                $("#note li:nth-child(4)").css("color", "#3A6D88");
-                $("#note li:nth-child(5)").css("color", "#3A6D88");
-            }
-            setTimeout(explode, 300);
-        });
-        $("#emoji li:nth-child(4)").hover(function () {
-            $("#dot").css("margin-left", "180px");
-            function explode() {
-                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
-                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
-                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
-                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji4.png");
-                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji55.png");
-                $("#note li:nth-child(1)").css("color", "#3A6D88");
-                $("#note li:nth-child(2)").css("color", "#3A6D88");
-                $("#note li:nth-child(3)").css("color", "#3A6D88");
-                $("#note li:nth-child(4)").css("color", "white");
-                $("#note li:nth-child(5)").css("color", "#3A6D88");
-            }
-            setTimeout(explode, 300);
-        });
-        $("#emoji li:nth-child(5)").hover(function () {
-            $("#dot").css("margin-left", "240px");
-            function explode() {
-                $("#emoji li:nth-child(1) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji11.png");
-                $("#emoji li:nth-child(2) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji22.png");
-                $("#emoji li:nth-child(3) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji33.png");
-                $("#emoji li:nth-child(4) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938774/emojis/emoji44.png");
-                $("#emoji li:nth-child(5) img").attr("src", "https://res.cloudinary.com/dxfq3iotg/image/upload/v1570938773/emojis/emoji5.png");
-                $("#note li:nth-child(1)").css("color", "#3A6D88");
-                $("#note li:nth-child(2)").css("color", "#3A6D88");
-                $("#note li:nth-child(3)").css("color", "#3A6D88");
-                $("#note li:nth-child(4)").css("color", "#3A6D88");
-                $("#note li:nth-child(5)").css("color", "white");
-            }
-            setTimeout(explode, 300);
-        });
-    });
+
 </script>
 
 

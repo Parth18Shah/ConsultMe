@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- Title Page-->
+    <title>ConsultMe </title>
+    <link rel="icon" href="{{ url_for('static', filename='img/icon1.png') }}" class="bg-dark"
+        style="filter: invert(100%);">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static', filename='css/account.css') }}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a href="#"><img src="{{ url_for('static', filename='img/logo1.png') }}" alt="" width="50" height="50"
+                style="border-radius: 20px;padding: 5px;"></a>
+        <a href="/" class="navbar-brand">ConsultMe</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class=" navbar-collapse collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Home</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/predict">Predict a Disease</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/consult">Consult</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav " style="float: right;">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item ">
+                    <a class="nav-link active " href="/account">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/logout">Logout</a>
+                </li>
+                {% endif %}
+            </ul>
+    </nav>  
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <span>{{ message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    {% if current_user.ispatient %}
+    {% if users_list %}
+    <div class="container">
+
+        <div class="acc_card profile col-sm-12 col-md-4">
+            <div style="display: flex;">
+                <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
+
+                
+                <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle"
+                    style="border-radius:100px" style="flex: 1;">
+               
+                
+            </div>
+                {{ form.hidden_tag() }}
+                <div class="input-group" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Username :</strong>
+                    {{ form.username.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">{{userone.username}}</p>
+                </div>
+                <div class="input-group" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Name :</strong>
+                    {{ form.name.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">{{userone.u_name}}</p>
+                </div>
+                <div class="input-group" style="display: flex;" >
+                    <strong class="acc_title" class="form-control-label" >Gender :</strong>
+                    <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
+                </div>
+
+                <div class="input-group" style="display: flex;" >
+                    <strong class="acc_title" class="form-control-label ">Email :</strong>
+                    {{ form.email.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">{{userone.email}}</p>
+                </div>
+                <div class="input-group" style="display: flex;" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Specialist :</strong>
+                    {{ form.specialist.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">{{userone.specialist}}</p>
+                   
+                </div>
+                <div class="input-group" style="display: flex;" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Experience :</strong>
+                    {{ form.experience.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">Having {{userone.experience}} years of experience </p>
+                   
+                </div>
+
+                
+        </div>
+        <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;">
+            <h2 class="title">
+                Information about Consultation Given
+            </h2>
+
+            <div class="table-responsive over">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-dark" style="color: whitesmoke;">
+                            <th class="acc_title">Patient Name</th>
+                            <th class="acc_title">Disease</th>
+                            <th class="acc_title">Feedback Received</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for users in users_list %}
+                        <tr class="success">
+                            <td>
+                                <p class="acc_content">{{users.username}}</p>
+                            </td>
+                            <td>Malaria Disease</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width:50%"
+                                        aria-valuenow={{users.feedback}} aria-valuemin="0" aria-valuemax="100">
+                                        {{users.feedback}} </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+        {% else %}
+        <div class="container " style="display: flex; align-items: center; justify-content: center ;">
+            <div class="acc_card profile col-sm-12 col-md-6" style="margin: 5px;">
+                <div style="display: flex;">
+                    <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
+    
+                    
+                    <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle"
+                        style="border-radius:100px" style="flex: 1;">
+                   
+                    
+                </div>
+                    {{ form.hidden_tag() }}
+                    <div class="input-group" style="display: flex;">
+                        <strong class="acc_title" class="form-control-label">Username :</strong>
+                        {{ form.username.label(class="form-control-label") }}
+                        <p class="acc_content" style="margin-top: 7px;">{{userone.username}}</p>
+                    </div>
+                    <div class="input-group" style="display: flex;">
+                        <strong class="acc_title" class="form-control-label">Name :</strong>
+                        {{ form.name.label(class="form-control-label") }}
+                        <p class="acc_content" style="margin-top: 7px;">{{userone.u_name}}</p>
+                    </div>
+                    <div class="input-group" style="display: flex;" >
+                        <strong class="acc_title" class="form-control-label" >Gender :</strong>
+                        <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
+                    </div>
+    
+                    <div class="input-group" style="display: flex;" >
+                        <strong class="acc_title" class="form-control-label ">Email :</strong>
+                        {{ form.email.label(class="form-control-label") }}
+                        <p class="acc_content" style="margin-top: 7px;">{{userone.email}}</p>
+                    </div>
+                    <div class="input-group" style="display: flex;" style="display: flex;">
+                        <strong class="acc_title" class="form-control-label">Specialist :</strong>
+                        {{ form.specialist.label(class="form-control-label") }}
+                        <p class="acc_content" style="margin-top: 7px;">{{userone.specialist}}</p>
+                       
+                    </div>
+                    <div class="input-group" style="display: flex;" style="display: flex;">
+                        <strong class="acc_title" class="form-control-label">Experience :</strong>
+                        {{ form.experience.label(class="form-control-label") }}
+                        <p class="acc_content" style="margin-top: 7px;">Having {{userone.experience}} years of experience </p>
+                       
+                    </div>
+            </div>
+            
+        </div>
+        {% endif %}
+
+    {% else %}
+    {% if pred_list %}
+    <div class="container ">
+        <div class="acc_card profile col-sm-12 col-md-4" style="margin: 5px;">
+            <div style="display: flex;">
+                    <img src="../static/profile_pics/{{image_file}}" width="100" height="100" class="round-circle " style="border-radius:100px" style="flex: 1;">
+                    
+            </div>
+    
+        <div class="input-group" style="display: flex;">
+            <strong class="acc_title" class="form-control-label">Username :</strong>
+            {{ form.username.label(class="form-control-label") }}
+        
+            <p class="acc_content" style="margin-top: 7px;">{{userone.username}}</p>
+        
+        </div>
+        <div class="input-group" style="display: flex;">
+        
+            <strong class="acc_title" class="form-control-label">Name :</strong>
+            {{ form.name.label(class="form-control-label") }}
+            <p class="acc_content" style="margin-top: 7px;">{{userone.u_name}}</p>
+        </div>
+        <div class="input-group" style="display: flex;" >
+            <strong class="acc_title" class="form-control-label">Gender :</strong>
+            <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
+        </div>
+        
+        <div class="input-group" style="display: flex;">
+            <strong class="acc_title" class="form-control-label">Email :</strong>
+            {{ form.email.label(class="form-control-label") }}
+            <p class="acc_content" style="margin-top: 7px;">{{userone.email}}</p>
+        </div>
+        <div class="input-group" >
+            <strong class="acc_title" class="form-control-label">Past Medical History :</strong>
+            {{ form.med_history.label(class="form-control-label") }}
+            <p class="acc_content" style="margin-top: 7px;">{{userone.med_history}} </p>
+        
+        </div>
+        
+        
+        </div>
+        <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;">
+            <h2 class="title">
+                Information about Predicted Disease
+            </h2>
+
+            <div class="table-responsive over">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-dark" style="color: whitesmoke;">
+                            <th class="acc_title">Symptoms</th>
+                            <th class="acc_title">Prdicted disease</th>
+                            <th class="acc_title">Satisfaction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pred in pred_list %}
+                        {% if pred.feedback %}
+                        <tr class="success">
+                            <td>
+                                <ul class="navbar-nav">
+                                    <li class="acc_content">{{ pred.symptom1 }}</li>
+                                    <li class="acc_content">{{ pred.symptom2 }}</li>
+                                    <li class="acc_content">{{ pred.symptom3 }}</li>
+                                    <li class="acc_content">{{ pred.symptom4 }}</li>
+                                    <li class="acc_content">{{ pred.symptom5 }}</li>
+                                </ul>
+                            </td>
+                            <td>{{pred.disease_name}} disease</td>
+                            <td>
+                                <span style='font-size:40px;'>&#128516;</span>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr class="danger">
+                            <td>
+                                <ul class="navbar-nav">
+                                    <li class="acc_content">{{ pred.symptom1 }}</li>
+                                    <li class="acc_content">{{ pred.symptom2 }}</li>
+                                    <li class="acc_content">{{ pred.symptom3 }}</li>
+                                    <li class="acc_content">{{ pred.symptom4 }}</li>
+                                    <li class="acc_content">{{ pred.symptom5 }}</li>
+                                </ul>
+                            </td>
+                            <td>{{pred.disease_name}} disease</td>
+                            <td>
+                                <span style='font-size:40px;'>&#128553;</span>
+                            </td>
+                        </tr>
+                        
+                        {% endif %}
+                        {% endfor %}
+                       
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+        <div class="container " style="display: flex; align-items: center; justify-content: center ;">
+            <div class="acc_card profile col-sm-12 col-md-6" style="margin: 5px;">
+                <div style="display: flex;">
+                    <img src="../static/profile_pics/{{image_file}}" width="100" height="100" class="round-circle "
+                        style="border-radius:100px" style="flex: 1;">
+        
+                </div>
+        
+                {{ form.hidden_tag() }}
+                <div class="input-group" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Username :</strong>
+                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username(class="form-control form-control-lg",value=userone.username,readonly="true") }}
+                </div>
+                <div class="input-group" style="display: flex;">
+        
+                    <strong class="acc_title" class="form-control-label">Name :</strong>
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="form-control form-control-lg",value=userone.u_name,readonly="true") }}
+                </div>
+                <div class="input-group" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Gender :</strong>
+                    <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
+                </div>
+        
+                <div class="input-group" style="display: flex;">
+                    <strong class="acc_title" class="form-control-label">Email :</strong>
+                    {{ form.email.label(class="form-control-label") }}
+                    {{ form.email(class="form-control form-control-lg",value=userone.email ,readonly="true") }}
+                </div>
+                <div class="input-group" >
+                    <strong class="acc_title" class="form-control-label">Past Medical History :</strong>
+                    {{ form.med_history.label(class="form-control-label") }}
+                    <p class="acc_content">{{userone.med_history}} </p>
+        
+                </div>
+        
+        
+            </div>
+        
+        </div>
+    {% endif %}
+
+
+
+
+
+
+    
+
+    {% endif %}
+
+    <footer class="py-5 bg-dark " style="margin-top:10px ;">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; ConsultMe 2020-21</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    </div>
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        function delete_flash(flash) {
+            $(flash).parent().remove()
+        }
+    </script>
+
+</body>
+
+</html>

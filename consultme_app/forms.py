@@ -43,5 +43,9 @@ class ChatForm(FlaskForm):
     submit = SubmitField('Send')
     
 class PredictForm(FlaskForm):
-    feedback_input = IntegerField("",validators=[DataRequired(),Length(min=1,max=3)],render_kw={"placeholder": "Rate our predictiion..."})
+    feedback_input = StringField('Provide Rating to our Prediction :',validators=[DataRequired()])
     feedback = SubmitField('Submit')
+
+class ConsultRate(FlaskForm):
+    rate_input = StringField("Provide Rating to doctor's Consultation :",validators=[DataRequired()])
+    rate = SubmitField('Submit')
