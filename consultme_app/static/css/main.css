@@ -845,6 +845,11 @@ h5{
   border-radius: 5px;
 }
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 10px;
+}
 
 /* CSS talk bubble */
 .talk-bubble-send {

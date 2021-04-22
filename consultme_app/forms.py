@@ -46,6 +46,6 @@ class PredictForm(FlaskForm):
     feedback_input = StringField('Provide Rating to our Prediction :',validators=[DataRequired()])
     feedback = SubmitField('Submit')
 
-class ConsultRate(FlaskForm):
-    rate_input = StringField("Provide Rating to doctor's Consultation :",validators=[DataRequired()])
+class RateForm(FlaskForm):
+    rate_input = IntegerField("Provide Rating to Doctor's Consultation ",validators=[DataRequired(),Length(min=1, max=3)],render_kw={"placeholder": "In Integer ranges from 1-100"})
     rate = SubmitField('Submit')

@@ -23,7 +23,6 @@ class Users(db.Model,UserMixin):
     med_history = db.Column(db.Text)
     ispatient = db.Column(db.Boolean, nullable=False)
     experience = db.Column(db.Text)
-
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.specialist}','{self.experience}','{self.ispatient}')"
 
@@ -46,6 +45,13 @@ class PredictDisease(db.Model,UserMixin):
     feedback  = db.Column(db.String,nullable=False,default="True")
 
 
+class ConsultRate(db.Model,UserMixin):
+    id = db.Column(db.Integer,primary_key=True)
+    patientid = db.Column(db.Integer,nullable=False)
+    doctorid = db.Column(db.Integer,nullable=False)
+    disease_name = db.Column(db.Text,nullable=False)
+    rate  = db.Column(db.Integer,nullable=False,default=50)
+
 # CREATE TABLE users (
 #          id SERIAL PRIMARY KEY, 
 #          username varchar(20) unique not null,
@@ -66,6 +72,7 @@ class PredictDisease(db.Model,UserMixin):
 
 # ALTER TABLE users
 # ADD COLUMN image_file varchar(20);
+
 
 # CREATE TABLE chat (
 #   id int not null auto-increment,
@@ -95,5 +102,14 @@ class PredictDisease(db.Model,UserMixin):
 #   symptom4 text not null,
 #   symptom5 text not null,
 #   feedback boolean not null,
+#   primary key(id)
+# );
+
+# CREATE TABLE consult_rate (
+#   id serial not null ,
+# 	patientid  int not null,
+#   doctorid int not null,
+#   disease_name text not null,
+#   rate int not null,
 #   primary key(id)
 # );
