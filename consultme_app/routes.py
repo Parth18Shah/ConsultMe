@@ -9,6 +9,7 @@ from consultme_app import app, db, bcrypt
 from consultme_app.disease import get_diseaselist, get_symptomslist, get_specialization, predict_disease, get_description, get_cure
 from sqlalchemy import desc
 import itertools
+from consultme_app.verify import verify_doctor
 
 @app.errorhandler(404)
 def not_found(e):
@@ -95,11 +96,15 @@ def register(choice):
                          ispatient=True,
                          # ispatient=1,
                          )
-            db.session.add(user)
-            db.session.commit()
-            flash(
-                f'Account created successfully for  { form.username.data }', 'success')
-            return redirect(url_for('login'))
+            result = verify_doctor(form.reg_no.data,form.name.data)
+            print(result)
+            if(result == 1): 
+                # db.session.add(user)
+                # db.session.commit()
+                flash(
+                    f'Account created successfully for  { form.username.data }', 'success')
+                return redirect(url_for('login'))
+
     flash('Please give the details in correct format','warning')
     return render_template('register.html',  form = form, choice = choice)
 

@@ -924,4 +924,10 @@ h5{
 
 }
 
-
+div#loading {
+  width: 35px;
+  height: 35px;
+  display: none;
+  background: url(/static/img/loadingimage.gif) no-repeat;
+  cursor: wait;
+  }

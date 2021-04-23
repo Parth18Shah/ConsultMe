@@ -30,7 +30,7 @@ class DoctorRegistrationForm(FlaskForm):
     phone = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Phone"})
     password = PasswordField('', validators=[DataRequired()], render_kw={"placeholder": "Password"})
     confirm_password = PasswordField('',validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Confirm Password"})
-    submit = SubmitField('Sign Up')
+    submit = SubmitField('Sign Up', render_kw={"onclick": "loading()"})
 	
 class LoginForm(FlaskForm):
     username = StringField('',validators=[DataRequired()], render_kw={"placeholder": "Username"})

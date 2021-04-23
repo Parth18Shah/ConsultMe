@@ -27,7 +27,8 @@ driver.implicitly_wait(10)
 inputElement = driver.find_element_by_id("doct_regdNo")
 
 # type in the search
-inputElement.send_keys('12345')
+value = '67859'
+inputElement.send_keys(value)
 
 # submit the form (although google automatically searches now without submitting)
 inputElement.submit()
@@ -42,7 +43,10 @@ try:
         print(i.text, end ="\n")
         s = i.text
         s = list(s.split(" "))
-        print(s)
+        index1 = s.index('Council') or s.index('Council,')
+        index2 = s.index('') 
+        name = s[index1+1:index2]
+        print(s,index1,index2,name)
     print("hey")
 #     # You should see "cheese! - Google Search"
 #     # print driver.title
