@@ -4,7 +4,8 @@ def verify_doctor(regdno,name):
     option = webdriver.ChromeOptions()
     option.add_argument('headless')
 
-    chrome_path = r"C:\MY STUFF\SEM 6\MIP\chromedriver.exe"
+    # chrome_path = r"C:\MY STUFF\SEM 6\MIP\chromedriver.exe"
+    chrome_path = r"C:\Users\Kirti1\Desktop\TY\sem 6\MIP\ConsultMe\chromedriver.exe"
     driver = webdriver.Chrome(chrome_path,options=option)
     driver.get("https://www.nmc.org.in/information-desk/indian-medical-register") 
 
@@ -32,6 +33,8 @@ def verify_doctor(regdno,name):
             # print(s,index1,index2,username)
             val = (" ").join(username)
             print(val,name)
+            print(len(val))
+            print(len(name))
             if(val == name):
                 return 1
         return 0
@@ -39,3 +42,6 @@ def verify_doctor(regdno,name):
 
     finally:
         driver.quit()
+
+
+# reg no. 98989

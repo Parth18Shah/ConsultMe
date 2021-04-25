@@ -73,11 +73,14 @@ def register(choice):
                          # ispatient=0,
                          experience=form.experience.data
                          )
-            db.session.add(user)
-            db.session.commit()
-            flash(
-                f'Account created successfully for  { form.username.data }', 'success')
-            return redirect(url_for('login'))
+            result = verify_doctor(form.reg_no.data,form.name.data)
+            print(result)
+            if(result == 1): 
+                db.session.add(user)
+                db.session.commit()
+                flash(
+                    f'Account created successfully for  { form.username.data }', 'success')
+                return redirect(url_for('login'))
     else:
         form = PatientRegistrationForm()
 
@@ -96,14 +99,10 @@ def register(choice):
                          ispatient=True,
                          # ispatient=1,
                          )
-            result = verify_doctor(form.reg_no.data,form.name.data)
-            print(result)
-            if(result == 1): 
-                # db.session.add(user)
-                # db.session.commit()
-                flash(
-                    f'Account created successfully for  { form.username.data }', 'success')
-                return redirect(url_for('login'))
+            db.session.add(user)
+            db.session.commit()             
+            flash(f'Account created successfully for  { form.username.data }', 'success')
+            return redirect(url_for('login'))
 
     flash('Please give the details in correct format','warning')
     return render_template('register.html',  form = form, choice = choice)
@@ -167,9 +166,9 @@ def predict():
             diseasename = predict_disease(form_values)
         
             diseasedesc = []
-            # diseasedesc = get_description(diseasename)
-            # treatment = get_cure(diseasename)
-            # specialization = get_specialization(diseasename)
+            diseasedesc = get_description(diseasename)
+            treatment = get_cure(diseasename)
+            specialization = get_specialization(diseasename)
             
             for i in range(len(form_values)):
                 new_value = form_values[i].replace("0","")
@@ -186,12 +185,12 @@ def predict():
             )
             db.session.add(pred)
             db.session.commit()
-            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form)
-            # treatment=treatment, diseasedesc=diseasedesc, specialization=specialization
+            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization)
+            # 
         else:
             pred1 = db.session.query(PredictDisease).filter_by(userid=current_user.id).order_by(PredictDisease.id.desc()).first()
             print(form.feedback_input.data)
-            if (form.feedback_input.data==True):
+            if (form.feedback_input.data=="True"):
                 pred1.feedback=True
             else:
                 pred1.feedback=False
@@ -220,6 +219,7 @@ def consult():
             selected_user = Users.query.filter_by(id=session['rid']).first()
             chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
                 (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
+            print(chats)
             return render_template('consult.html', doctors_list=doctors_list, chats=chats, selected_user=selected_user, uid=uid, form=form)
         return render_template('consult.html', doctors_list=doctors_list, form=form)
     else:
@@ -342,7 +342,7 @@ def profile():
             if(user.id not in user_id):
                 users_list.append(user)
                 user_id.append(user.id)
-    pred_list = PredictDisease.query.filter_by(userid=current_user.id).all()
+    pred_list = PredictDisease.query.filter_by(userid=uid).all()
     diseaselist=[]
     for i in pred_list:
         diseaselist.append(i.disease_name)
@@ -392,13 +392,15 @@ def profile():
                             ratelist.append([y.id,y.username,x,avg])
         
                 ratelist = list(num for num,_ in itertools.groupby(ratelist))
+                print(ratelist)
                 for i in ratelist:
-                    if(i[3]>50):
-                        i.append(True)
-                    else:
-                        i.append(False)
-                return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist,ratelist=ratelist)
-        return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist,ratelist=False)
+                    if len(i)==4:
+                        if(i[3]>50):
+                            i.append(True)
+                        else:
+                            i.append(False)
+                print(ratelist)
+        return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist,ratelist=ratelist)
 
 
 if __name__ == '__main__':

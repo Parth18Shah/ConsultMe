@@ -325,6 +325,7 @@
                             <th class="acc_title">Symptoms</th>
                             <th class="acc_title">Prdicted disease</th>
                             <th class="acc_title">Satisfaction</th>
+                            <th class="acc_title">Date and Time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -344,6 +345,9 @@
                             <td>
                                 <span style='font-size:40px;'>&#128516;</span>
                             </td>
+                             <td>
+                                <p>{{pred.predtime}}</p>
+                            </td>
                         </tr>
                         {% else %}
                         <tr class="danger">
@@ -359,6 +363,9 @@
                             <td>{{pred.disease_name}} disease</td>
                             <td>
                                 <span style='font-size:40px;'>&#128553;</span>
+                            </td>
+                             <td>
+                                <p>{{pred.predtime}}</p>
                             </td>
                         </tr>
                         
