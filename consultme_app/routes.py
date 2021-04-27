@@ -19,7 +19,19 @@ def not_found(e):
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html')
+    pred=PredictDisease.query.filter_by(feedback=True).all()
+    p=len(pred)
+    consult1=ConsultRate.query.all()
+    c=0
+    for i in consult1:
+        if(i.rate>50):
+            print(i.rate)
+            c+=1
+    print("---------------------------")
+    print(c)
+    print("---------------------------")
+
+    return render_template('home.html',num=p,num1=c)
 
 
 @app.route("/abc")
@@ -166,9 +178,9 @@ def predict():
             diseasename = predict_disease(form_values)
         
             diseasedesc = []
-            diseasedesc = get_description(diseasename)
-            treatment = get_cure(diseasename)
-            specialization = get_specialization(diseasename)
+            # diseasedesc = get_description(diseasename)
+            # treatment = get_cure(diseasename)
+            # specialization = get_specialization(diseasename)
             
             for i in range(len(form_values)):
                 new_value = form_values[i].replace("0","")
@@ -185,20 +197,18 @@ def predict():
             )
             db.session.add(pred)
             db.session.commit()
-            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization)
-            # 
+            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form)
+            # ,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization
         else:
             pred1 = db.session.query(PredictDisease).filter_by(userid=current_user.id).order_by(PredictDisease.id.desc()).first()
-            print(form.feedback_input.data)
             if (form.feedback_input.data=="True"):
                 pred1.feedback=True
             else:
                 pred1.feedback=False
             db.session.flush()
             db.session.commit()
-       
+            
     return render_template('predict.html', symptomslist=symptomslist)
-
 
 @app.route('/consult', methods=['GET', 'POST'])
 @login_required
@@ -219,7 +229,6 @@ def consult():
             selected_user = Users.query.filter_by(id=session['rid']).first()
             chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
                 (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
-            print(chats)
             return render_template('consult.html', doctors_list=doctors_list, chats=chats, selected_user=selected_user, uid=uid, form=form)
         return render_template('consult.html', doctors_list=doctors_list, form=form)
     else:
@@ -249,8 +258,6 @@ def consult():
             chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==session['rid']) | (Chat.receiverid==session['rid'])).all()
         
             return render_template('consult.html', users_list = users_list, chats = chats, selected_user = selected_user, uid = uid, form = form )
-        
-        
         return render_template('consult.html', users_list = users_list, form = form)
     
 
@@ -259,7 +266,6 @@ def consult():
 def storechat():
     form = ChatForm()
     if request.method == 'POST':
-        print(request.form)
         chat = Chat(
             senderid=session['uid'],
             receiverid=session['rid'],
@@ -274,7 +280,7 @@ def storechat():
 @login_required
 def account():
     uid = session['uid']
-    print(uid)
+    rid = session['rid']
     chat_list = Chat.query.filter(
         (Chat.senderid == uid) | (Chat.receiverid == uid)).all()
     users_list = []
@@ -290,9 +296,9 @@ def account():
             if(user.id not in user_id):
                 users_list.append(user)
                 user_id.append(user.id)
-    print(users_list)
     if(current_user.ispatient == False):
         form = DoctorRegistrationForm()
+        form1 = RateForm()
         userone = Users.query.filter_by(id=current_user.id).first_or_404()
         fn = "default.jpg"
         if request.method == "POST":
@@ -303,7 +309,39 @@ def account():
                 db.session.flush()
                 db.session.commit()
                 flash(f'Profile Updated successfully', 'success')
-        return render_template('account.html', users_list=users_list, form=form, userone=userone,image_file=fn)
+        ratelist=[]
+        rate2 = ConsultRate.query.filter_by(doctorid=current_user.id).all()
+        for y in users_list:
+            for z in rate2:
+                if(z.patientid==y.id):
+                    ratelist.append([y.id,y.username,z.disease_name,z.rate])
+        ratelist = list(num for num,_ in itertools.groupby(ratelist))
+        for i in ratelist:
+            if len(i)==4:
+                if(i[3]>50):
+                    i.append(True)
+                else:
+                    i.append(False)
+        pred=PredictDisease.query.all()
+        labels = []
+        values = []
+        l1 =[]
+        for i in pred:
+            l1.append(i.disease_name)
+        print(l1)
+        freq = {}
+        for item in l1:
+            if (item in freq):
+                freq[item] += 1
+            else:
+                freq[item] = 1
+        print(freq)
+        for i,j in freq.items():
+            labels.append(i)
+            values.append(j)
+        print(labels)
+        print(values)
+        return render_template('account.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,ratelist=ratelist,labels=labels,values=values)
     else:
         form = PatientRegistrationForm()
         userone = Users.query.filter_by(id=current_user.id).first_or_404()
@@ -330,7 +368,6 @@ def profile():
         (Chat.senderid == uid) | (Chat.receiverid == uid)).all()
     users_list = []
     user_id = []
-    
     for i in chat_list:
         if(i.senderid == uid):
             user = Users.query.filter_by(id=i.receiverid).first()
@@ -342,7 +379,7 @@ def profile():
             if(user.id not in user_id):
                 users_list.append(user)
                 user_id.append(user.id)
-    pred_list = PredictDisease.query.filter_by(userid=uid).all()
+    pred_list = PredictDisease.query.filter_by(userid=current_user.id).all()
     diseaselist=[]
     for i in pred_list:
         diseaselist.append(i.disease_name)
@@ -392,15 +429,30 @@ def profile():
                             ratelist.append([y.id,y.username,x,avg])
         
                 ratelist = list(num for num,_ in itertools.groupby(ratelist))
-                print(ratelist)
                 for i in ratelist:
                     if len(i)==4:
                         if(i[3]>50):
                             i.append(True)
                         else:
                             i.append(False)
-                print(ratelist)
-        return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist,ratelist=ratelist)
+        rate3=ConsultRate.query.all()
+        l=[]
+        values=[]
+        for i in rate3:
+            l.append([i.patientid,i.disease_name,i.rate])
+        p=0
+        n=0
+        for i in l:
+            if len(i)==3:
+                if(i[2]>50):
+                    i.append(True)
+                    p+=1
+                else:
+                    i.append(False)
+                    n+=1
+        values.append(p)
+        values.append(n)
+        return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist,ratelist=ratelist,values=values)
 
 
 if __name__ == '__main__':

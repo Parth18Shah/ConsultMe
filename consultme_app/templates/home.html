@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+
     <header style="background-color: #5CDB95;">
         <div class="container text-center">
             {% with messages = get_flashed_messages(with_categories=true) %}
@@ -35,27 +36,38 @@
                     <h2 class="header-title text-center" style="color: #05386B ;margin: 1rem; font-size:50px;"> We provide various functionalities
                     </h2>
                 </div>
-                <div class="col-sm-12 col-md-4 p-t-130">
+                <div class="col-sm-12 col-md-5 p-t-130">
 
                     <div class="item4 card card-4 col-sm-12">
                         <div class="card-body">
-                                <a class="title " style="text-decoration: none; " href="/predict"><strong>Predict a Disease</strong> </a>
+                                <a class="title text-black" style="text-decoration: none; " href="/predict"><strong>Predict a Disease</strong> </a>
                                 <hr>
                                 <p >
-
-                                    User can enter the symptoms and get to know about the disease                       
+                                    User can enter the symptoms and get to know about the disease 
+                                    <div class="counter col_fourth" style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+                                        <a href="/predict" id="magic"><img src="{{ url_for('static', filename='img/customer-review.png') }}" alt="" width="80" height="80"
+                                            style="border-radius: 20px;padding: 5px;box-shadow:  black;" ></a>
+                                        <h2 class="timer count-title count-number Single" data-counter="{{num}}" data-speed="0.001"  ></h2>
+                                         <p class="count-text ">Positive Feedbacks for Predicted Disease</p>
+                                    </div>               
                                 </p>
                         </div>
                     </div>
                 </div>
                 
-                <div class=" col-sm-12 col-md-4 p-t-130">
+                <div class=" col-sm-12 col-md-5 p-t-130">
                     <div class="item4 card card-4 col-sm-12">
                         <div class="card-body">
                             <a class="title text-black" style="text-decoration: none;" href="/consult"><strong>Consult a Doctor</strong></a>
                             <hr>
                             <p>
                                 User can consult with a doctor online using our website 
+                                <div class="counter col_fourth" style="display: flex;align-items: center;justify-content: center;flex-direction: column;">
+                                    <a href="/predict" id="magictwo"><img src="{{ url_for('static', filename='img/satisfaction.png') }}" alt="" width="80" height="80"
+                                        style="border-radius: 20px;padding: 5px;box-shadow:  black;" ></a>
+                                    <h2 class="timer count-title count-number Singletwo" data-counter="{{num1}}" data-speed="0.001" ></h2>
+                                    <p class="count-text ">Satisfied Patients for consultation</p>
+                                  </div>
                             </p>
                         </div>
                     </div>
@@ -63,13 +75,11 @@
             </div>
         </div>
     </section>
-
     <section id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
                     <h2>About Us</h2>
-                    <!-- <p class="text-center ">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Explicabo eveniet quam molestiae et eius, cumque quis eligendi sint magnam iste.</p> -->
                     
                 </div>
                 <div class="hcard col-sm-12 col-md-6 p-t-130">
@@ -172,5 +182,41 @@
         </div>
         </div>
     </section>
-
+    <script>
+        
+    $('#magic').on('mouseenter', startCounter);
+    function startCounter() {
+    const maxCounter = $('.Single').data('counter');
+    $({
+        Counter: 0
+    }).animate({
+        Counter: maxCounter
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function() {
+        $('.Single').text(Math.ceil(this.Counter));
+        }
+    });
+    }
+    </script>
+    <script>
+        
+        $('#magictwo').on('mouseenter', startCountertwo);
+        function startCountertwo() {
+        const maxCounter = $('.Singletwo').data('counter');
+        $({
+            Counter: 0
+        }).animate({
+            Counter: maxCounter
+        }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function() {
+            $('.Singletwo').text(Math.ceil(this.Counter));
+            }
+        });
+        }
+        </script>
+   
 {% endblock %}
