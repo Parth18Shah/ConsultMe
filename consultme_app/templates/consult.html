@@ -93,41 +93,21 @@
                         </svg></h2>
 
                     {% if chats is defined %}
-                    <button class="item3 " type="submit"
-                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px; background-color:#a5dbec;border-radius: 10px;width: 100%; border:2px solid black"
+                    <div class="item3 " style="display: flex; justify-content:end; margin: 5px; margin-top: 20px; background-color:#a5dbec;border-radius: 10px;width: 100%; border:2px solid black"
                        >
-                        <div class=" " style="display: flex;justify-content:space-between;align-items: center;">
+                        <div        style="display: flex;align-items: center;">
                             <img style="border: 2px solid black;" src='https://picsum.photos/200/300'
                                 class="rounded-circle user_img_msg" width="40" height="40">
                             <h5 style="flex: 1;"><a class="nav-link" href="/profile" class="a" style="color: black
                                                 ;">@{{selected_user.u_name}} </a>
                             </h5>
-                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-camera-fill" viewBox="0 0 16 16" style="margin-left:20rem">
-                                <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                <path
-                                    d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-paperclip" viewBox="0 0 16 16" style="margin-left: 10px;">
-                                <path
-                                    d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z" />
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-justify-right" viewBox="0 0 16 16" style="margin-left: 10px;">
-                                <path fill-rule="evenodd"
-                                    d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                            </svg> -->
-                            
-                            
                             {% if users_list is defined %}
                             <form method="POST" action="/endchat" autocomplete="off" onSubmit="return confirm('Are you sure you wish to end the consultation?');">
-                                <button >End Chat</button>
+                                <button class="btn btn--blue btn--radius-2" style="width: fit-content;margin-left: 20rem;">End Chat</button>
                             </form>
-                            {% endif %}
+                            {% endif %}                            
                         </div>
-
-                    </button>
+                    </div>
                     {% for chat in chats %}
                     {% if chat.senderid != uid %}
 
@@ -330,3 +310,5 @@
 
 
 <!-- https://codepen.io/blackcityhenry/pen/LXOOgW -->
+
+

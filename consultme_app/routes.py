@@ -26,12 +26,7 @@ def home():
     c=0
     for i in consult1:
         if(i.rate>50):
-            print(i.rate)
             c+=1
-    print("---------------------------")
-    print(c)
-    print("---------------------------")
-
     return render_template('home.html',num=p,num1=c)
 
 
@@ -353,6 +348,13 @@ def account():
                 db.session.commit()
                 flash(f'Profile Updated successfully', 'success')
         ratelist=[]
+        loglist=[]
+        log = ConsultLog.query.filter_by(doctorid=current_user.id).all()
+        for y in users_list:
+            for z in log:
+                if(z.patientid==y.id):
+                    loglist.append([y.id,y.username,z.disease_name,z.initiated_on,z.ended_on])
+        loglist = list(num for num,_ in itertools.groupby(loglist))
         rate2 = ConsultRate.query.filter_by(doctorid=current_user.id).all()
         for y in users_list:
             for z in rate2:
@@ -371,20 +373,16 @@ def account():
         l1 =[]
         for i in pred:
             l1.append(i.disease_name)
-        print(l1)
         freq = {}
         for item in l1:
             if (item in freq):
                 freq[item] += 1
             else:
                 freq[item] = 1
-        print(freq)
         for i,j in freq.items():
             labels.append(i)
             values.append(j)
-        print(labels)
-        print(values)
-        return render_template('account.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,ratelist=ratelist,labels=labels,values=values)
+        return render_template('account.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,ratelist=ratelist,labels=labels,values=values,loglist=loglist)
     else:
         form = PatientRegistrationForm()
         userone = Users.query.filter_by(id=current_user.id).first_or_404()
@@ -422,7 +420,7 @@ def profile():
             if(user.id not in user_id):
                 users_list.append(user)
                 user_id.append(user.id)
-    pred_list = PredictDisease.query.filter_by(userid=current_user.id).all()
+    pred_list = ConsultLog.query.filter_by(patientid=current_user.id).all()
     diseaselist=[]
     for i in pred_list:
         diseaselist.append(i.disease_name)

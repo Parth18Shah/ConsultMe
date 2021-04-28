@@ -31,7 +31,7 @@ class Chat(db.Model,UserMixin):
     senderid = db.Column(db.Integer,nullable=False)
     receiverid  = db.Column(db.Integer,nullable=False)
     message = db.Column(db.Text,nullable=False)
-    send_time = db.Column(db.DateTime,nullable=False,default=datetime.now())
+    send_time = db.Column(db.DateTime,nullable=False,default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 class PredictDisease(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)
@@ -43,7 +43,7 @@ class PredictDisease(db.Model,UserMixin):
     symptom4 = db.Column(db.Text,nullable=False,default="0")
     symptom5 = db.Column(db.Text,nullable=False,default="0")
     feedback  = db.Column(db.String,nullable=False,default="True")
-    predtime = db.Column(db.DateTime,nullable=False,default=datetime.now())
+    predtime = db.Column(db.DateTime,nullable=False,default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
 
 class ConsultRate(db.Model,UserMixin):
@@ -58,8 +58,8 @@ class ConsultLog(db.Model,UserMixin):
     patientid = db.Column(db.Integer,nullable=False)
     doctorid = db.Column(db.Integer,nullable=False)
     isenabled = db.Column(db.Boolean, nullable=False,default=True)
-    initiated_on = db.Column(db.DateTime,nullable=False,default=datetime.now())
-    ended_on = db.Column(db.DateTime,nullable=False,default=datetime.now())
+    initiated_on = db.Column(db.DateTime,nullable=False,default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    ended_on = db.Column(db.DateTime,nullable=False,default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     disease_name = db.Column(db.Text,nullable=False)
 
 # CREATE TABLE users (
@@ -134,6 +134,17 @@ class ConsultLog(db.Model,UserMixin):
 #     isenabled boolean not null,
 #     initiated_on datetime not null,
 #     ended_on datetime null,
+#     disease_name text not null,
+#   primary key(id)
+# );
+
+# CREATE TABLE consult_log (
+#     id serial not null ,
+# 	patientid  int not null,
+#     doctorid int not null,
+#     isenabled boolean not null,
+#     initiated_on timestamp not null,
+#     ended_on timestamp null,
 #     disease_name text not null,
 #   primary key(id)
 # );

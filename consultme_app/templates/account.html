@@ -200,7 +200,7 @@
     {% if ratelist %}
     <div class="container">
 
-        <div class="acc_card profile col-sm-12 col-md-4" style="max-height: 90vh;">
+        <div class="acc_card profile col-sm-12 col-md-4" style="max-height: 100vh;">
             <div style="display: flex;">
                 <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
 
@@ -269,7 +269,7 @@
             </form>
         </div>
         
-        <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;max-height: 90vh;">
+        <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;max-height: 100vh;">
             <h2 class="title">
                 Information about Consultation Given
             </h2>
@@ -320,10 +320,67 @@
                     </tbody>
                 </table>
             </div>
-
+            
         </div>
-        {% else %}
-        <div class="container" style="display: flex; align-items: center; justify-content: center ;">
+    </div>
+    {% if loglist %}
+
+    <div class="container">
+        <div style="display: flex;">
+            <div class="acc_card profile col-sm-12 col-md-5" style="height:70vh ;margin:3rem 0 5rem 0">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+            <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;max-height: 100vh;">
+                <h2 class="title">
+                Consultation History
+            </h2>
+            
+            <div class="table-responsive over">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="bg-dark" style="color: whitesmoke;">
+                            <th class="acc_title">Patient Name</th>
+                            <th class="acc_title">Disease</th>
+                            <th class="acc_title">Chat Initiated</th>
+                            <th class="acc_title">Chat Ended</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for users in loglist %}
+                        {% if users[4] %}
+                            <tr class="success">
+                                <td>
+                                    <p class="acc_content">{{users[1]}}</p>
+                                </td>
+                                <td>{{users[2]}} </td>
+                                <td>{{users[3]}} </td>
+                                <td>{{users[4]}} </td>
+                            </tr>
+                            {% else %}
+                            <tr class="danger">
+                                <td><p class="acc_content">{{users[1]}}</p></td>
+                                <td>{{users[2]}} </td>
+                                <td>{{users[3]}} </td>
+                                <td>{{users[4]}} </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+                                
+                        </tbody>
+                </table>
+            </div>
+        </div>
+                
+    </div>
+    {% else %}
+    <div class="acc_card profile col-sm-12 col-md-11" style="height:70vh ;margin:3rem 0 5rem 0">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </div>
+    {% endif %}
+    </div>
+    {% else %}
+    <div class="container" style="display: flex; align-items: center; justify-content: center ;">
         <div class="acc_card profile col-sm-12 col-md-6">
             <div style="display: flex;">
                 <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
@@ -393,9 +450,7 @@
             </form>
         </div>
         {% endif %}
-        <div class="acc_card profile col-sm-12 col-md-11" style="width:400 ;height:400">
-            <canvas id="myChart" width="400" height="400"></canvas>
-        </div>
+        
     </div>
     
 

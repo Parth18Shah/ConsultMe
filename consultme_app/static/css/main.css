@@ -709,7 +709,7 @@
   -webkit-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 80px rgba(0, 0, 0, 0.5);
-  border-radius:25px ;
+  border-radius: 25px 5px 5px 25px;
   height:120vh;
 
   font-size: medium;
@@ -722,7 +722,7 @@
   -webkit-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 80px rgba(0, 0, 0, 0.5);
-  border-radius:25px ;
+  border-radius: 25px 5px 5px 25px;
   height:120vh;
 
   font-size: medium;
@@ -856,7 +856,7 @@ h5{
 	margin: 20px;
   display: inline-block;
   position: relative;
-	width: 200px;
+	width:fit-content;
   height: fit-content;
   border-radius: 10px;
   color:black;
@@ -893,7 +893,7 @@ h5{
 	margin: 20px;
   display: inline-block;
   position: relative;
-	width: 200px;
+	width:fit-content;
   height: fit-content;
   border-radius: 10px 10px 0px 10px;
   color:black;
