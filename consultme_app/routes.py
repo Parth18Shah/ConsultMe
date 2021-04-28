@@ -3,12 +3,13 @@ from flask import render_template, url_for, flash, redirect, request, session
 from flask_login import login_user, current_user, logout_user, login_required, LoginManager
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
-from consultme_app.models import Users, Chat ,PredictDisease,ConsultRate
-from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm, ChatForm , PredictForm , RateForm
-from consultme_app import app, db, bcrypt
-from consultme_app.disease import get_diseaselist, get_symptomslist, get_specialization, predict_disease, get_description, get_cure
 from sqlalchemy import desc
 import itertools
+from datetime import datetime
+from consultme_app.models import Users, Chat , PredictDisease, ConsultRate, ConsultLog
+from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm, ChatForm , PredictForm , RateForm, LogForm
+from consultme_app import app, db, bcrypt
+from consultme_app.disease import get_diseaselist, get_symptomslist, get_specialization, predict_disease, get_description, get_cure
 from consultme_app.verify import verify_doctor
 
 @app.errorhandler(404)
@@ -206,7 +207,7 @@ def predict():
 def consult():
     form = ChatForm()
     uid = session['uid']
-
+    isenabled = False
     if session['ispatient'] == True:
         doctors_list = Users.query.filter_by(ispatient=False).all()
         # doctors_list = Users.query.filter_by(ispatient=0).all()
@@ -220,7 +221,12 @@ def consult():
             selected_user = Users.query.filter_by(id=session['rid']).first()
             chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
                 (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
-            return render_template('consult.html', doctors_list=doctors_list, chats=chats, selected_user=selected_user, uid=uid, form=form)
+            consult_status = ConsultLog.query.filter(ConsultLog.doctorid==session['rid'], ConsultLog.patientid==uid).all()
+            for i in range(len(consult_status)):
+                if(consult_status[i].isenabled):
+                    isenabled = True
+                # print(val) 
+            return render_template('consult.html', doctors_list=doctors_list, chats=chats, selected_user=selected_user, uid=uid, form=form, isenabled = isenabled )
         return render_template('consult.html', doctors_list=doctors_list, form=form)
     else:
         chat_list = Chat.query.filter(
@@ -247,8 +253,11 @@ def consult():
         if session['chatstatus'] == True:
             selected_user = Users.query.filter_by(id=session['rid']).first()
             chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==session['rid']) | (Chat.receiverid==session['rid'])).all()
-        
-            return render_template('consult.html', users_list = users_list, chats = chats, selected_user = selected_user, uid = uid, form = form )
+            consult_status = ConsultLog.query.filter(ConsultLog.doctorid==uid, ConsultLog.patientid==session['rid']).all()
+            for i in range(len(consult_status)):
+                if(consult_status[i].isenabled):
+                    isenabled = True
+            return render_template('consult.html', users_list = users_list, chats = chats, selected_user = selected_user, uid = uid, form = form, isenabled = isenabled )
         
         
         return render_template('consult.html', users_list = users_list, form = form)
@@ -269,6 +278,40 @@ def storechat():
         db.session.commit()
         return redirect(url_for('consult'))
     return redirect(url_for('home'))
+
+
+@app.route('/startchat', methods=['POST'])
+@login_required
+def startchat():
+    form = LogForm()
+    if request.method == 'POST':
+        print(request.form)
+        consult_details = ConsultLog(
+            patientid=session['uid'],
+            doctorid=session['rid'],
+            isenabled=True,
+            disease_name=request.form['disease_name'],
+        )
+        db.session.add(consult_details)
+        db.session.commit()
+        return redirect(url_for('consult'))
+    return redirect(url_for('home'))
+
+@app.route('/endchat', methods=['POST'])
+@login_required
+def endchat():
+    consult_log = ConsultLog.query.filter(ConsultLog.doctorid==session['uid'], ConsultLog.patientid==session['rid'], ConsultLog.isenabled==True).first()
+    # consult_log.end
+    print(consult_log)
+    if request.method == 'POST':
+        consult_log.isenabled = False
+        consult_log.ended_on= datetime.now() 
+        db.session.flush()
+        db.session.commit()
+        flash(f'Log Updated successfully', 'success')
+        return redirect(url_for('consult'))
+    return redirect(url_for('home'))
+
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required

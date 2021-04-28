@@ -25,51 +25,57 @@
                     <div class="">
                         <div class="row form-group has-search" style="display: flex;">
 
-                            <input type="text" id="myInput" class="input--style-4 form-control"
-                                placeholder="Enter a name" onkeyup="myFunction()">
+                            {% if doctors_list is defined %}
+                                <input type="text" id="myInput" class="input--style-4 form-control"
+                                    placeholder="Search a user..." onkeyup="myFunction()">
+                                <ul class="container navbar-nav" id="myUL">
+                                    <form action="/consult" method="POST">
+                                        {% for doctor in doctors_list %}
+                                            <li class="item3 msg_received"
+                                                style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;border: 2px ridge black;">
+                                                <div class=" " style="display: flex;">
+                                                    <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
+                                                        width="40" height="40" style="border: 2px ridge black;">
+                                                    <h5 style="display: flex;">
+                                                        <a class="nav-link"class="a" style="color: black
+                                                        ;">@{{doctor.username}} </a>
+                                                    </h5>
+                                                </div>
+                                                <hr>
+                                                <p class="spec" style="margin-top: 10px;">Specialization: {{doctor.specialist}}</p>
+                                                <span class="" style="color: black;">Having {{doctor.experience}} of
+                                                    Experience</span>
+                                                <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
+                                                    value="{{doctor.id}}">Chat</button>
+                                            </li>
+                                        {% endfor %}
+                                    </form>
+                                </ul>
 
-                            <ul class="container navbar-nav" id="myUL">
-                                <form action="/consult" method="POST">
-                                    {% if doctors_list is defined %}
-                                    {% for doctor in doctors_list %}
-                                    <li class="item3 msg_received"
-                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;border: 2px ridge black;">
-                                        <div class=" " style="display: flex;">
-                                            <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
-                                                width="40" height="40" style="border: 2px ridge black;">
-                                            <h5 style="display: flex;">
-                                                <a class="nav-link"class="a" style="color: black
-                                                ;">@{{doctor.username}} </a>
-                                            </h5>
-                                        </div>
-                                        <hr>
-                                        <p style="margin-top: 10px;">Specialization: {{doctor.specialist}}</p>
-                                        <span class="" style="color: black;">Having {{doctor.experience}} of
-                                            Experience</span>
-                                        <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
-                                            value="{{doctor.id}}">Chat</button>
-                                    </li>
-
-                                    {% endfor %}
-                                    {% else %}
+                                    
+                            {% else %}
+                                <input type="text" id="myInput" class="input--style-4 form-control"
+                                placeholder="Search a user..." onkeyup="myFunction2()">
+                                <ul class="container navbar-nav" id="myUL">
+                                    <form action="/consult" method="POST">
                                     {% for users in users_list %}
-                                    <li class="item3 msg_received"
-                                        style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px; border: 2px ridge black;">
-                                        <div class=" " style="display: flex;">
-                                            <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
-                                                width="40" height="40" style="border: 2px ridge black;">
-                                            <h5><a class="nav-link" class="a" style="color: black
-                                        ;">@{{users.username}} </a>
-                                                <p style="color: black;">Email-id :- {{users.email}} </p>
-                                            </h5>
-                                        </div>
-                                        <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
-                                            value="{{users.id}}">Chat</button>
-                                    </li>
+                                        <li class="item3 msg_received"
+                                            style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px; border: 2px ridge black;">
+                                            <div class=" " style="display: flex;">
+                                                <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
+                                                    width="40" height="40" style="border: 2px ridge black;">
+                                                <h5><a class="nav-link" class="a" style="color: black
+                                            ;">@{{users.username}} </a>
+                                                    <p style="color: black;">Email-id :- {{users.email}} </p>
+                                                </h5>
+                                            </div>
+                                            <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
+                                                value="{{users.id}}">Chat</button>
+                                        </li>
                                     {% endfor %}
-                                    {% endif %}
                                 </form>
                             </ul>
+                            {% endif %}
 
                         </div>
                     </div>
@@ -96,7 +102,7 @@
                             <h5 style="flex: 1;"><a class="nav-link" href="/profile" class="a" style="color: black
                                                 ;">@{{selected_user.u_name}} </a>
                             </h5>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-camera-fill" viewBox="0 0 16 16" style="margin-left:20rem">
                                 <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                                 <path
@@ -111,7 +117,14 @@
                                 class="bi bi-justify-right" viewBox="0 0 16 16" style="margin-left: 10px;">
                                 <path fill-rule="evenodd"
                                     d="M6 12.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-4-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z" />
-                            </svg>
+                            </svg> -->
+                            
+                            
+                            {% if users_list is defined %}
+                            <form method="POST" action="/endchat" autocomplete="off" onSubmit="return confirm('Are you sure you wish to end the consultation?');">
+                                <button >End Chat</button>
+                            </form>
+                            {% endif %}
                         </div>
 
                     </button>
@@ -160,20 +173,78 @@
                                 </div> -->
                     {% endif %}
                     {% endfor %}
-                    <div class="card-footer " style="margin-top: auto;">
-                        <div>
-                            <form method="POST" action="/chat" autocomplete="off">
-                                <div class="input--style-5 ">
+                    {% if users_list is defined %}
+                        {% if isenabled == True %}
+                            <div class="card-footer " style="margin-top: auto;">
+                                <div>
+                                    <form method="POST" action="/chat" autocomplete="off">
+                                        <div class="input--style-5 ">
 
-                                    <input name="message" class=" form-control"
-                                        placeholder="Type your message..."></input>
-                                    <button type="submit" class="btn btn--blue btn--radius-2 " autofocus=""
-                                        style="width :50ve; max-width: fit-content; display: flex; float: right; margin: 5px;">
-                                        Send
-                                    </button>
+                                            <input name="message" class=" form-control"
+                                                placeholder="Type your message..."></input>
+                                            <button type="submit" class="btn btn--blue btn--radius-2 " autofocus=""
+                                                style="width :50ve; max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                                Send
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        {% else %}
+                            <div class="card-footer " style="margin-top: auto;">
+                                <!-- <div>
+                                    <form method="POST" action="/startchat" autocomplete="off">
+                                        <div class="input--style-5 ">
+
+                                            <input name="disease_name" class=" form-control"
+                                                placeholder="Type the disease name..."></input>
+                                            <button type="submit" class="btn btn--blue btn--radius-2 " autofocus=""
+                                                style="width :50ve; max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                                Start the consultation
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div> -->
+                                <p class="b" style="display: flex;justify-content: center;"> The chat is currently disabled. </p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        {% if isenabled == True %}
+                            <div class="card-footer " style="margin-top: auto;">
+                                <div>
+                                    <form method="POST" action="/chat" autocomplete="off">
+                                        <div class="input--style-5 ">
+
+                                            <input name="message" class=" form-control"
+                                                placeholder="Type your message..."></input>
+                                            <button type="submit" class="btn btn--blue btn--radius-2 " autofocus=""
+                                                style="width :50ve; max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                                Send
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="card-footer " style="margin-top: auto;">
+                                <div>
+                                    <p class="b"> The chat is currently disabled. To initiate the consultation please enter the disease name you want to consult the doctor for.</p>
+                                    <form method="POST" action="/startchat" autocomplete="off">
+                                        <div class="input--style-5 ">
+
+                                            <input name="disease_name" class=" form-control"
+                                                placeholder="Type the disease name..."></input>
+                                            <button type="submit" class="btn btn--blue btn--radius-2 " autofocus=""
+                                                style="width :50ve; max-width: fit-content; display: flex; float: right; margin: 5px;">
+                                                Start the consultation
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
                         <!-- {{ form.message.label(class="input--style-5 form-control-label") }}
                 
                                         {% if form.message.errors %}
@@ -195,7 +266,6 @@
                                             Send
                                         </button> -->
 
-                    </div>
                 </div>
                 {% else %}
                 <p class="b" style="text-align: center;">Please select a user to chat with.</p>
@@ -212,6 +282,28 @@
 <script>
 
     function myFunction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            
+            b = li[i].getElementsByClassName("spec")[0];
+            // console.log(b);
+            // print(b);
+            txtValue = a.textContent || a.innerText;
+            specVal = b.textContent || a.innerText;
+            if ((txtValue.toUpperCase().indexOf(filter) > -1) || (specVal.toUpperCase().indexOf(filter) > -1)) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function myFunction2() {
         var input, filter, ul, li, a, i, txtValue;
         input = document.getElementById("myInput");
         filter = input.value.toUpperCase();

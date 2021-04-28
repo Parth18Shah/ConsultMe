@@ -49,3 +49,7 @@ class PredictForm(FlaskForm):
 class RateForm(FlaskForm):
     rate_input = IntegerField("Provide Rating to Doctor's Consultation ",validators=[DataRequired(),Length(min=1, max=3)],render_kw={"placeholder": "In Integer ranges from 1-100"})
     rate = SubmitField('Submit')
+
+class LogForm(FlaskForm):
+    disease_name =  StringField('Provide a disease name :',validators=[DataRequired()])
+    submit = SubmitField('Start the consultation')

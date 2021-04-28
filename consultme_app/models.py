@@ -52,6 +52,15 @@ class ConsultRate(db.Model,UserMixin):
     disease_name = db.Column(db.Text,nullable=False)
     rate  = db.Column(db.Integer,nullable=False,default=50)
 
+class ConsultLog(db.Model,UserMixin):
+    id = db.Column(db.Integer,primary_key=True)
+    patientid = db.Column(db.Integer,nullable=False)
+    doctorid = db.Column(db.Integer,nullable=False)
+    isenabled = db.Column(db.Boolean, nullable=False,default=True)
+    initiated_on = db.Column(db.DateTime,nullable=False,default=datetime.now())
+    ended_on = db.Column(db.DateTime,nullable=False,default=datetime.now())
+    disease_name = db.Column(db.Text,nullable=False)
+
 # CREATE TABLE users (
 #          id SERIAL PRIMARY KEY, 
 #          username varchar(20) unique not null,
@@ -111,5 +120,16 @@ class ConsultRate(db.Model,UserMixin):
 #   doctorid int not null,
 #   disease_name text not null,
 #   rate int not null,
+#   primary key(id)
+# );
+
+# CREATE TABLE consult_log (
+#     id int auto_increment not null ,
+# 	patientid  int not null,
+#     doctorid int not null,
+#     isenabled boolean not null,
+#     initiated_on datetime not null,
+#     ended_on datetime null,
+#     disease_name text not null,
 #   primary key(id)
 # );
