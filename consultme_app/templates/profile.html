@@ -18,6 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" media="all">
     <link href="{{ url_for('static', filename='css/account.css') }}" rel="stylesheet" media="all">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -120,7 +121,7 @@
                             <div class="col-md-12">
                                 <div class="form-group" style="display: flex;width: 100%;">
                                     <label for="disease1">Select a Disease</label>
-                                    <select class="custom-select d-block w-100" id="disease1" name="disease_1" >
+                                    <select class="custom-select d-block w-100" id="disease1" name="disease_1" style="height: 5vh;">
                                         <option value="0">Select...</option>
                                         {% for each in diseaselist %}
                                         <option>{{ each }}</option>
@@ -195,6 +196,9 @@
                 </table>
             </div>
         </div>
+        <div class="acc_card profile col-sm-12 col-md-11" style="height:70vh ;margin:3rem 0 5rem 0">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
     </div>
         {% else %}
         <div class="container " style="display: flex; align-items: center; justify-content: center ;">
@@ -247,7 +251,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group" style="display: flex;width: 100%;">
                                         <label for="disease1">Select a Disease</label>
-                                        <select class="custom-select d-block w-100" id="disease1" name="disease_1" >
+                                        <select class="custom-select d-block w-100" id="disease1" name="disease_1" style="height: 5ch;">
                                             <option value="0">Select...</option>
                                             {% for each in diseaselist %}
                                             <option>{{ each }}</option>
@@ -267,7 +271,6 @@
                         
                     </form>
             </div>
-            
         </div>
         {% endif %}
 
@@ -325,6 +328,7 @@
                             <th class="acc_title">Symptoms</th>
                             <th class="acc_title">Prdicted disease</th>
                             <th class="acc_title">Satisfaction</th>
+                            <th class="acc_title">Date and Time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -344,6 +348,9 @@
                             <td>
                                 <span style='font-size:40px;'>&#128516;</span>
                             </td>
+                             <td>
+                                <p>{{pred.predtime}}</p>
+                            </td>
                         </tr>
                         {% else %}
                         <tr class="danger">
@@ -360,6 +367,9 @@
                             <td>
                                 <span style='font-size:40px;'>&#128553;</span>
                             </td>
+                             <td>
+                                <p>{{pred.predtime}}</p>
+                            </td>
                         </tr>
                         
                         {% endif %}
@@ -371,6 +381,7 @@
                 </table>
             </div>
         </div>
+        
     </div>
 
     {% else %}
@@ -413,9 +424,10 @@
         
         
             </div>
-        
+            
         </div>
     {% endif %}
+
 
 
 
@@ -426,7 +438,7 @@
 
     {% endif %}
 
-    <footer class="py-5 bg-dark " style="margin-top:10px ;">
+    <footer class="py-5 bg-dark " style="margin-top:20px ;">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; ConsultMe 2020-21</p>
         </div>
@@ -449,6 +461,66 @@
         function delete_flash(flash) {
             $(flash).parent().remove()
         }
+    </script>
+    <script>
+        var delayed;
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'doughnut',
+        data: {
+            labels: ["Satisfied","Not-Satisfied"],
+            datasets: [
+                {
+                    label: "Count",
+                    data: {{ values | safe }},
+                    backgroundColor: [
+                    'rgb(64, 214, 87)',
+                    'rgb(255, 89, 74)',
+                    ],
+                    hoverOffset: 4,
+                    borderWidth: 1,
+                lineTension:0.5
+            }]
+        },
+        
+       
+        options: {
+            responsive:false,
+            animation: {
+            onComplete: () => {
+                delayed = true;
+            },
+            delay: (context) => {
+                let delay = 0;
+                if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                }
+                return delay;
+            },
+            },
+            plugins: {
+            title: {
+                display: true,
+                text: 'Overall Feedback Received',
+                padding: {
+                    top: 50,
+                    bottom: 30
+                },
+                font:{
+                    size:20
+                }
+            },legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 14
+                    }
+                }
+            }
+        }
+            
+        }
+        });
     </script>
 
 </body>

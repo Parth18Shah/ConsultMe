@@ -43,6 +43,7 @@ class PredictDisease(db.Model,UserMixin):
     symptom4 = db.Column(db.Text,nullable=False,default="0")
     symptom5 = db.Column(db.Text,nullable=False,default="0")
     feedback  = db.Column(db.String,nullable=False,default="True")
+    predtime = db.Column(db.DateTime,nullable=False,default=datetime.now())
 
 
 class ConsultRate(db.Model,UserMixin):
@@ -82,6 +83,8 @@ class ConsultLog(db.Model,UserMixin):
 # ALTER TABLE users
 # ADD COLUMN image_file varchar(20);
 
+# ALTER TABLE predict_disease
+# ADD COLUMN time timestamp;
 
 # CREATE TABLE chat (
 #   id int not null auto-increment,
@@ -111,6 +114,7 @@ class ConsultLog(db.Model,UserMixin):
 #   symptom4 text not null,
 #   symptom5 text not null,
 #   feedback boolean not null,
+#   predtime datetime not null,
 #   primary key(id)
 # );
 
