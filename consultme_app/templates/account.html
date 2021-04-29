@@ -199,9 +199,59 @@
             </div>
         </div>
     </div>
+    {% if loglist %}
+    <div class="container" style="display: flex; justify-content: center;align-items: center ;">
+
+        <div class="acc_card col-sm-12 col-md-10" style="max-height: 80vh;display: flex;flex-direction: column;">
+            <h2 class="title">
+                Consultation History
+            </h2>
+            
+        <div class="table-responsive over">
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr class="bg-dark" style="color: whitesmoke;">
+                        <th class="acc_title">Doctor's Name</th>
+                        <th class="acc_title">Disease</th>
+                        <th class="acc_title">Chat Initiated</th>
+                        <th class="acc_title">Chat Ended</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for users in loglist %}
+                    {% if users[4] %}
+                    <tr class="success">
+                        <td>
+                            <p class="acc_content">{{users[1]}}</p>
+                        </td>
+                        <td>{{users[2]}} </td>
+                        <td>{{users[3]}} </td>
+                        <td>{{users[4]}} </td>
+                    </tr>
+                    {% else %}
+                    <tr class="danger">
+                        <td>
+                            <p class="acc_content">{{users[1]}}</p>
+                        </td>
+                        <td>{{users[2]}} </td>
+                        <td>{{users[3]}} </td>
+                        <td>{{users[4]}} </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    {% else %}
+    <p>elses no loglist</p>
+    {% endif %}
     {% else %}
     <div class="container" style="display: flex;justify-content: center;align-items: center;">
-        <div class="acc_card profile col-sm-12 col-md-6">
+        <div class="acc_card profile col-sm-12 col-md-6" >
             <div style="display: flex;">
                 <img src="../static/profile_pics/{{image_file}}" width="100" height="100" class="round-circle "
                     style="border-radius:100px" style="flex: 1;">
@@ -259,6 +309,7 @@
             </form>
         </div>
     </div>
+
     {% endif %}
 
 
@@ -621,7 +672,9 @@
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)'
+                'rgb(255, 205, 86)',
+                'rgb(64, 214, 87)',
+                'rgb(255, 89, 74)'
             ],
             hoverOffset: 4,
             borderWidth: 1,

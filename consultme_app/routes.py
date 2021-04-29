@@ -381,9 +381,10 @@ def account():
         log = ConsultLog.query.filter_by(doctorid=current_user.id).all()
         for y in users_list:
             for z in log:
-                if(z.patientid == y.id):
-                    loglist.append(
-                        [y.id, y.username, z.disease_name, z.initiated_on, z.ended_on])
+                if(z.isenabled):
+                    loglist.append([y.id, y.username, z.disease_name, z.initiated_on, "On Going"])
+                else:
+                    loglist.append([y.id, y.username, z.disease_name, z.initiated_on, z.ended_on])
         loglist = list(num for num, _ in itertools.groupby(loglist))
         rate2 = ConsultRate.query.filter_by(doctorid=current_user.id).all()
         for y in users_list:
@@ -420,6 +421,18 @@ def account():
         pred_list = PredictDisease.query.filter_by(
             userid=current_user.id).all()
         print(pred_list)
+        loglist = []
+        log = ConsultLog.query.filter_by(patientid=current_user.id).all()
+        print(log)
+        for z in log:
+            if(z.patientid == current_user.id):
+                if(z.isenabled):
+                    print(z.isenabled)
+                    loglist.append([current_user.id, current_user.username, z.disease_name, z.initiated_on, "On Going"])
+                else:
+                    loglist.append([current_user.id, current_user.username, z.disease_name, z.initiated_on, z.ended_on])
+        loglist = list(num for num, _ in itertools.groupby(loglist))
+        print(loglist)
         if request.method == "POST":
             if request.form['save-btn'] == 'save':
                 userone.username = form.username.data
@@ -429,7 +442,7 @@ def account():
                 db.session.flush()
                 db.session.commit()
                 flash(f'Profile Updated successfully', 'success')
-        return render_template('account.html', users_list=users_list, form=form, userone=userone, image_file=fn, pred_list=pred_list)
+        return render_template('account.html', users_list=users_list, form=form, userone=userone, image_file=fn, pred_list=pred_list,loglist=loglist)
 
 
 @app.route('/profile', methods=['GET', 'POST'])
@@ -453,13 +466,16 @@ def profile():
                 users_list.append(user)
                 user_id.append(user.id)
     pred_list = ConsultLog.query.filter_by(patientid=current_user.id).all()
+    pred_list = list(num for num, _ in itertools.groupby(pred_list))
     diseaselist = []
     for i in pred_list:
         diseaselist.append(i.disease_name)
+    print(pred_list)
     if(current_user.ispatient == False):
         form = PatientRegistrationForm()
         userone = Users.query.filter_by(id=uid).first_or_404()
         fn = "default.jpg"
+
         return render_template('profile.html', users_list=users_list, form=form, userone=userone, image_file=fn, pred_list=pred_list)
     else:
         form = DoctorRegistrationForm()
@@ -480,10 +496,12 @@ def profile():
                 disease_name=form_values[1],
                 rate=form_values[2]
             )
+            print(rate1)
             db.session.add(rate1)
             db.session.commit()
         ratelist = []
         for x in diseaselist:
+            print(x,len(x))     
             rate2 = ConsultRate.query.filter_by(
                 patientid=current_user.id, disease_name=x).all()
             if len(rate2) > 0:
