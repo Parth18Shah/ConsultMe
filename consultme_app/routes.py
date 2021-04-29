@@ -84,11 +84,13 @@ def register(choice):
             result = verify_doctor(form.reg_no.data,form.name.data)
             print(result)
             if(result == 1): 
-                db.session.add(user)
-                db.session.commit()
+                # db.session.add(user)
+                # db.session.commit()
                 flash(
                     f'Account created successfully for  { form.username.data }', 'success')
                 return redirect(url_for('login'))
+            else:
+                flash(f'Please enter the correct name and registration number', 'danger')
     else:
         form = PatientRegistrationForm()
 
@@ -193,7 +195,7 @@ def predict():
                 symptom4 = form_values[3],
                 symptom5 = form_values[4]
             )
-            
+
             db.session.add(pred)
             db.session.commit()
             return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename, form=form ,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization)
