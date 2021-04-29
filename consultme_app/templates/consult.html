@@ -1,21 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
-<!-- <script>
+<script>
     function ajax() {
 
         var req = new XMLHttpRequest();
         req.onreadystatechange = function () {
             if (req.readyState == 4 && req.status == 200) {
-                document.getElementById('chat').innerHTML = req.responseText;
+                // console.log(req.responseText);
+                document.getElementById('getchats').innerHTML = req.responseText;
             }
         }
-        req.open('POST', '/consult', true);
+        req.open('POST', '/getchats', true);
         req.send();
     }
     setInterval(function () { ajax() }, 10);
-</script> -->
-<!-- <div class="bg-gra-02" onload="ajax();"> -->
-<div class="bg-gra-02">
+</script>
+<div class="bg-gra-02" onload="ajax();">
+<!-- <div class="bg-gra-02"> -->
     <div class="p-t-130 font-poppins " style="display:flex; padding-bottom:80px ; ">
         <div class="wrapper " style="width: 40vw;">
             <div class="chat bg-dark card_body">
@@ -85,7 +86,7 @@
         <div class="wrapper " style="width: 55vw;">
 
             <div class="bg-dark msg_card_body col-sm-12 ">
-                <div class="chat">
+                <div>
                     <h2 class="predict-h2">Chat Box<svg style="margin: 0px 10px;" xmlns="http://www.w3.org/2000/svg"
                             width="25" height="25" fill="black" class="bi bi-chat-fill" viewBox="0 0 16 16">
                             <path
@@ -102,17 +103,22 @@
                                                 ;">@{{selected_user.u_name}} </a>
                             </h5>
                             {% if users_list is defined %}
-                            <form method="POST" action="/endchat" autocomplete="off" onSubmit="return confirm('Are you sure you wish to end the consultation?');">
-                                <button class="btn btn--blue btn--radius-2" style="width: fit-content;margin-left: 20rem;">End Chat</button>
-                            </form>
+                            
+                                {% if isenabled == True %}
+                                    <form method="POST" action="/endchat" autocomplete="off" onSubmit="return confirm('Are you sure you wish to end the consultation?');">
+                                        <button class="btn btn--blue btn--radius-2" style="width: fit-content;margin-left: 20rem;">End Chat</button>
+                                    </form>
+                                {% endif %} 
                             {% endif %}                            
                         </div>
                     </div>
-                    {% for chat in chats %}
+                    <div id="getchats">
+
+                    </div>
+                    <!-- {% for chat in chats %}
                     {% if chat.senderid != uid %}
 
                     <div class="d-flex container justify-content-start mb-4">
-                        <!-- done -->
                         <div class="img_cont_msg">
                             <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
                                 class="rounded-circle user_img_msg" width="30" height="30">
@@ -126,11 +132,6 @@
                         </div>
 
                     </div>
-                    <!-- <div class="" style="text-align:right; padding:2px 5px;">
-                                    <p>
-                                        <span class="" style="background-color: #28a7ab;color: #fff;margin: 1px 0;padding: 6px 12px; border-radius: 12px;"> {{chat.message}}</span>
-                                    </p>
-                                </div> -->
                     {% else %}
                     <div class="d-flex container justify-content-end mb-4">
 
@@ -140,19 +141,9 @@
                             </div>
                             <span class="time"> {{chat.send_time}} </span>
                         </div>
-                        <!-- <div class="img_cont_msg">
-                                    <p class="card-title" style="color: whitesmoke;">You </p>
-                                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-                                        class="rounded-circle user_img_msg" width="30" height="30">
-                                </div> -->
                     </div>
-                    <!-- <div class="" style="text-align:left; padding:2px 5px;">
-                                    <p>
-                                        <span class="" style="background-color: #dd92b2;color: #fff;margin: 1px 0;padding: 6px 12px; border-radius: 12px;"> {{chat.message}}</span>
-                                    </p>
-                                </div> -->
                     {% endif %}
-                    {% endfor %}
+                    {% endfor %} -->
                     {% if users_list is defined %}
                         {% if isenabled == True %}
                             <div class="card-footer " style="margin-top: auto;">
@@ -299,8 +290,20 @@
             }
         }
     }
+    
+    // var refInterval = window.setInterval('update()', 5000); // 30 seconds
 
-
+    // var update = function() {
+    //     $.ajax({
+    //         type : 'POST',
+    //         url : '/consult',
+    //         success : function(data){
+    //             console.log(data);
+    //             // $('.voters').html(data);
+    //         },
+    //     });
+    // };
+    // update();
 
 </script>
 

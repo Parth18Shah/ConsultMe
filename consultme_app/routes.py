@@ -174,9 +174,10 @@ def predict():
             diseasename = predict_disease(form_values)
         
             diseasedesc = []
-            # diseasedesc = get_description(diseasename)
-            # treatment = get_cure(diseasename)
-            # specialization = get_specialization(diseasename)
+            diseasedesc = get_description(diseasename)
+            treatment = get_cure(diseasename)
+            specialization = get_specialization(diseasename)
+            print(diseasedesc,"\n",treatment,"\n",specialization)
             
             for i in range(len(form_values)):
                 new_value = form_values[i].replace("0","")
@@ -191,9 +192,10 @@ def predict():
                 symptom4 = form_values[3],
                 symptom5 = form_values[4]
             )
-            db.session.add(pred)
-            db.session.commit()
-            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form)
+            print(pred)
+            # db.session.add(pred)
+            # db.session.commit()
+            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form, treatment=treatment, diseasedesc=diseasedesc, specialization=specialization)
             # ,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization
         else:
             pred1 = db.session.query(PredictDisease).filter_by(userid=current_user.id).order_by(PredictDisease.id.desc()).first()
@@ -230,7 +232,7 @@ def consult():
                 if(consult_status[i].isenabled):
                     isenabled = True
                 # print(val) 
-            return render_template('consult.html', doctors_list=doctors_list, chats=chats, selected_user=selected_user, uid=uid, form=form, isenabled = isenabled )
+            return render_template('consult.html', doctors_list=doctors_list, chats = chats, selected_user=selected_user, uid=uid, form=form, isenabled = isenabled )
         return render_template('consult.html', doctors_list=doctors_list, form=form)
     else:
         chat_list = Chat.query.filter(
@@ -279,6 +281,19 @@ def storechat():
         db.session.commit()
         return redirect(url_for('consult'))
     return redirect(url_for('home'))
+
+@app.route('/getchats', methods=['GET', 'POST'])
+@login_required
+def getchats():
+    rid = session['rid']
+    uid = session['uid']
+    selected_user = Users.query.filter_by(id=session['rid']).first()
+    # print("rid",rid,uid)
+    chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==session['rid']) | (Chat.receiverid==session['rid'])).all()
+    # print(chats)
+    return render_template('chats.html', chats = chats, selected_user = selected_user, uid = uid)
+    # return redirect(url_for('home'))
+
 
 
 @app.route('/startchat', methods=['POST'])

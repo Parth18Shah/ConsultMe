@@ -87,6 +87,7 @@ def predict_disease(inputed_symptoms):
         
         # return(predict)
     print(actual_ip)
+    print("len",len(actual_ip))
     diseasename = model.predict([actual_ip])
     return diseasename
 

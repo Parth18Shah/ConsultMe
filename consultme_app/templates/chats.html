@@ -1,0 +1,29 @@
+    {% for chat in chats %}
+        {% if chat.senderid != uid %}
+
+            <div class="d-flex container justify-content-start mb-4">
+                <div class="img_cont_msg">
+                    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
+                        class="rounded-circle user_img_msg" width="30" height="30">
+                    <p style="color: whitesmoke;margin: 5px">{{selected_user.u_name}} </p>
+                </div>
+                <div style="display: flex; flex-direction: column; margin: 5px;">
+                    <div class="talk-bubble-send tri-right left-top">
+                        <h5 class="msg_send">{{chat.message}}</h5>
+                    </div>
+                    <span class="time">{{ chat.send_time }} </span>
+                </div>
+
+            </div>
+        {% else %}
+            <div class="d-flex container justify-content-end mb-4">
+
+                <div style="display: flex; flex-direction: column; margin: 5px;">
+                    <div class="talk-bubble-receive tri-right btm-right">
+                    <h5 class="msg_received ">{{chat.message}}</h5>
+                    </div>
+                    <span class="time"> {{chat.send_time}} </span>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
