@@ -1,5 +1,52 @@
 {% extends "layout.html" %}
 {% block body %}
+<style>
+        .btn1 {
+        transition: all ease 0.5s;
+        }
+
+        .active {
+        font-size: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: transparent;
+        border-left-color: transparent;
+        animation: rotate 1.4s ease 0.5s infinite;
+        }
+
+        @keyframes rotate {
+        0% {
+            transform: rotate(360deg);
+        }
+        }
+
+        .success {
+        position: relative;
+        animation: bounce 0.3s ease-in;
+        }
+
+        @keyframes bounce {
+        0% {
+            transform: scale(0.9);
+        }
+        }
+
+        .success:before {
+        content: "";
+        position: absolute;
+        background: url("https://www.svgrepo.com/show/243729/checked-success.svg")
+            no-repeat;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 31px;
+        height: 31px;
+        top: 8px;
+        border-left-color: black;
+        outline: none;
+        }
+</style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -7,15 +54,19 @@
             $("#datepicker").datepicker();
         });
     </script>
-    <script type="text/javascript">
-        function loading(){
-            $("#loading").show();
-            $("#content").hide();       
-        }
+     <script type="text/javascript">
+        $(document).ready(function(){
+        $(".btn1").click(function(){
+            $(this).addClass("active");
+            setTimeout(function(){
+                $(".btn1").addClass("success");
+            },5000);
+        });
+    });
+    //    https://www.youtube.com/watch?v=CJ5bWfp3coM
     </script>
 {% if choice == "doctor" %}
 
-<div id="loading"></div>
 <div id="content">
     <div class="page-wrapper bg-gra-01 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
@@ -209,9 +260,8 @@
                             <input id="file-upload" type="file" />
                             
                         </div> -->
-                        <div>
-                            {{ form.submit(class="btn btn--blue btn--radius-2") }}
-                        </div>
+                        {{ form.submit(class="btn btn--blue btn--radius-2 btn1") }}
+                       
 
                         <div>
                             Already have an account?<a class="item3" style="color: black; padding: 10px;" href="/login">Log
@@ -411,6 +461,7 @@
             </div>
         </div>
     </div>
+    
 
 {% endif %}
 {% endblock %}

@@ -6,7 +6,6 @@ from consultme_app import db ,login_manager
 def load_user(id):
 	return Users.query.get(id)
 
-
 class Users(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)
     username = db.Column(db.String(20),unique=True,nullable=False)
