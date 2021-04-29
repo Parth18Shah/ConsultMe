@@ -6,11 +6,12 @@ from flask_bcrypt import Bcrypt
 from sqlalchemy import desc
 import itertools
 from datetime import datetime
-from consultme_app.models import Users, Chat , PredictDisease, ConsultRate, ConsultLog
-from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm, ChatForm , PredictForm , RateForm, LogForm
+from consultme_app.models import Users, Chat, PredictDisease, ConsultRate, ConsultLog
+from consultme_app.forms import PatientRegistrationForm, DoctorRegistrationForm, LoginForm, ChatForm, PredictForm, RateForm, LogForm
 from consultme_app import app, db, bcrypt
 from consultme_app.disease import get_diseaselist, get_symptomslist, get_specialization, predict_disease, get_description, get_cure
 from consultme_app.verify import verify_doctor
+
 
 @app.errorhandler(404)
 def not_found(e):
@@ -20,14 +21,14 @@ def not_found(e):
 @app.route("/")
 @app.route("/home")
 def home():
-    pred=PredictDisease.query.filter_by(feedback=True).all()
-    p=len(pred)
-    consult1=ConsultRate.query.all()
-    c=0
+    pred = PredictDisease.query.filter_by(feedback=True).all()
+    p = len(pred)
+    consult1 = ConsultRate.query.all()
+    c = 0
     for i in consult1:
-        if(i.rate>50):
-            c+=1
-    return render_template('home.html',num=p,num1=c)
+        if(i.rate > 50):
+            c += 1
+    return render_template('home.html', num=p, num1=c)
 
 
 @app.route("/abc")
@@ -57,6 +58,7 @@ def register_choice():
 
 #     return picture_fn
 
+
 @app.route('/register/<choice>', methods=['GET', 'POST'])
 def register(choice):
     if current_user.is_authenticated:
@@ -67,7 +69,7 @@ def register(choice):
         if form.validate_on_submit():
             hashed_pass = bcrypt.generate_password_hash(
                 form.password.data).decode('utf-8')
-            
+
             user = Users(username=form.username.data,
                          u_name=form.name.data,
                          gender=form.gender.data,
@@ -81,7 +83,7 @@ def register(choice):
                          # ispatient=0,
                          experience=form.experience.data
                          )
-            result = verify_doctor(form.reg_no.data,form.name.data)
+            result = verify_doctor(form.reg_no.data, form.name.data)
             print(result)
             if(result == 1): 
                 # db.session.add(user)
@@ -110,12 +112,14 @@ def register(choice):
                          # ispatient=1,
                          )
             db.session.add(user)
-            db.session.commit()             
-            flash(f'Account created successfully for  { form.username.data }', 'success')
+            db.session.commit()
+            flash(
+                f'Account created successfully for  { form.username.data }', 'success')
             return redirect(url_for('login'))
 
-    flash('Please give the details in correct format','warning')
-    return render_template('register.html',  form = form, choice = choice)
+    flash('Please give the details in correct format', 'warning')
+    return render_template('register.html',  form=form, choice=choice)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -155,14 +159,13 @@ def logout():
     return redirect(url_for('home'))
 
 
-
 @app.route('/predict', methods=['GET', 'POST'])
 @login_required
 def predict():
     form = PredictForm()
     symptomslist = get_symptomslist()
     form_data = request.form
-   
+
     if request.method == "POST":
         if form.feedback.data == False:
             form_data = request.form
@@ -174,7 +177,7 @@ def predict():
                     u"Please select few symptoms before clicking on the submit button", 'warning')
                 return render_template('predict.html', symptomslist=symptomslist)
             diseasename = predict_disease(form_values)
-        
+
             diseasedesc = []
             diseasedesc = get_description(diseasename)
             treatment = list(get_cure(diseasename))
@@ -206,11 +209,12 @@ def predict():
                 print(form.feedback_input.data)
                 pred1.feedback=True
             else:
-                pred1.feedback=False
+                pred1.feedback = False
             db.session.flush()
             db.session.commit()
-            
+
     return render_template('predict.html', symptomslist=symptomslist)
+
 
 @app.route('/consult', methods=['GET', 'POST'])
 @login_required
@@ -231,12 +235,13 @@ def consult():
             selected_user = Users.query.filter_by(id=session['rid']).first()
             chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
                 (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
-            consult_status = ConsultLog.query.filter(ConsultLog.doctorid==session['rid'], ConsultLog.patientid==uid).all()
+            consult_status = ConsultLog.query.filter(
+                ConsultLog.doctorid == session['rid'], ConsultLog.patientid == uid).all()
             for i in range(len(consult_status)):
                 if(consult_status[i].isenabled):
                     isenabled = True
-                # print(val) 
-            return render_template('consult.html', doctors_list=doctors_list, chats = chats, selected_user=selected_user, uid=uid, form=form, isenabled = isenabled )
+                # print(val)
+            return render_template('consult.html', doctors_list=doctors_list, chats=chats, selected_user=selected_user, uid=uid, form=form, isenabled=isenabled)
         return render_template('consult.html', doctors_list=doctors_list, form=form)
     else:
         chat_list = Chat.query.filter(
@@ -262,14 +267,16 @@ def consult():
 
         if session['chatstatus'] == True:
             selected_user = Users.query.filter_by(id=session['rid']).first()
-            chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==session['rid']) | (Chat.receiverid==session['rid'])).all()
-            consult_status = ConsultLog.query.filter(ConsultLog.doctorid==uid, ConsultLog.patientid==session['rid']).all()
+            chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
+                (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
+            consult_status = ConsultLog.query.filter(
+                ConsultLog.doctorid == uid, ConsultLog.patientid == session['rid']).all()
             for i in range(len(consult_status)):
                 if(consult_status[i].isenabled):
                     isenabled = True
-            return render_template('consult.html', users_list = users_list, chats = chats, selected_user = selected_user, uid = uid, form = form, isenabled = isenabled )
-        return render_template('consult.html', users_list = users_list, form = form)
-    
+            return render_template('consult.html', users_list=users_list, chats=chats, selected_user=selected_user, uid=uid, form=form, isenabled=isenabled)
+        return render_template('consult.html', users_list=users_list, form=form)
+
 
 @app.route('/chat', methods=['POST'])
 @login_required
@@ -286,6 +293,7 @@ def storechat():
         return redirect(url_for('consult'))
     return redirect(url_for('home'))
 
+
 @app.route('/getchats', methods=['GET', 'POST'])
 @login_required
 def getchats():
@@ -293,11 +301,11 @@ def getchats():
     uid = session['uid']
     selected_user = Users.query.filter_by(id=session['rid']).first()
     # print("rid",rid,uid)
-    chats = Chat.query.filter((Chat.senderid==uid) | (Chat.receiverid==uid)).filter((Chat.senderid==session['rid']) | (Chat.receiverid==session['rid'])).all()
+    chats = Chat.query.filter((Chat.senderid == uid) | (Chat.receiverid == uid)).filter(
+        (Chat.senderid == session['rid']) | (Chat.receiverid == session['rid'])).all()
     # print(chats)
-    return render_template('chats.html', chats = chats, selected_user = selected_user, uid = uid)
+    return render_template('chats.html', chats=chats, selected_user=selected_user, uid=uid)
     # return redirect(url_for('home'))
-
 
 
 @app.route('/startchat', methods=['POST'])
@@ -317,15 +325,17 @@ def startchat():
         return redirect(url_for('consult'))
     return redirect(url_for('home'))
 
+
 @app.route('/endchat', methods=['POST'])
 @login_required
 def endchat():
-    consult_log = ConsultLog.query.filter(ConsultLog.doctorid==session['uid'], ConsultLog.patientid==session['rid'], ConsultLog.isenabled==True).first()
+    consult_log = ConsultLog.query.filter(
+        ConsultLog.doctorid == session['uid'], ConsultLog.patientid == session['rid'], ConsultLog.isenabled == True).first()
     # consult_log.end
     print(consult_log)
     if request.method == 'POST':
         consult_log.isenabled = False
-        consult_log.ended_on= datetime.now() 
+        consult_log.ended_on = datetime.now()
         db.session.flush()
         db.session.commit()
         flash(f'Log Updated successfully', 'success')
@@ -366,30 +376,31 @@ def account():
                 db.session.flush()
                 db.session.commit()
                 flash(f'Profile Updated successfully', 'success')
-        ratelist=[]
-        loglist=[]
+        ratelist = []
+        loglist = []
         log = ConsultLog.query.filter_by(doctorid=current_user.id).all()
         for y in users_list:
             for z in log:
-                if(z.patientid==y.id):
-                    loglist.append([y.id,y.username,z.disease_name,z.initiated_on,z.ended_on])
-        loglist = list(num for num,_ in itertools.groupby(loglist))
+                if(z.patientid == y.id):
+                    loglist.append(
+                        [y.id, y.username, z.disease_name, z.initiated_on, z.ended_on])
+        loglist = list(num for num, _ in itertools.groupby(loglist))
         rate2 = ConsultRate.query.filter_by(doctorid=current_user.id).all()
         for y in users_list:
             for z in rate2:
-                if(z.patientid==y.id):
-                    ratelist.append([y.id,y.username,z.disease_name,z.rate])
-        ratelist = list(num for num,_ in itertools.groupby(ratelist))
+                if(z.patientid == y.id):
+                    ratelist.append([y.id, y.username, z.disease_name, z.rate])
+        ratelist = list(num for num, _ in itertools.groupby(ratelist))
         for i in ratelist:
-            if len(i)==4:
-                if(i[3]>50):
+            if len(i) == 4:
+                if(i[3] > 50):
                     i.append(True)
                 else:
                     i.append(False)
-        pred=PredictDisease.query.all()
+        pred = PredictDisease.query.all()
         labels = []
         values = []
-        l1 =[]
+        l1 = []
         for i in pred:
             l1.append(i.disease_name)
         freq = {}
@@ -398,25 +409,27 @@ def account():
                 freq[item] += 1
             else:
                 freq[item] = 1
-        for i,j in freq.items():
+        for i, j in freq.items():
             labels.append(i)
             values.append(j)
-        return render_template('account.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,ratelist=ratelist,labels=labels,values=values,loglist=loglist)
+        return render_template('account.html', users_list=users_list, form=form, userone=userone, image_file=fn, form1=form1, ratelist=ratelist, labels=labels, values=values, loglist=loglist)
     else:
         form = PatientRegistrationForm()
         userone = Users.query.filter_by(id=current_user.id).first_or_404()
         fn = "default.jpg"
-        pred_list = PredictDisease.query.filter_by(userid=current_user.id).all()
+        pred_list = PredictDisease.query.filter_by(
+            userid=current_user.id).all()
+        print(pred_list)
         if request.method == "POST":
             if request.form['save-btn'] == 'save':
                 userone.username = form.username.data
                 userone.u_name = form.name.data
                 userone.image_file = fn
-                userone.med_history= form.med_history.data
+                userone.med_history = form.med_history.data
                 db.session.flush()
                 db.session.commit()
                 flash(f'Profile Updated successfully', 'success')
-        return render_template('account.html', users_list=users_list, form=form, userone=userone,image_file=fn,pred_list=pred_list)
+        return render_template('account.html', users_list=users_list, form=form, userone=userone, image_file=fn, pred_list=pred_list)
 
 
 @app.route('/profile', methods=['GET', 'POST'])
@@ -440,17 +453,17 @@ def profile():
                 users_list.append(user)
                 user_id.append(user.id)
     pred_list = ConsultLog.query.filter_by(patientid=current_user.id).all()
-    diseaselist=[]
+    diseaselist = []
     for i in pred_list:
         diseaselist.append(i.disease_name)
     if(current_user.ispatient == False):
         form = PatientRegistrationForm()
         userone = Users.query.filter_by(id=uid).first_or_404()
         fn = "default.jpg"
-        return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,pred_list=pred_list)
+        return render_template('profile.html', users_list=users_list, form=form, userone=userone, image_file=fn, pred_list=pred_list)
     else:
         form = DoctorRegistrationForm()
-        fn = "default.jpg"  
+        fn = "default.jpg"
         userone = Users.query.filter_by(id=uid).first_or_404()
         if request.method == "POST":
             form_data = request.form
@@ -458,19 +471,21 @@ def profile():
             for i in form_data:
                 form_values.append(form_data[i])
             if(form_values.count('0') > 0):
-                flash(u"Please select a disease before clicking on the submit button", 'warning')
-                return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist)
+                flash(
+                    u"Please select a disease before clicking on the submit button", 'warning')
+                return render_template('profile.html', users_list=users_list, form=form, userone=userone, image_file=fn, form1=form1, diseaselist=diseaselist)
             rate1 = ConsultRate(
-                patientid = current_user.id,
-                doctorid = uid,
-                disease_name = form_values[1],
-                rate = form_values[2]
+                patientid=current_user.id,
+                doctorid=uid,
+                disease_name=form_values[1],
+                rate=form_values[2]
             )
             db.session.add(rate1)
             db.session.commit()
-        ratelist=[]
+        ratelist = []
         for x in diseaselist:
-            rate2 = ConsultRate.query.filter_by(patientid=current_user.id,disease_name=x).all()
+            rate2 = ConsultRate.query.filter_by(
+                patientid=current_user.id, disease_name=x).all()
             if len(rate2) > 0:
                 sum1 = 0
                 for i in range(len(rate2)):
@@ -479,40 +494,41 @@ def profile():
                 for i in users_list:
                     if i.id == current_user.id:
                         i.feedback = avg
-                patient = Users.query.filter_by(id = current_user.id).first_or_404()
+                patient = Users.query.filter_by(
+                    id=current_user.id).first_or_404()
                 patient.feedback = avg
                 db.session.flush()
                 db.session.commit()
                 for y in users_list:
                     for z in rate2:
-                        if(z.patientid==y.id):
-                            ratelist.append([y.id,y.username,x,avg])
-        
-                ratelist = list(num for num,_ in itertools.groupby(ratelist))
+                        if(z.patientid == y.id):
+                            ratelist.append([y.id, y.username, x, avg])
+
+                ratelist = list(num for num, _ in itertools.groupby(ratelist))
                 for i in ratelist:
-                    if len(i)==4:
-                        if(i[3]>50):
+                    if len(i) == 4:
+                        if(i[3] > 50):
                             i.append(True)
                         else:
                             i.append(False)
-        rate3=ConsultRate.query.all()
-        l=[]
-        values=[]
+        rate3 = ConsultRate.query.all()
+        l = []
+        values = []
         for i in rate3:
-            l.append([i.patientid,i.disease_name,i.rate])
-        p=0
-        n=0
+            l.append([i.patientid, i.disease_name, i.rate])
+        p = 0
+        n = 0
         for i in l:
-            if len(i)==3:
-                if(i[2]>50):
+            if len(i) == 3:
+                if(i[2] > 50):
                     i.append(True)
-                    p+=1
+                    p += 1
                 else:
                     i.append(False)
-                    n+=1
+                    n += 1
         values.append(p)
         values.append(n)
-        return render_template('profile.html', users_list=users_list, form=form, userone=userone,image_file=fn,form1=form1,diseaselist=diseaselist,ratelist=ratelist,values=values)
+        return render_template('profile.html', users_list=users_list, form=form, userone=userone, image_file=fn, form1=form1, diseaselist=diseaselist, ratelist=ratelist, values=values)
 
 
 if __name__ == '__main__':
@@ -520,5 +536,5 @@ if __name__ == '__main__':
     app.run(debug=True)
 
 
-#last seen ka hai isme :-
+# last seen ka hai isme :-
 #  https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vi-profile-page-and-avatars

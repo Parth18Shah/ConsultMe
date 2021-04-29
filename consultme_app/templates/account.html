@@ -53,7 +53,7 @@
                 </li>
                 {% endif %}
             </ul>
-    </nav>  
+    </nav>
 
     <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -70,43 +70,45 @@
         {% endwith %}
     </div>
     {% if current_user.ispatient %}
+
+    {% if pred_list %}
     <div class="container">
         <div class="acc_card profile col-sm-12 col-md-4" style="margin: 5px">
             <div style="display: flex;">
-                    <img src="../static/profile_pics/{{image_file}}" width="100" height="100" class="round-circle " style="border-radius:100px" style="flex: 1;">
-                    <label for="file-upload" class="custom-file-upload" style="margin-top: 100px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                    height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
-                    style="margin: 2pxx;">
-                    <path
-                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                </svg>
-            </label>  
-            <input id="file-upload" name="file" type="file"/>
-    </div>
-    
-    
-    <form  method="POST" autocomplete="off" action="/account">
-        {{ form.hidden_tag() }}
-        <div class="input-group">
-            <p class="acc_title" class="form-control-label">Username :</p>
-            {{ form.username.label(class="form-control-label") }}
+                <img src="../static/profile_pics/{{image_file}}" width="100" height="100" class="round-circle "
+                    style="border-radius:100px" style="flex: 1;">
+                <label for="file-upload" class="custom-file-upload" style="margin-top: 100px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin: 2pxx;">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                </label>
+                <input id="file-upload" name="file" type="file" />
+            </div>
+
+
+            <form method="POST" autocomplete="off" action="/account">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label">Username :</p>
+                    {{ form.username.label(class="form-control-label") }}
                     {{ form.username(class="form-control form-control-lg",value=userone.username) }}
                 </div>
                 <div class="input-group">
-            
+
                     <p class="acc_title" class="form-control-label">Name :</p>
                     {{ form.name.label(class="form-control-label") }}
                     {{ form.name(class="form-control form-control-lg",value=userone.u_name) }}
                 </div>
                 <div class="input-group" style="display: flex;">
-                    <p class="acc_title" class="form-control-label" >Gender :</p>
+                    <p class="acc_title" class="form-control-label">Gender :</p>
                     <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
                 </div>
 
-                <div class="input-group" >
+                <div class="input-group">
                     <p class="acc_title" class="form-control-label">Email :</p>
                     {{ form.email.label(class="form-control-label") }}
                     {{ form.email(class="form-control form-control-lg",value=userone.email ,readonly="true") }}
@@ -116,16 +118,17 @@
                     {{ form.med_history.label(class="form-control-label") }}
                     <p class="acc_content">{{userone.med_history}} </p>
                     {{ form.med_history(class="form-control form-control-lg",value="") }}
-                   
+
                 </div>
 
-                
+
                 <button class="btn btn--blue btn--radius-2" name="save-btn" type="submit" value="save">Save
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16"
-                        style="margin: 10px 0 0 2px;">
-                        <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z"/>
-                      </svg>
-                    </button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-save" viewBox="0 0 16 16" style="margin: 10px 0 0 2px;">
+                        <path
+                            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                    </svg>
+                </button>
             </form>
         </div>
         <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column ">
@@ -143,7 +146,7 @@
                             <th class="acc_title">Satisfaction</th>
                             <th class="acc_title">Date and Time</th>
                         </tr>
-                        
+
                     </thead>
                     <tbody>
                         {% for pred in pred_list %}
@@ -185,44 +188,107 @@
                                 <p>{{pred.predtime}}</p>
                             </td>
                         </tr>
-                        
+
                         {% endif %}
                         {% endfor %}
-                       
-                        
-                        
+
+
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     {% else %}
+    <div class="container" style="display: flex;justify-content: center;align-items: center;">
+        <div class="acc_card profile col-sm-12 col-md-6">
+            <div style="display: flex;">
+                <img src="../static/profile_pics/{{image_file}}" width="100" height="100" class="round-circle "
+                    style="border-radius:100px" style="flex: 1;">
+                <label for="file-upload" class="custom-file-upload" style="margin-top: 100px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin: 2pxx;">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg>
+                </label>
+                <input id="file-upload" name="file" type="file" />
+            </div>
+
+            <form method="POST" autocomplete="off" action="/account">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label">Username :</p>
+                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username(class="form-control form-control-lg",value=userone.username) }}
+                </div>
+                <div class="input-group">
+
+                    <p class="acc_title" class="form-control-label">Name :</p>
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="form-control form-control-lg",value=userone.u_name) }}
+                </div>
+                <div class="input-group" style="display: flex;">
+                    <p class="acc_title" class="form-control-label">Gender :</p>
+                    <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
+                </div>
+
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label">Email :</p>
+                    {{ form.email.label(class="form-control-label") }}
+                    {{ form.email(class="form-control form-control-lg",value=userone.email ,readonly="true") }}
+                </div>
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label">Past Medical History :</p>
+                    {{ form.med_history.label(class="form-control-label") }}
+                    <p class="acc_content">{{userone.med_history}} </p>
+                    {{ form.med_history(class="form-control form-control-lg",value="") }}
+
+                </div>
+
+
+                <button class="btn btn--blue btn--radius-2" name="save-btn" type="submit" value="save">Save
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-save" viewBox="0 0 16 16" style="margin: 10px 0 0 2px;">
+                        <path
+                            d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1H2z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+
+    <!-- Doctor's starting  -->
+    {% else %}
     {% if ratelist %}
     <div class="container">
 
         <div class="acc_card profile col-sm-12 col-md-4" style="max-height: 100vh;">
             <div style="display: flex;">
-                <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
+                <form method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
 
-                
-                <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle"
-                    style="border-radius:100px" style="flex: 1;">
-               
-                <label for="file-upload" class="custom-file-upload" style="margin-top: 50px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                    height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
-                    style="margin: 2pxx;">
-                    <path
-                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                </label>  
-                <input id="file-upload" name="file" type="file"/>
-                
-              </form>
+
+                    <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100"
+                        class="round-circle" style="border-radius:100px" style="flex: 1;">
+
+                    <label for="file-upload" class="custom-file-upload" style="margin-top: 50px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin: 2pxx;">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                        </svg>
+                    </label>
+                    <input id="file-upload" name="file" type="file" />
+
+                </form>
             </div>
-            <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
+            <form method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
                 <div class="input-group">
                     <p class="acc_title" class="form-control-label">Username :</p>
@@ -235,11 +301,11 @@
                     {{ form.name(class="form-control form-control-lg",value=userone.u_name) }}
                 </div>
                 <div class="input-group" style="display: flex;">
-                    <p class="acc_title" class="form-control-label" >Gender :</p>
+                    <p class="acc_title" class="form-control-label">Gender :</p>
                     <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
                 </div>
 
-                <div class="input-group" >
+                <div class="input-group">
                     <p class="acc_title" class="form-control-label ">Email :</p>
                     {{ form.email.label(class="form-control-label") }}
                     {{ form.email(class="form-control form-control-lg",value=userone.email ,readonly="true") }}
@@ -248,19 +314,20 @@
                     <p class="acc_title" class="form-control-label">Specialist :</p>
                     {{ form.specialist.label(class="form-control-label") }}
                     <p class="acc_content" style="margin-top: 7px;">{{userone.specialist}}</p>
-                   
+
                 </div>
                 <div class="input-group" style="display: flex;">
                     <p class="acc_title" class="form-control-label">Experience :</p>
                     {{ form.experience.label(class="form-control-label") }}
-                    <p class="acc_content" style="margin-top: 7px;">Having {{userone.experience}} years of experience </p>
-                   
+                    <p class="acc_content" style="margin-top: 7px;">Having {{userone.experience}} years of experience
+                    </p>
+
                 </div>
 
-                
-                <button class="btn btn--blue btn--radius-2" name="save-btn" type="submit" value="save">Save<svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
-                        style="margin: 10px 0 0 2px;">
+
+                <button class="btn btn--blue btn--radius-2" name="save-btn" type="submit" value="save">Save<svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin: 10px 0 0 2px;">
                         <path
                             d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                         <path fill-rule="evenodd"
@@ -268,7 +335,7 @@
                     </svg></button>
             </form>
         </div>
-        
+
         <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;max-height: 100vh;">
             <h2 class="title">
                 Information about Consultation Given
@@ -287,40 +354,40 @@
                     <tbody>
                         {% for users in ratelist %}
                         {% if users[4] %}
-                            <tr class="success">
-                                <td>
-                                    <p class="acc_content">{{users[1]}}</p>
-                                </td>
-                                <td>{{users[2]}} </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:{{users[3]}}%"
-                                            aria-valuenow={{users[3]}} aria-valuemin="0" aria-valuemax="100">
-                                            {{users[3]}}</div>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr class="success">
+                            <td>
+                                <p class="acc_content">{{users[1]}}</p>
+                            </td>
+                            <td>{{users[2]}} </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width:{{users[3]}}%"
+                                        aria-valuenow={{users[3]}} aria-valuemin="0" aria-valuemax="100">
+                                        {{users[3]}}</div>
+                                </div>
+                            </td>
+                        </tr>
                         {% else %}
-                            <tr class="danger">
-                                <td>
-                                    <p class="acc_content">{{users[1]}}</p>
-                                </td>
-                                <td>{{users[2]}} </td>
-                                <td>
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width:{{users[3]}}%"
-                                            aria-valuenow={{users[3]}} aria-valuemin="0" aria-valuemax="100">
-                                            {{users[3]}}</div>
-                                    </div>
-                                </td>
-                            </tr>
+                        <tr class="danger">
+                            <td>
+                                <p class="acc_content">{{users[1]}}</p>
+                            </td>
+                            <td>{{users[2]}} </td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width:{{users[3]}}%"
+                                        aria-valuenow={{users[3]}} aria-valuemin="0" aria-valuemax="100">
+                                        {{users[3]}}</div>
+                                </div>
+                            </td>
+                        </tr>
                         {% endif %}
                         {% endfor %}
 
                     </tbody>
                 </table>
             </div>
-            
+
         </div>
     </div>
     {% if loglist %}
@@ -332,9 +399,134 @@
             </div>
             <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;max-height: 100vh;">
                 <h2 class="title">
+                    Consultation History
+                </h2>
+
+                <div class="table-responsive over">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="bg-dark" style="color: whitesmoke;">
+                                <th class="acc_title">Patient Name</th>
+                                <th class="acc_title">Disease</th>
+                                <th class="acc_title">Chat Initiated</th>
+                                <th class="acc_title">Chat Ended</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for users in loglist %}
+                            {% if users[4] %}
+                            <tr class="success">
+                                <td>
+                                    <p class="acc_content">{{users[1]}}</p>
+                                </td>
+                                <td>{{users[2]}} </td>
+                                <td>{{users[3]}} </td>
+                                <td>{{users[4]}} </td>
+                            </tr>
+                            {% else %}
+                            <tr class="danger">
+                                <td>
+                                    <p class="acc_content">{{users[1]}}</p>
+                                </td>
+                                <td>{{users[2]}} </td>
+                                <td>{{users[3]}} </td>
+                                <td>{{users[4]}} </td>
+                            </tr>
+                            {% endif %}
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- <div class="acc_card profile col-sm-12 col-md-5" style="height:70vh ;margin:3rem 0 5rem 0">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div> -->
+        </div>
+        {% else %}
+        <div class="acc_card profile col-sm-12 col-md-11" style="height:70vh ;margin:3rem 0 5rem 0">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        {% endif %}
+    </div>
+    {% else %}
+
+    {% if loglist %}
+    <div class="container" style="display: flex; align-items: center; justify-content: center ;">
+        <div class="acc_card profile col-sm-12 col-md-6">
+            <div style="display: flex;">
+                <form method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
+
+
+                    <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100"
+                        class="round-circle" style="border-radius:100px" style="flex: 1;">
+
+                    <label for="file-upload" class="custom-file-upload" style="margin-top: 50px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin: 2pxx;">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                        </svg>
+                    </label>
+                    <input id="file-upload" name="file" type="file" />
+
+                </form>
+            </div>
+            <form method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label">Username :</p>
+                    {{ form.username.label(class="form-control-label") }}
+                    {{ form.username(class="form-control form-control-lg",value=userone.username) }}
+                </div>
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label">Name :</p>
+                    {{ form.name.label(class="form-control-label") }}
+                    {{ form.name(class="form-control form-control-lg",value=userone.u_name) }}
+                </div>
+                <div class="input-group" style="display: flex;">
+                    <p class="acc_title" class="form-control-label">Gender :</p>
+                    <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
+                </div>
+
+                <div class="input-group">
+                    <p class="acc_title" class="form-control-label ">Email :</p>
+                    {{ form.email.label(class="form-control-label") }}
+                    {{ form.email(class="form-control form-control-lg",value=userone.email ,readonly="true") }}
+                </div>
+                <div class="input-group" style="display: flex;">
+                    <p class="acc_title" class="form-control-label">Specialist :</p>
+                    {{ form.specialist.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">{{userone.specialist}}</p>
+
+                </div>
+                <div class="input-group" style="display: flex;">
+                    <p class="acc_title" class="form-control-label">Experience :</p>
+                    {{ form.experience.label(class="form-control-label") }}
+                    <p class="acc_content" style="margin-top: 7px;">Having {{userone.experience}} years of experience
+                    </p>
+
+                </div>
+
+
+                <button class="btn btn--blue btn--radius-2" name="save-btn" type="submit" value="save">Save<svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-pencil-square" viewBox="0 0 16 16" style="margin: 10px 0 0 2px;">
+                        <path
+                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                        <path fill-rule="evenodd"
+                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                    </svg></button>
+            </form>
+        </div>
+        <div class="acc_card col-sm-12 col-md-7" style="display: flex; flex-direction: column;max-height: 100vh;">
+            <h2 class="title">
                 Consultation History
             </h2>
-            
+
             <div class="table-responsive over">
 
                 <table class="table table-hover">
@@ -349,113 +541,47 @@
                     <tbody>
                         {% for users in loglist %}
                         {% if users[4] %}
-                            <tr class="success">
-                                <td>
-                                    <p class="acc_content">{{users[1]}}</p>
-                                </td>
-                                <td>{{users[2]}} </td>
-                                <td>{{users[3]}} </td>
-                                <td>{{users[4]}} </td>
-                            </tr>
-                            {% else %}
-                            <tr class="danger">
-                                <td><p class="acc_content">{{users[1]}}</p></td>
-                                <td>{{users[2]}} </td>
-                                <td>{{users[3]}} </td>
-                                <td>{{users[4]}} </td>
-                            </tr>
-                            {% endif %}
-                            {% endfor %}
-                                
-                        </tbody>
+                        <tr class="success">
+                            <td>
+                                <p class="acc_content">{{users[1]}}</p>
+                            </td>
+                            <td>{{users[2]}} </td>
+                            <td>{{users[3]}} </td>
+                            <td>{{users[4]}} </td>
+                        </tr>
+                        {% else %}
+                        <tr class="danger">
+                            <td>
+                                <p class="acc_content">{{users[1]}}</p>
+                            </td>
+                            <td>{{users[2]}} </td>
+                            <td>{{users[3]}} </td>
+                            <td>{{users[4]}} </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
                 </table>
             </div>
         </div>
-                
     </div>
-    {% else %}
-    <div class="acc_card profile col-sm-12 col-md-11" style="height:70vh ;margin:3rem 0 5rem 0">
-        <canvas id="myChart" width="400" height="400"></canvas>
-    </div>
-    {% endif %}
-    </div>
-    {% else %}
-    <div class="container" style="display: flex; align-items: center; justify-content: center ;">
-        <div class="acc_card profile col-sm-12 col-md-6">
-            <div style="display: flex;">
-                <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
-
-                
-                <img src="{{ url_for('static', filename='img/user1.png') }}" width="100" height="100" class="round-circle"
-                    style="border-radius:100px" style="flex: 1;">
-               
-                <label for="file-upload" class="custom-file-upload" style="margin-top: 50px;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                    height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
-                    style="margin: 2pxx;">
-                    <path
-                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                    <path fill-rule="evenodd"
-                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg>
-                </label>  
-                <input id="file-upload" name="file" type="file"/>
-                
-              </form>
-            </div>
-            <form  method="POST" autocomplete="off" action="/account" enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
-                <div class="input-group">
-                    <p class="acc_title" class="form-control-label">Username :</p>
-                    {{ form.username.label(class="form-control-label") }}
-                    {{ form.username(class="form-control form-control-lg",value=userone.username) }}
-                </div>
-                <div class="input-group">
-                    <p class="acc_title" class="form-control-label">Name :</p>
-                    {{ form.name.label(class="form-control-label") }}
-                    {{ form.name(class="form-control form-control-lg",value=userone.u_name) }}
-                </div>
-                <div class="input-group" style="display: flex;">
-                    <p class="acc_title" class="form-control-label" >Gender :</p>
-                    <span class="acc_content" style="margin-top: 7px;">{{userone.gender}}</span>
-                </div>
-
-                <div class="input-group" >
-                    <p class="acc_title" class="form-control-label ">Email :</p>
-                    {{ form.email.label(class="form-control-label") }}
-                    {{ form.email(class="form-control form-control-lg",value=userone.email ,readonly="true") }}
-                </div>
-                <div class="input-group" style="display: flex;">
-                    <p class="acc_title" class="form-control-label">Specialist :</p>
-                    {{ form.specialist.label(class="form-control-label") }}
-                    <p class="acc_content" style="margin-top: 7px;">{{userone.specialist}}</p>
-                   
-                </div>
-                <div class="input-group" style="display: flex;">
-                    <p class="acc_title" class="form-control-label">Experience :</p>
-                    {{ form.experience.label(class="form-control-label") }}
-                    <p class="acc_content" style="margin-top: 7px;">Having {{userone.experience}} years of experience </p>
-                   
-                </div>
-
-                
-                <button class="btn btn--blue btn--radius-2" name="save-btn" type="submit" value="save">Save<svg xmlns="http://www.w3.org/2000/svg" width="16"
-                        height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
-                        style="margin: 10px 0 0 2px;">
-                        <path
-                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                        <path fill-rule="evenodd"
-                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                    </svg></button>
-            </form>
+    <div class="container">
+        <div class="acc_card profile col-sm-12 col-md-11" style="height:70vh ;margin:3rem 0 5rem 0">
+            <canvas id="myChart" width="400" height="400"></canvas>
         </div>
-        {% endif %}
-        
     </div>
-    
+
+    {% else %}
+    <div>
+        <div class="acc_card profile col-sm-12 col-md-5" style="height:70vh ;margin:3rem 0 5rem 0">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+    </div>
 
     {% endif %}
-
+    {% endif %}
+    {% endif %}
     <footer class="py-5 bg-dark ">
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; ConsultMe 2020-21</p>
@@ -485,40 +611,40 @@
         var delayed;
         var ctx = document.getElementById('myChart').getContext('2d');
         var myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: {{ labels | safe}},
-            datasets: [
-                {
-                    label: "Count",
-                    data: {{ values | safe }},
-                    backgroundColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(54, 162, 235)',
-                    'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4,
-                    borderWidth: 1,
-                lineTension:0.5
+            type: 'doughnut',
+            data: {
+                labels: {{ labels | safe}},
+        datasets: [
+            {
+                label: "Count",
+                data: {{ values | safe }},
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4,
+            borderWidth: 1,
+            lineTension: 0.5
             }]
         },
-        
-       
+
+
         options: {
-            responsive:false,
-            animation: {
-            onComplete: () => {
-                delayed = true;
+            responsive: false,
+                animation: {
+                onComplete: () => {
+                    delayed = true;
+                },
+                    delay: (context) => {
+                        let delay = 0;
+                        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                            delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                        }
+                        return delay;
+                    },
             },
-            delay: (context) => {
-                let delay = 0;
-                if (context.type === 'data' && context.mode === 'default' && !delayed) {
-                delay = context.dataIndex * 300 + context.datasetIndex * 100;
-                }
-                return delay;
-            },
-            },
-            
+
         }
         });
     </script>
