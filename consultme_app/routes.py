@@ -175,31 +175,33 @@ def predict():
         
             diseasedesc = []
             diseasedesc = get_description(diseasename)
-            treatment = get_cure(diseasename)
+            treatment = list(get_cure(diseasename))
+            treatment.pop(0)
             specialization = get_specialization(diseasename)
             print(diseasedesc,"\n",treatment,"\n",specialization)
             
             for i in range(len(form_values)):
                 new_value = form_values[i].replace("0","")
                 form_values[i]=new_value
-        
+
             pred = PredictDisease(
-                userid=current_user.id,
-                disease_name=diseasename[0], 
+                userid = current_user.id,
+                disease_name = str(diseasename[0]),
                 symptom1 = form_values[0],
                 symptom2 = form_values[1],
                 symptom3 = form_values[2],
                 symptom4 = form_values[3],
                 symptom5 = form_values[4]
             )
-            print(pred)
-            # db.session.add(pred)
-            # db.session.commit()
-            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename,form=form, treatment=treatment, diseasedesc=diseasedesc, specialization=specialization)
-            # ,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization
+            
+            db.session.add(pred)
+            db.session.commit()
+            return render_template('predict.html', symptomslist=symptomslist, diseasename=diseasename, form=form ,treatment=treatment, diseasedesc=diseasedesc, specialization=specialization)
+            
         else:
             pred1 = db.session.query(PredictDisease).filter_by(userid=current_user.id).order_by(PredictDisease.id.desc()).first()
             if (form.feedback_input.data=="True"):
+                print(form.feedback_input.data)
                 pred1.feedback=True
             else:
                 pred1.feedback=False
