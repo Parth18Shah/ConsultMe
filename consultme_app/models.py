@@ -41,9 +41,8 @@ class PredictDisease(db.Model,UserMixin):
     symptom3 = db.Column(db.Text,nullable=False,default="0")
     symptom4 = db.Column(db.Text,nullable=False,default="0")
     symptom5 = db.Column(db.Text,nullable=False,default="0")
-    feedback  = db.Column(db.String,nullable=False,default="True")
-    predtime = db.Column(db.DateTime,nullable=False,default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-
+    feedback = db.Column(db.Boolean, nullable=False,default=True)
+    predtime = db.Column(db.DateTime,nullable=False,default=datetime.now())
 
 class ConsultRate(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key=True)

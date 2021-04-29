@@ -98,10 +98,11 @@ def get_description(diseasename):
 
 def get_cure(diseasename):
     df = pd.read_csv('consultme_app/diseasepredictor/dataset/symptom_precaution.csv')
-    idx = df[df['Disease'] == diseasename[0]].index[0]
-    precautions = list(df.iloc[idx])[1:]    
-    
-    return(precautions)
+    # idx = df[df['Disease'] == diseasename[0]].index[0]
+    # precautions = list(df.iloc[idx])[1:]    
+    idx = df[df['Disease'] == diseasename[0]].values[0]
+    print(idx)
+    return idx
 
 # my_model = pickle.load(open('model_predict','rb'))
 # print(my_model.predict(X_test))
