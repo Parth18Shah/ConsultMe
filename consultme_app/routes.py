@@ -468,8 +468,8 @@ def profile():
             if(user.id not in user_id):
                 users_list.append(user)
                 user_id.append(user.id)
-    pred_list = ConsultLog.query.filter_by(patientid=current_user.id).all()
-    pred_list = list(num for num, _ in itertools.groupby(pred_list))
+    pred_list = PredictDisease.query.filter_by(userid=uid).all()
+    # pred_list = list(num for num, _ in itertools.groupby(pred_list))
     diseaselist = []
     for i in pred_list:
         diseaselist.append(i.disease_name)
