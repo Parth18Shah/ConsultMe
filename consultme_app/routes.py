@@ -428,19 +428,18 @@ def account():
         fn = "default.jpg"
         pred_list = PredictDisease.query.filter_by(
             userid=current_user.id).all()
-        print(pred_list)
         loglist = []
         log = ConsultLog.query.filter_by(patientid=current_user.id).all()
-        print(log)
+
         for z in log:
             if(z.patientid == current_user.id):
+                user = Users.query.filter_by(id=z.doctorid).first_or_404()
                 if(z.isenabled):
                     print(z.isenabled)
-                    loglist.append([current_user.id, current_user.username, z.disease_name, z.initiated_on, "On Going"])
+                    loglist.append([z.doctorid, user.username, z.disease_name, z.initiated_on, "On Going"])
                 else:
-                    loglist.append([current_user.id, current_user.username, z.disease_name, z.initiated_on, z.ended_on])
+                    loglist.append([z.doctorid, user.username, z.disease_name, z.initiated_on, z.ended_on])
         loglist = list(num for num, _ in itertools.groupby(loglist))
-        print(loglist)
         if request.method == "POST":
             if request.form['save-btn'] == 'save':
                 userone.username = form.username.data
@@ -489,6 +488,10 @@ def profile():
         form = DoctorRegistrationForm()
         fn = "default.jpg"
         userone = Users.query.filter_by(id=uid).first_or_404()
+        pred_list = ConsultLog.query.filter_by(patientid=current_user.id).all()
+        diseaselist = []
+        for i in pred_list:
+            diseaselist.append(i.disease_name)
         if request.method == "POST":
             form_data = request.form
             form_values = []
