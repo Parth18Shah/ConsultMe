@@ -183,8 +183,13 @@ def predict():
             diseasedesc = []
             diseasedesc = get_description(diseasename)
             treatment = list(get_cure(diseasename))
-            treatment.pop(0)
+            if(treatment==0 or diseasedesc==0):
+                flash(
+                    u"An error was encountered while predicting, please try again later.", 'danger')
+                return render_template('predict.html', symptomslist=symptomslist)
             specialization = get_specialization(diseasename)
+            treatment.pop(0)
+            
             print(diseasedesc,"\n",treatment,"\n",specialization)
             
             for i in range(len(form_values)):

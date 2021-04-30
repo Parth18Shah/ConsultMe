@@ -89,20 +89,30 @@ def predict_disease(inputed_symptoms):
     print(actual_ip)
     print("len",len(actual_ip))
     diseasename = model.predict([actual_ip])
+    print(diseasename,len(diseasename))
     return diseasename
 
 def get_description(diseasename):
-    description = pd.read_csv('consultme_app/diseasepredictor/dataset/symptom_Description.csv')
-    desp = list(description[description['Disease'] == diseasename[0]]['Description'])[0]
-    return(desp)
+    try:
+        description = pd.read_csv('consultme_app/diseasepredictor/dataset/symptom_Description.csv')
+        desp = list(description[description['Disease'] == diseasename[0]]['Description'])[0]
+        return(desp)
+    except Exception as ex:
+        print(ex)
+        return 0
+
 
 def get_cure(diseasename):
-    df = pd.read_csv('consultme_app/diseasepredictor/dataset/symptom_precaution.csv')
-    # idx = df[df['Disease'] == diseasename[0]].index[0]
-    # precautions = list(df.iloc[idx])[1:]    
-    idx = df[df['Disease'] == diseasename[0]].values[0]
-    print(idx)
-    return idx
+    try:
+        df = pd.read_csv('consultme_app/diseasepredictor/dataset/symptom_precaution.csv')
+        # idx = df[df['Disease'] == diseasename[0]].index[0]
+        # precautions = list(df.iloc[idx])[1:]    
+        idx = df[df['Disease'] == diseasename[0]].values[0]
+        print(idx)
+        return idx
+    except Exception as ex:
+        print(ex)
+        return 0
 
 # my_model = pickle.load(open('model_predict','rb'))
 # print(my_model.predict(X_test))
