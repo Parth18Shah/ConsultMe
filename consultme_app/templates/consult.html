@@ -32,7 +32,7 @@
                                 <ul class="container navbar-nav" id="myUL">
                                     <form action="/consult" method="POST">
                                         {% for doctor in doctors_list %}
-                                            <li class="item3 msg_received"
+                                            <li class="item3 msg_received_search"
                                                 style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px;border: 2px ridge black;">
                                                 <div class=" " style="display: flex;">
                                                     <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
@@ -60,16 +60,18 @@
                                 <ul class="container navbar-nav" id="myUL">
                                     <form action="/consult" method="POST">
                                     {% for users in users_list %}
-                                        <li class="item3 msg_received"
-                                            style="display: flex; flex-direction: column; margin: 5px; margin-top: 20px; border: 2px ridge black;">
+                                        <li class="item3 msg_received_search"
+                                            style="display: flex; flex-direction: column;  margin-top: 20px; border: 2px ridge black;">
                                             <div class=" " style="display: flex;">
                                                 <img src='https://picsum.photos/200/300' class="rounded-circle user_img_msg"
                                                     width="40" height="40" style="border: 2px ridge black;">
-                                                <h5><a class="nav-link" class="a" style="color: black
+                                                <h5><a class="nav-link col-sm-1" class="a" style="color: black
                                             ;">@{{users.username}} </a>
-                                                    <p style="color: black;">Email-id :- {{users.email}} </p>
+                                                    
                                                 </h5>
                                             </div>
+                                            <hr>
+                                            <span  style="color: black;">Email-id :- {{users.email}} </span>
                                             <button type="submit" name='chat-btn' class="btn btn--blue btn--radius-2"
                                                 value="{{users.id}}">Chat</button>
                                         </li>
@@ -94,19 +96,19 @@
                         </svg></h2>
 
                     {% if chats is defined %}
-                    <div class="item3 " style="display: flex; justify-content:end; margin: 5px; margin-top: 20px; background-color:#a5dbec;border-radius: 10px;width: 100%; border:2px solid black"
+                    <div class="item3 " style="display: flex;  margin: 5px; margin-top: 20px; background-color:#a5dbec;border-radius: 10px;width: 100%; border:2px solid black"
                        >
-                        <div        style="display: flex;align-items: center;">
+                        <div        style="display: flex;align-items: center;justify-content: space-between;">
                             <img style="border: 2px solid black;" src='https://picsum.photos/200/300'
                                 class="rounded-circle user_img_msg" width="40" height="40">
-                            <h5 style="flex: 1;"><a class="nav-link" href="/profile" class="a" style="color: black
+                            <strong style="flex: 1;"><a class="nav-link" href="/profile" class="a" style="color: black
                                                 ;">@{{selected_user.u_name}} </a>
-                            </h5>
+                            </strong>
                             {% if users_list is defined %}
                             
                                 {% if isenabled == True %}
                                     <form method="POST" action="/endchat" autocomplete="off" onSubmit="return confirm('Are you sure you wish to end the consultation?');">
-                                        <button class="btn btn--blue btn--radius-2" style="width: fit-content;margin-left: 20rem;">End Chat</button>
+                                        <button class="btn btn--blue btn--radius-2" style="width: fit-content;">End Chat</button>
                                     </form>
                                 {% endif %} 
                             {% endif %}                            

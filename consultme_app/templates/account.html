@@ -221,7 +221,7 @@
                 <tbody>
                     {% for users in loglist %}
                     {% if users[4] %}
-                    <tr class="success">
+                    <tr class="active">
                         <td>
                             <p class="acc_content">{{users[1]}}</p>
                         </td>
@@ -467,7 +467,7 @@
                         <tbody>
                             {% for users in loglist %}
                             {% if users[4] %}
-                            <tr class="success">
+                            <tr class="active">
                                 <td>
                                     <p class="acc_content">{{users[1]}}</p>
                                 </td>
@@ -592,7 +592,7 @@
                     <tbody>
                         {% for users in loglist %}
                         {% if users[4] %}
-                        <tr class="success">
+                        <tr class="active">
                             <td>
                                 <p class="acc_content">{{users[1]}}</p>
                             </td>
@@ -671,10 +671,15 @@
                 data: {{ values | safe }},
             backgroundColor: [
                 'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
                 'rgb(255, 205, 86)',
                 'rgb(64, 214, 87)',
-                'rgb(255, 89, 74)'
+                'rgb(255, 89, 74)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 50, 90)',
+                'rgb(54, 162, 100)',
+                'rgb(255, 205, 0)',
+                'rgb(64, 214, 50)',
+                'rgb(255, 89, 40)'
             ],
             hoverOffset: 4,
             borderWidth: 1,
@@ -698,6 +703,26 @@
                     },
             },
 
+        }
+        , plugins: {
+            title: {
+                display: true,
+                text: 'Most Viral Disease',
+                padding: {
+                    top: 50,
+                    bottom: 30
+                },
+                font:{
+                    size:20
+                }
+            },legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    font: {
+                        size: 14
+                    }
+                }
+            }
         }
         });
     </script>

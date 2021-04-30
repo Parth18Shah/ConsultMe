@@ -86,8 +86,10 @@ def register(choice):
             result = verify_doctor(form.reg_no.data, form.name.data)
             print(result)
             if(result == 1): 
-                # db.session.add(user)
-                # db.session.commit()
+                db.session.add(user)
+                db.session.commit()
+
+
                 flash(
                     f'Account created successfully for  { form.username.data }', 'success')
                 return redirect(url_for('login'))
@@ -177,7 +179,7 @@ def predict():
                     u"Please select few symptoms before clicking on the submit button", 'warning')
                 return render_template('predict.html', symptomslist=symptomslist)
             diseasename = predict_disease(form_values)
-
+            print(diseasename)
             diseasedesc = []
             diseasedesc = get_description(diseasename)
             treatment = list(get_cure(diseasename))
@@ -378,8 +380,9 @@ def account():
                 flash(f'Profile Updated successfully', 'success')
         ratelist = []
         loglist = []
-        log = ConsultLog.query.filter_by(doctorid=current_user.id).all()
+        
         for y in users_list:
+            log = ConsultLog.query.filter_by(doctorid=current_user.id,patientid=y.id).all()
             for z in log:
                 if(z.isenabled):
                     loglist.append([y.id, y.username, z.disease_name, z.initiated_on, "On Going"])

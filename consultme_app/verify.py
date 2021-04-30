@@ -4,8 +4,8 @@ def verify_doctor(regdno,input_name):
     option = webdriver.ChromeOptions()
     option.add_argument('headless')
 
-    chrome_path = r"C:\MY STUFF\SEM 6\MIP\chromedriver.exe"
-    # chrome_path = r"C:\Users\Kirti1\Desktop\TY\sem 6\MIP\ConsultMe\chromedriver.exe"
+    # chrome_path = r"C:\MY STUFF\SEM 6\MIP\chromedriver.exe"
+    chrome_path = r"C:\Users\Kirti1\Desktop\TY\sem 6\MIP\ConsultMe\chromedriver.exe"
     driver = webdriver.Chrome(chrome_path,options=option)
     driver.get("https://www.nmc.org.in/information-desk/indian-medical-register") 
 
