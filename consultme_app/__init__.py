@@ -11,7 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:root@localhost/co
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 db = SQLAlchemy(app)
-
 bcrypt = Bcrypt(app)
 
 login_manager = LoginManager(app)

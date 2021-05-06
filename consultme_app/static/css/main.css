@@ -694,8 +694,8 @@ section {
 }
 
 .predict_card_body {
-  -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 8px 0px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 8px 0px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 80px rgba(0, 0, 0, 0.5);
   border-radius: 25px;
   height: auto;
@@ -706,8 +706,8 @@ section {
 }
 
 .card_body {
-  -webkit-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.9);
   box-shadow: 80px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   height: 120vh;
@@ -718,8 +718,8 @@ section {
 }
 
 .msg_card_body {
-  -webkit-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 0px 8px 40px 0px rgba(0, 0, 0, 0.9);
   box-shadow: 80px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   height: 120vh;
