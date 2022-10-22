@@ -6,11 +6,6 @@
 
 </div>
 
-<p align="center">
-  <a href="" rel="noopener">
- <img width=200px src="consultme_app/static/img/logo1.png"></a>
- 
-</p>
 <h1 align = 'center'><b>ConsultMe</b></h1> 
 
 ## Description ##
@@ -52,46 +47,6 @@ python run.py
 ```
 
 ---
-## Demo
-### Home Page
-<br>
-<p align='center'>
-  <img alt="Home page" src="consultme_app/static/screenshots/home1.PNG" width="800" height="500" />
-  <img alt="Home page" src="consultme_app/static/screenshots/home2.PNG" width="800" height="500" />
-</p>
-
-### Patient's Registration Page
-<br>
-<p align='center'>
-  <img alt="Patient's registration form" src="consultme_app/static/screenshots/register_patient.PNG"/>
-</p>
-
-### Doctor's Registration Page
-<br>
-<p align='center'>
-  <img alt="Doctor's registration form" src="consultme_app/static/screenshots/register_doctor.PNG"/>
-</p>
-
-### Prediction of disease
-#### Select the symptoms
-<br>
-<p align='center'>
-  <img alt="Selection of the symptoms" src="consultme_app/static/screenshots/predict.PNG"/>
-</p>
-
-#### Prediction
-<br>
-<p align='center'>
-  <img alt="Prediction of the disease" src="consultme_app/static/screenshots/predict_output.PNG"/>
-</p>
-
-### Consultation
-<br>
-<p align='center'>
-  <img alt="Consultation" src="consultme_app/static/screenshots/consult_patient.PNG"/>
-</p>
-
----
 ### Tech stack
 
 `Frontend` : HTML, CSS, Javascript, Bootstrap <br>
@@ -100,4 +55,4 @@ python run.py
 
 ------------------------------------------
 
-<h3 align="center"><b>Developed  by <a href="https://github.com/Parth18Shah">Parth Shah</a> and <a href="https://github.com/rjshah00">Raj Shah</b></h3>
+<h3 align="center"><b>Developed  by <a href="https://github.com/Parth18Shah">Parth Shah</a>, <a href="https://github.com/Smit1400">Smit Shah</a> and <a href="https://github.com/akshit6">Akshit Shah</a></b></h3>
